@@ -377,9 +377,43 @@
                   </li>
                  
                 </ul>
+
+  {{--========category_sidebar=======--}}
+
+
+                 <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon bi bi-speedometer"></i>
+                  <p>
+                    Categories
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{route('categoryIndex')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>All Category</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('categoryCreate')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>New category</p>
+                    </a>
+                  </li>
+                 
+                </ul>
+              </li>
+
+
               </li>
             </ul>
             <!--end::Sidebar Menu-->
+
+
+
+
           </nav>
         </div>
         <!--end::Sidebar Wrapper-->

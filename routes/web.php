@@ -3,10 +3,22 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController; 
 use App\Http\Controllers\VendorController;
+use App\Http\Controllers\CategoryController;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+//image upload
+use App\Http\Controllers\BrandController;
+
+// Route::resource('brands', BrandController::class);
+route::get('uploads',function ()
+{
+    return view('brands.index');
+});
+route::post('upload',[BrandController::class,'upload']);
 
 // route::get('home',function ()
 // {
@@ -43,12 +55,11 @@ route::post('update-vendor/{update_id}',[VendorController::class,'update'])->nam
 route::get('delete-vendor/{delete_id}',[VendorController::class,'destroy'])->name('vendorDelete');
 
 
-//image upload
-use App\Http\Controllers\BrandController;
+//Gategories route 
+route::get('all-category',[CategoryController::class,'index'])->name('categoryIndex');
+route::get('create-category',[CategoryController::class,'create'])->name('categoryCreate');
+route::get('edit-category/{edit_id}',[CategoryController::class,'edit'])->name('categoryEdit');
+route::post('store-category',[CategoryController::class,'store'])->name('categoryStore');
+route::post('update-category/{update_id}',[CategoryController::class,'update'])->name('categoryUpdate');
+route::get('delete-category/{delete_id}',[CategoryController::class,'destroy'])->name('categoryDelete');
 
-// Route::resource('brands', BrandController::class);
-route::get('uploads',function ()
-{
-    return view('brands.index');
-});
-route::post('upload',[BrandController::class,'upload']);
