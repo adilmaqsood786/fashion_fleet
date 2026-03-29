@@ -6,28 +6,25 @@
         
                 <div class="card mb-4">
                   <div class="card-header">
-                    <h3 class="card-title">users Record</h3>
+                    
+                    <h3 class="card-title">Customer Record</h3>
                     <div class=" d-flex justify-content-end align-items-center">
-                    <a href="" class="btn btn-outline-warning">New</a>
+                    <a href="{{route('customerCreate')}}" class="btn btn-outline-warning">New</a>
                     </div>
                   </div>
                   <!-- /.card-header -->
-                 
-
-
-   
-                  <div class="card-body p-0 table-responsive">
-                    <table class="table table-sm ">
+                      
+                  <div class="card-body p-0">
+                    <table class="table table-sm">
                       <thead>
                         <tr>
                           <th style="width: 10px">#</th>
-                          <th>Name</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Father Name</th>
                           <th>Email</th>
-                          <th>Phone</th>
-                          <th>Password </th>
-                          <th>role</th>
-                          <th>status</th>
-                          <th>email_verified_at</th>
+                          <th>Phone Number</th>
+                          <th>Address</th>
                           <th>Edit</th>
                           <th>Delete</th>
 
@@ -37,16 +34,14 @@
                       <tbody>
                         <tr class="align-middle">
                           <td>{{$user['id']}}</td>
-                          <td>{{$user['name']}}</td>
+                          <td>{{$user['first_name']}}</td>
+                          <td>{{$user['last_name']}}</td>
+                          <td>{{$user['father_name']}}</td>
                           <td>{{$user['email']}}</td>
                           <td>{{$user['phone']}}</td>
-                          <td>{{$user['password']}}</td>
-                          <td>{{$user['role']}}</td>
-                          <td>{{$user['status']}}</td>
-                          <td>{{$user['email_verified_at']}}</td>
-
-                          {{-- <td><a href="{{route('customerEdit',['edit_id'=>$user['id']])}}" class="btn btn-outline-primary">Edit</a></td> --}}
-                          {{-- <td><a href="{{route('customerDelete',['delete_id'=>$user['id']])}}" class="btn btn-outline-danger">Delete</a></td> --}}
+                          <td>{{$user['address']}}</td>
+                          <td><a href="{{route('customerEdit',['edit_id'=>$user['id']])}}" class="btn btn-outline-primary">Edit</a></td>
+                          <td><a href="{{route('customerDelete',['delete_id'=>$user['id']])}}" class="btn btn-outline-danger">Delete</a></td>
                         </tr>
                       </tbody>
                   @endforeach

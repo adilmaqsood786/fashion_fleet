@@ -327,6 +327,42 @@
               data-accordion="false"
               id="navigation"
             > 
+             <li class="nav-item">
+                <a href="/" class="nav-link">
+                  <i class="nav-icon bi bi-speedometer"></i>
+                  <p>
+                    Home
+                    {{-- <i class="nav-arrow bi bi-chevron-right"></i> --}}
+                  </p>
+                </a>
+                <li>
+                   {{--=========User siderbar==========--}}
+                   <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon bi bi-speedometer"></i>
+                  <p>
+                    Users
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{route('userIndex')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>All User</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>New User</p>
+                    </a>
+                  </li>
+                 
+                </ul>
+              </li>
+
+                  {{--====Customer sidebar====--}}
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
@@ -337,13 +373,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{route('userIndex')}}" class="nav-link">
+                    <a href="{{route('customerIndex')}}" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>All Customer</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{route('userCreate')}}" class="nav-link">
+                    <a href="{{route('customerCreate')}}" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>New customer</p>
                     </a>

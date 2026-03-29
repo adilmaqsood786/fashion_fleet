@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController; 
+use App\Http\Controllers\CustomerController; 
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
+
 
 
 Route::get('/', function () {
@@ -38,12 +40,16 @@ route::post('upload',[BrandController::class,'upload']);
 
 
 //user curd route
-route::get('/all-user',[UserController::class,'index'])->name('userIndex');
-route::get('/create-user',[UserController::class,'create'])->name('userCreate');
-route::get('/edit-user/{edit_id}',[UserController::class,'edit'])->name('userEdit');
-route::post('/store-user',[UserController::class,'store'])->name('userStore');
-route::post('/update-user/{update_id}',[UserController::class,'update'])->name('userUpdate');
-route::get('/delete-user/{delete_id}',[UserController::class,'destroy'])->name('userDelete');
+route::get('all-user',[UserController::class,'index'])->name('userIndex');
+
+
+//category curd route
+route::get('/all-customer',[CustomerController::class,'index'])->name('customerIndex');
+route::get('/create-customer',[CustomerController::class,'create'])->name('customerCreate');
+route::get('/edit-customer/{edit_id}',[CustomerController::class,'edit'])->name('customerEdit');
+route::post('/store-customer',[CustomerController::class,'store'])->name('customerStore');
+route::post('/update-customer/{update_id}',[CustomerController::class,'update'])->name('customerUpdate');
+route::get('/delete-customer/{delete_id}',[CustomerController::class,'destroy'])->name('customerDelete');
 
 
 //brand curd route 
@@ -63,3 +69,4 @@ route::post('store-category',[CategoryController::class,'store'])->name('categor
 route::post('update-category/{update_id}',[CategoryController::class,'update'])->name('categoryUpdate');
 route::get('delete-category/{delete_id}',[CategoryController::class,'destroy'])->name('categoryDelete');
 
+//
