@@ -8,23 +8,22 @@
                 <div class="card mb-4">
                   <div class="card-header">
                     <h3 class="card-title">Vendor Record</h3>
+                    <div class=" d-flex justify-content-end align-items-center">
+                    <a href="{{route('vendorCreate')}}" class="btn btn-outline-warning">New</a>
+                    </div>
                   </div>
                   <!-- /.card-header -->
                       
-                  <div class="card-body p-0">
-                    <table class="table table-sm">
+                  <div class="card-body p-0 table-responsive " >
+                    <table class="table table-sm table-border">
                       <thead>
                         <tr>
                           <th style="width: 10px">#</th>
                           <th>Company Name</th>
-                          <th>First Name</th>
-                          <th>Last Name</th>
-                          <th>Father Name</th>
                           <th>Slug</th>
                           <th>Description</th>
                           <th>logo</th>
-                          <th>Email Address</th>
-                          <th>Contact_number</th>
+                          <th>Account Number</th>
                           <th>Document</th>
                           <th>Address</th>
                           <th>Bank Name</th>
@@ -44,14 +43,10 @@
                         <tr class="align-middle">
                           <td>{{$vendor['id']}}</td>
                           <td>{{$vendor['company_name']}}</td>
-                          <td>{{$vendor['first_name']}}</td>
-                          <td>{{$vendor['last_name']}}</td>
-                          <td>{{$vendor['father_name']}}</td>
                           <td>{{$vendor['slug']}}</td>
                           <td>{{$vendor['description']}}</td>
                           {{-- <td>{{$vendor['logo']}}</td> --}}
                           <td><img src="{{ asset('storage/'.$vendor->logo) }}" width="100" height="100"></td>
-                          <td>{{$vendor['email']}}</td>
                           <td>{{$vendor['contact_number']}}</td>
                           <td>{{$vendor['licenses']}}</td>
                           <td>{{$vendor['address']}}</td>
