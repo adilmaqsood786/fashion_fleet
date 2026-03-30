@@ -29,7 +29,16 @@ class DatabaseSeeder extends Seeder
          CategorySeeder::class,
          UserSeeder::class,
          VendorSeeder::class,
-         CategorySeeder::class
+         CategorySeeder::class,
+         User_addressesSeeder::class,
+         RiderSeeder::class,
+         ProductSeeder::class,
+         Product_imageSeeder::class,
+         OrderSeeder::class,
+         Order_itemSeeder::class,
+         DeliverySeeder::class,
+         PaymentSeeder::class
+
         ]);
     }
 }
