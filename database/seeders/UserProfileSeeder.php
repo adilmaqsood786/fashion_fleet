@@ -1,18 +1,18 @@
 <?php
 
 namespace Database\Seeders;
-use App\Models\User_addresses;
+use App\Models\UserProfile;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class User_addressesSeeder extends Seeder
+class UserProfileSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        User_addresses::insert([
+        UserProfile::insert([
              [
                 'user_id' => 1,
                 'label' => 'Home',

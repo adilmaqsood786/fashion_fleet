@@ -21,23 +21,39 @@ class CategoryController extends Controller
        public function store(Request $request)
        {
          $validate =  Validator::make($request->all(),[
-            'name'=>'required',
-            'parent_id'=>'required',
-            'status'=>'required',
+            
+                'name' => 'required',
+                'slug' => 'required',
+                'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+                'parent_id' => 'required',
+                'is_active' => "required",
 
          ]); 
 
          if($validate->fails())
             {
+               //   dd($validate->errors());Q
                return back()->withErrors($validate)->withInput();
             }
 
+           //image
+           $imagePath = null;
+     
+         if($request->hasFile('image')) {
+                $path = $request->file('image')->store('/image','public');
+                $imagePath = $path; // store full path
+        
+    }
+
             Category::create([
                 'name'=>$request->name,
+                'slug'=>$request->slug,
+                'image'=>$imagePath,
                 'parent_id'=>$request->parent_id,
-                'status'=>$request->status,
+                'is_active'=>$request->is_active,
 
             ]);
+
             return redirect()->route('categoryIndex');
        }
 
@@ -54,10 +70,21 @@ class CategoryController extends Controller
      public function update(Request $request)
      {
          $categoryRecord = Category::where('id',$request->update_id)->first();
-         $categoryUpdate = $categoryRecord->update([
-            'name'=>$request->name,
+      
+         $imagePath = $categoryRecord->image;
+      
+                if($request->hasFile('image')) {
+                $path = $request->file('image')->store('/image','public');
+                $imagePath = $path; // store full path
+         
+                }
+         
+                $categoryUpdate = $categoryRecord->update([
+                'name'=>$request->name,
+                'slug'=>$request->slug,
+                'image'=>$imagePath,
                 'parent_id'=>$request->parent_id,
-                'status'=>$request->status,
+                'is_active'=>$request->is_active,
 
          ]);
          return redirect()->route('categoryIndex')->with('success','category updated successfully');

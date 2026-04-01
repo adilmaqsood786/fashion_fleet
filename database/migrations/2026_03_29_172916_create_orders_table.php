@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('vendor_id')->constrained('vendors');
             $table->foreignId('rider_id')->nullable()->constrained('riders'); 
-            $table->foreignId('address_id')->constrained('user_addresses');
+            $table->foreignId('profile_id')->constrained('user_profiles');
 
             $table->string('order_number')->unique();
             $table->decimal('subtotal');

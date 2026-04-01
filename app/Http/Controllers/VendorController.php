@@ -4,13 +4,14 @@
 namespace App\Http\Controllers;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class VendorController extends Controller
 {
       public function index()
       {
-        $vendors = vendor::all();
+        $vendors = vendor::with(['user'])->get();
         return view('Vendors.index',compact('vendors'));
       }
 
@@ -23,18 +24,16 @@ class VendorController extends Controller
       public function store(Request $request)
 {
     $validate = Validator::make($request->all(),[
-        'company_name'=>'required',
-        'slug'=>'required',
-        'description'=>'required',
+        'store_name'=>'required',
+        'store_slug'=>'required',
         'logo'=>'required|image|mimes:jpg,png,jpeg|max:2048',
-        'contact_number'=>'required',
-        'licenses'=>'required',
-        'account_number'=>'required',
-        'account_title'=>'required',
-        'iban'=>'required',
-        'payment_method'=>'required',
-        'status'=>'required',
-        'is_verified'=>'required',
+        'description'=>'required',
+        'address'=>'required',
+        'city'=>'required',
+        'country'=>'required',
+        'commission_rate'=>'required',
+        'is_approved'=>'required',
+        'is_active'=>'required',
 
     ]); 
 
@@ -52,42 +51,48 @@ class VendorController extends Controller
         
     }
 
-    Vendor::create([
-        'company_name' => $request->company_name,
-        'slug'=>$request->slug,
-        'description' => $request->description,
+    $vendor =  Vendor::create([
+        'user_id' => $request->user_id,
+        'store_name' => $request->store_name,
+        'store_slug'=>$request->store_slug,
         'logo' => $imgPath, // 
-        'contact_number' => $request->contact_number,
-        'licenses' => $request->licenses,
+        'description' => $request->description,
         'address' => $request->address,
-        'bank_name' => $request->bank_name,
-        'account_number' => $request->account_number,
-        'account_title' => $request->account_title,
-        'iban' => $request->iban,
-        'payment_method' => $request->payment_method,
-        'status' => $request->status,
-        'is_verified' => $request->is_verified,
+        'city'=>$request->city,
+        'country'=>$request->country,
+        'commission_rate'=>$request->commission_rate,
+        'is_approved'=>$request->is_approved,
+        'is_active'=>$request->is_active,
 
     ]);
 
+      $vendor->user()->create([
+
+      'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => Hash::make('123456'),
+            'role' => $request->role,
+            'status' => $request->status == 'active' ? 1 : 0,
+      ]);
     return redirect()->route('vendorIndex');
 }
   
        
       public function edit($edit_id)
       {
-        $brandRecord = Vendor::where('id',$edit_id)->first();
-        return view('Vendors.edit',compact('brandRecord'));
+        $vendorRecord = Vendor::with(['user'])->where('id',$edit_id)->first();
+        return view('Vendors.edit',compact('vendorRecord'));
       }
 
 
       public function update(Request $request)
       {
             
-        $brandRecord = Vendor::where('id',$request->update_id)->first();
+        $vendorRecord = Vendor::where('id',$request->update_id)->first();
 
          //  Default: old image
-            $imgPath = $brandRecord->logo;
+            $imgPath = $vendorRecord->logo;
 
     // If new image uploaded
     if ($request->hasFile('logo')) {
@@ -95,32 +100,40 @@ class VendorController extends Controller
         $imgPath = $path;
     }
 
-        $brandUpdate =  $brandRecord->update(
+        $brandUpdate =  $vendorRecord->update(
             [
-          'company_name' => $request->company_name,
-        'slug' => $request->slug,
-        'description' => $request->description,
+         'user_id' => $request->user_id,
+        'store_name' => $request->store_name,
+        'store_slug'=>$request->store_slug,
         'logo' => $imgPath, // 
-        'contact_number' => $request->contact_number,
-        'licenses' => $request->licenses,
+        'description' => $request->description,
         'address' => $request->address,
-        'bank_name' => $request->bank_name,
-        'account_number' => $request->account_number,
-        'account_title' => $request->account_title,
-        'iban' => $request->iban,
-        'payment_method' => $request->payment_method,
-        'status' => $request->status,
-        'is_verified' => $request->is_verified,
+        'city'=>$request->city,
+        'country'=>$request->country,
+        'commission_rate'=>$request->commission_rate,
+        'is_approved'=>$request->is_approved,
+        'is_active'=>$request->is_active,
+
             ]
         );
-         return redirect()->route('vendorIndex')->with('success','Brand updated successfully');
+
+        //user data create
+          $vendorRecord->user()->create([
+             'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => Hash::make('123456'),
+            'role' => $request->role,
+            'status' => $request->status == 'active' ? 1 : 0,
+          ]); 
+         return redirect()->route('vendorIndex')->with('success','vendor updated successfully');
       }
    
 
       public function destroy($delete_id)
       {
         Vendor::where('id',$delete_id)->first()->delete();
-        return \redirect()->route('vendorIndex')->with('success','Brand deleted successfully');
+        return redirect()->route('vendorIndex')->with('success','vendor deleted successfully');
       }
 }
 

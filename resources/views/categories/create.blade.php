@@ -5,7 +5,7 @@
                   </div>
                   <!--end::Header-->
                   <!--begin::Form-->
-                  <form action="{{route('categoryStore')}}" method="post" class="needs-validation" novalidate>
+                  <form action="{{route('categoryStore')}}" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
                     <!--begin::Body-->
                     @csrf
                     <div class="card-body">
@@ -21,6 +21,22 @@
                         <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">Slug</label>
+                          
+                          <input type="text" class="form-control" name="slug" required />
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">Image</label>
+                          
+                          <input type="file" class="form-control" name="image" required />
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6">
                           <label for="validationCustom02" class="form-label">Parent_id</label>
                           
                           <input type="text" class="form-control" name="parent_id" required />
@@ -30,13 +46,9 @@
                        
                       <!--begin::Col-->
                 <div class="col-md-6">
-                  <label for="status" class="form-label">Status</label>
+                <input type="checkbox" id="is" name="is_active" value="1">
+                  <label for="status" for="is" class="form-label">Is_active</label>
                 
-                  <select name="status" class="form-select" required>
-                      <option value="">Select Status</option>
-                      <option value="active">Active</option>
-                      <option value="inactive">Inactive</option>
-                  </select>
                     <!--end::Body-->
                     <!--begin::Footer-->
                     <div class="card-footer mt-5">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 // use Illuminate\Support\Facades\Validator;
@@ -11,8 +12,9 @@ class CustomerController extends Controller
     //index method
     public function index()
     {
-        $users = Customer::all();
-        return view('customers.index',compact('users'));
+        $customer = Customer::all();
+        // $users = User::all();
+        return view('customers.index',['customers'=>$customer,'users'=>$users]);
     }
   
     //Create method 
@@ -61,7 +63,7 @@ class CustomerController extends Controller
      //edit method
      public function edit($edit_id)
      {
-        $userRecord = Customer::where('id',$edit_id)->first();
+        $userRecord = Customer::where('id',$edit_id)-> first();
         return view('customers.edit',compact('userRecord'));
      }
 

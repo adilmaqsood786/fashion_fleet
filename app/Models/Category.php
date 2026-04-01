@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     
-    protected $fillable = ['name', 'parent_id', 'status'];
+    // protected $fillable = ['name', 'parent_id', 'status'];
+    protected $guarded = ['id'];
 
     // // Parent category
     // public function parent()

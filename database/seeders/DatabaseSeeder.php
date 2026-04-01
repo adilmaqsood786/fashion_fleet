@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
          UserSeeder::class,
          VendorSeeder::class,
          CategorySeeder::class,
-         User_addressesSeeder::class,
+         UserProfileSeeder::class,
          RiderSeeder::class,
          ProductSeeder::class,
          Product_imageSeeder::class,

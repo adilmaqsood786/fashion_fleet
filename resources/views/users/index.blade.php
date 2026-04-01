@@ -33,6 +33,7 @@
 
                         </tr>
                       </thead>
+
                   @foreach ($users as $user )
                       <tbody>
                         <tr class="align-middle">
@@ -44,21 +45,21 @@
                           <td>{{$user['role']}}</td>
                           <td>{{$user['status']}}</td>
                           <td>{{$user['email_verified_at']}}</td>
-
-                          {{-- <td><a href="{{route('customerEdit',['edit_id'=>$user['id']])}}" class="btn btn-outline-primary">Edit</a></td> --}}
-                          {{-- <td><a href="{{route('customerDelete',['delete_id'=>$user['id']])}}" class="btn btn-outline-danger">Delete</a></td> --}}
-                        </tr>
+                             <td><a href="{{ route('user.edit',['id'=>$user['id']])}}" class="btn btn-primary btn-sm">Edit</a></td>
+                             <td><a href="{{ route('user.delete',['delete_id'=>$user['id']]) }}" class="btn btn-danger btn-sm">Delete</a></td>
+                        
+                            </tr>
                       </tbody>
-                  @endforeach
+                  @endforeach 
 
                     </table>
                   </div>
                   <!-- /.card-body -->
                 </div>
 
+
+
 @endsection
-
-
 
 
 

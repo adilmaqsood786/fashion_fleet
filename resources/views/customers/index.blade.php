@@ -14,7 +14,7 @@
                   </div>
                   <!-- /.card-header -->
                       
-                  <div class="card-body p-0">
+                  <div class="card-body p-0 table-responsive" >
                     <table class="table table-sm">
                       <thead>
                         <tr>
@@ -25,26 +25,47 @@
                           <th>Email</th>
                           <th>Phone Number</th>
                           <th>Address</th>
-                          <th>Edit</th>
+                           <th>Edit</th>
                           <th>Delete</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Phone</th>
+
+
+                         
 
                         </tr>
                       </thead>
-                  @foreach ($users as $user )
                       <tbody>
+
+                  @foreach ($customers as $customer )
                         <tr class="align-middle">
+                          <td>{{$customer['id']}}</td>
+                          <td>{{$customer['first_name']}}</td>
+                          <td>{{$customer['last_name']}}</td>
+                          <td>{{$customer['father_name']}}</td>
+                          <td>{{$customer['email']}}</td>
+                          <td>{{$customer['phone']}}</td>
+                          <td>{{$customer['address']}}</td>
+                          <td><a href="{{route('customerEdit',['edit_id'=>$customer['id']])}}" class="btn btn-outline-primary">Edit</a></td>
+                          <td><a href="{{route('customerDelete',['delete_id'=>$customer['id']])}}" class="btn btn-outline-danger">Delete</a></td>
+                        
+                  @endforeach
+                  @foreach ($users as $user )
+                      
                           <td>{{$user['id']}}</td>
-                          <td>{{$user['first_name']}}</td>
-                          <td>{{$user['last_name']}}</td>
-                          <td>{{$user['father_name']}}</td>
+                          <td>{{$user['name']}}</td>
                           <td>{{$user['email']}}</td>
                           <td>{{$user['phone']}}</td>
-                          <td>{{$user['address']}}</td>
-                          <td><a href="{{route('customerEdit',['edit_id'=>$user['id']])}}" class="btn btn-outline-primary">Edit</a></td>
-                          <td><a href="{{route('customerDelete',['delete_id'=>$user['id']])}}" class="btn btn-outline-danger">Delete</a></td>
-                        </tr>
-                      </tbody>
+                          <td>{{$user['password']}}</td>
+                          <td>{{$user['role']}}</td>
+                          <td>{{$user['status']}}</td>
+                          <td>{{$user['email_verified_at']}}</td>
+                     </tr>
                   @endforeach
+                           
+
+                      </tbody>
 
                     </table>
                   </div>

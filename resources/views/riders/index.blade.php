@@ -1,4 +1,5 @@
 
+
 @extends('admin_penal.master')
 @section('content')
  
@@ -19,27 +20,31 @@
                       <thead>
                         <tr>
                             <th>ID</th>
-                          <th>Name</th>
-                          <th>Slug</th>
-                          <th>Image</th>
-                          <th>Parent_id</th>
-                          <th>Is_active</th>
+                          <th>User_id</th>
+                          <th>vehicle type</th>
+                          <th>Vehicle number</th>
+                          <th>License number</th>
+                          <th>Is_available</th>
+                          <th>Is_verified</th>
                           <th>Edit</th>
                           <th>Delete</th>
 
                         </tr>
                       </thead>
-                  @foreach ($categories as $category )
+                  @foreach ($riders as $rider )
                       <tbody>
                         <tr class="align-middle">
-                         <td>{{ $category['id'] }}</td>
-                         <td>{{ $category['name'] }}</td>
-                         <td>{{ $category['slug'] }}</td>
-                         <td><img src="{{ asset('storage/'.$category->image) }}" width="100" height="100"></td>
-                         <td>{{ $category['parent_id']}}</td>
-                         <td>{{ $category['is_active']}}</td>
-                          <td><a href="{{route('categoryEdit',['edit_id'=>$category['id']])}}" class="btn btn-outline-primary">Edit</a></td>
-                          <td><a href="{{route('categoryDelete',['delete_id'=>$category['id']])}}" class="btn btn-outline-danger">Delete</a></td>
+                         <td>{{ $rider['id'] }}</td>
+                         <td>{{ $rider['user_id'] }}</td>
+                         <td>{{ $rider['vehicle_type'] }}</td>
+                         <td>{{ $rider['vehicle_number']}}</td>
+                         <td>{{ $rider['license_number']}}</td>
+                         <td>{{ $rider['is_available']}}</td>
+                         <td>{{ $rider['is_verified']}}</td>
+
+
+                          <td><a href="{{route('riderEdit',['edit_id'=>$rider['id']])}}" class="btn btn-outline-primary">Edit</a></td>
+                          <td><a href="{{route('riderDelete',['delete_id'=>$rider['id']])}}" class="btn btn-outline-danger">Delete</a></td>
                         </tr>
                       </tbody>
                   @endforeach

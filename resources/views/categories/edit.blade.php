@@ -21,6 +21,22 @@
                         <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">Slug</label>
+                          
+                          <input type="text" class="form-control" value="{{isset($categoryRecord['slug'])?$categoryRecord['slug']:""}}" name="slug" required />
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">Image</label>
+                        
+                          <input type="file" class="form-control" value="{{isset($brandRecord['image'])?$brandRecord['image']:""}}" name="image" required />
+                          <div class="invalid-feedback">Please provide a valid city.</div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6">
                           <label for="validationCustom02" class="form-label">Parent_id</label>
                           
                           <input type="text" class="form-control" value="{{isset($categoryRecord['parent_id'])?$categoryRecord['parent_id']:""}}" name="parent_id" required />
@@ -30,14 +46,9 @@
                        
                       <!--begin::Col-->
                           <div class="col-md-6">
-                            <label class="form-label">Status</label>
-                          
-                            <select name="status" class="form-select" required>
-                                <option value="">Select Category</option>
-                                <option value="active" {{ isset($brandRecord['status'])?$categoryRecord['status']: '' }}>Active</option>
-                                <option value="inactive" {{ isset($brandRecord['status'])?$categoryRecord['status'] : '' }}>Inactive</option>
-                            </select>
-                          
+                            <input type="checkbox" id="is" value="{{isset($categoryRecord['is_active'])?$categoryRecord['is_active']:""}}" name="is_active" value="1">
+                            <label class="form-label" for="is">Is_active</label>
+                       
                             <div class="invalid-feedback">Please select a valid category.</div>
                           </div>
                           <!--end::Col-->

@@ -1,127 +1,132 @@
+
 @extends('admin_penal.master')
 @section('content')
-
- 
-
-
- <div class="card-header">
-                    <h3>Owner detaile :</h3>
+ {{-- <div class="card-header"> --}}
+                    {{-- <div class="card-title"><h3>Rider Detaile </h3></div>
                   </div>
                   <!--end::Header-->
                   <!--begin::Form-->
-                  <form action="{{route("vendorStore")}}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                  <form action="{{route('riderStore')}}" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
                     <!--begin::Body-->
                     @csrf
                     <div class="card-body">
                       <!--begin::Row-->
                       <div class="row g-3">
-                         <!--begin::Col-->
+                        {{-- <!--begin::Col-->
                         <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">User_id</label>
                           
-                          <label for="validationCustom01" class="form-label">User Id</label>
+                          <input type="number" class="form-control" name="user_id" required />
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <!--end::Col--> --}}
+                        <!--begin::Col-->
+                        {{-- <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">Vehicle Type</label>
                           
-                          <input type="text" class="form-control" name="user_id"  required />
+                          <input type="text" class="form-control" name="vehicle_type" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">Vehicle Number</label>
+                          
+                          <input type="text" class="form-control" name="vehicle_number" required />
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="validationCustom02" class="form-label">License Number</label>
+                          
+                          <input type="text" class="form-control" name="license_Number" required />
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <!--end::Col-->
+                         <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="validationCustom02" class="form-label">Is_available</label>
+                          
+                          <select name="is_available" class="form-control" required>
+    <option value="1">Yes</option>
+    <option value="0">No</option>
+</select>
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <!--end::Col-->
+                      <!--begin::Col-->
+                        <div class="col-md-6">
+                        <input type="hidden" name="is_verified" value="0">
+                        <input type="checkbox" id="is" name="is_verified" id="is" value="1">
+                        <label for="status" for="is" class="form-label" for="is">Is_Verified</label>
+                        </div>
+                    <!--end::Body-->
+                    <!--begin::Footer-->
+                    <div class="card-footer mt-5">
+                      <button class="btn btn-info" type="submit">Submit form</button>
+                    </div>
+                    <!--end::Footer-->
+                  </form> --}}
+                  <!--end::Form--> 
+                  <div class="card-header">
+    <div class="card-title"><h3>Rider Details</h3></div>
+</div>
 
-                          <label for="validationCustom01" class="form-label">Store Name</label>
-                          
-                          <input type="text" class="form-control" name="store_name" required />
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col-->
-                      
-                         <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="slug" class="form-label">Store Slug</label>
-                        
-                          <select name="store_slug" class="form-control" required>
-                              <option value="men">Men</option>
-                              <option value="women">Women</option>
-                          </select>
-                        
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col-->
-                       
-                        <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustom03" class="form-label">Logo</label>
-                        
-                          <input type="file" class="form-control" name="logo" required />
-                          <div class="invalid-feedback">Please provide a valid city.</div>
-                        </div>
-                        <!--end::Col-->
-                         <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustomUsername" class="form-label">Description</label>
-                          <div class="input-group has-validation">
-                           
-                            <input type="text" class="form-control" name="description" required />
-                            <div class="invalid-feedback">Please choose a username.</div>
-                          </div>
-                        </div>
-                        <!--end::Col-->
-                        
-                         <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustom01" class="form-label">Address</label>
-                          
-                          <input type="text" class="form-control" name="address" required />
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col--> 
-                        
-                       
-                        <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustom01" class="form-label">City</label>
-                          
-                          <input type="text" class="form-control" name="city" required />
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col--> <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustom01" class="form-label">Country</label>
-                          
-                          <input type="text" class="form-control" name="country" required />
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col-->
-                         <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustom01" class="form-label">Commission rate</label>
-                          
-                          <input type="text" class="form-control" name="commission_rate" required />
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col-->
-                         <!-- Is Approved -->
+<form action="{{ route('riderStore') }}" method="post" class="needs-validation" novalidate>
+    @csrf
+    <div class="card-body">
+        <div class="row g-3">
+            <!-- User ID -->
             <div class="col-md-6">
-                <label class="form-label">Is Approved</label>
-                <select name="is_approved" class="form-control" required>
+                <label class="form-label">User ID</label>
+                <input type="number" class="form-control" name="user_id" required />
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <!-- Vehicle Type -->
+            <div class="col-md-6">
+                <label class="form-label">Vehicle Type</label>
+                <input type="text" class="form-control" name="vehicle_type" required />
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <!-- Vehicle Number -->
+            <div class="col-md-6">
+                <label class="form-label">Vehicle Number</label>
+                <input type="text" class="form-control" name="vehicle_number" required />
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <!-- License Number -->
+            <div class="col-md-6">
+                <label class="form-label">License Number</label>
+                <input type="text" class="form-control" name="license_number" required />
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <!-- Is Available -->
+            <div class="col-md-6">
+                <label class="form-label">Is Available</label>
+                <select name="is_available" class="form-control" required>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                 </select>
+                <div class="valid-feedback">Looks good!</div>
             </div>
 
-            <!-- Is Active -->
+            <!-- Is Verified -->
             <div class="col-md-6 mt-4">
-                <input type="hidden" name="is_active" value="0">
-                <input type="checkbox" name="is_active" value="1" checked>
-                <label class="form-label">Is Active</label>
+                <input type="hidden" name="is_verified" value="0">
+                <input type="checkbox" id="is" name="is_verified" value="1">
+                <label for="is" class="form-label">Is Verified</label>
             </div>
 
-
-                  
-                    
-          {{--===========User_form============--}}
-
-<section>
-  <h3>user</h3>
+      {{--===========user_form===========--}}
+        <section>
+          <h3>
+            User
+          </h3>
                       <!--begin::Row-->
                       <div class="row g-3">
 
@@ -179,17 +184,27 @@
                     </div>
                   
                   </section>
-                      <!--end::Row-->
-                    </div>
-                    <!--end::Body-->
-                    <!--begin::Footer-->
-                    <div class="card-footer mt-5">
-                      <button class="btn btn-info" type="submit">Submit form</button>
-                    </div>
-                    <!--end::Footer-->
-                  </form>
-                  <!--end::Form-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+    <div class="card-footer mt-5">
+        <button class="btn btn-info" type="submit">Submit Form</button>
+    </div>
+</form>
 
 
 @endsection
-

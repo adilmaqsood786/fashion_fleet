@@ -347,13 +347,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{route('userIndex')}}" class="nav-link">
+                    <a href="{{route('user.index')}}" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>All User</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{route('user.create')}}" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>New User</p>
                     </a>
@@ -384,7 +384,6 @@
                       <p>New customer</p>
                     </a>
                   </li>
-                 
                 </ul>
               </li>
 
@@ -441,6 +440,62 @@
                  
                 </ul>
               </li>
+
+ {{--========user_profile_sidebar=======--}}
+
+
+                 <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon bi bi-speedometer"></i>
+                  <p>
+                    User Profile
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                   <li class="nav-item">
+                    <a href="{{route('addressIndex')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>All Prafile</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('addressCreate')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>New Profile</p>
+                    </a>
+                  </li>
+                 
+                </ul>
+              </li>
+ {{--========category_sidebar=======--}}
+
+
+                 <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon bi bi-speedometer"></i>
+                  <p>
+                    Rider 
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{route('riderIndex')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>All Record</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('riderCreate')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>New Record</p>
+                    </a>
+                  </li>
+                 
+                </ul>
+              </li>
+
 
 
               </li>
@@ -742,6 +797,33 @@
       const sparkline3 = new ApexCharts(document.querySelector('#sparkline-3'), option_sparkline3);
       sparkline3.render();
     </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+$(document).ready(function(){
+
+    $("#role").click(function(){
+        let role = $(this).val();
+
+        // Hide all sections first
+        $("#customer_section").addClass("d-none");
+        $("#vendor_section").addClass("d-none");
+        $("#rider_section").addClass("d-none");
+
+        // Show selected section
+        if(role === "customer"){
+            $("#customer_section").removeClass("d-none");
+        }
+        else if(role === "vendor"){
+            $("#vendor_section").removeClass("d-none");
+        }
+        else if(role === "rider"){
+            $("#rider_section").removeClass("d-none");
+        }
+    });
+
+});
+</script>
     <!--end::Script-->
   </body>
   <!--end::Body-->
