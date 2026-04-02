@@ -105,24 +105,32 @@ class UserController extends Controller
                 'full_name' => $request->full_name,
                 'city' => $request->city,
             ]);
-
-            if($user->role == 'vendor' && $user->vender){
-            $user->vendor->update([
-
-        'store_name' => $request->store_name,
-        'store_slug'=>$request->store_slug,
-        // 'logo' => $imgPath, // 
-        'description' => $request->description,
-        'address' => $request->address,
-        'city'=>$request->city,
-        'country'=>$request->country,
-        'commission_rate'=>$request->commission_rate,
-        'is_approved'=>$request->is_approved,
-        'is_active'=>$request->is_active,
-            
-        ]);
         }
+      
+        
+        // VENDOR UPDATE 
+    if($user->role == 'vendor' && $user->vendor){
+
+        $logo = $user->vendor->logo;
+
+        if($request->hasFile('logo')){
+            $logo = $request->file('logo')->store('vendor','public');
         }
+
+        $user->vendor->update([
+            'store_name' => $request->store_name,
+            'store_slug' => $request->store_slug,
+            'logo' => $logo,
+            'description' => $request->description,
+            'address' => $request->address,
+            'city' => $request->city,
+            'country' => $request->country,
+            'commission_rate' => $request->commission_rate,
+            'is_approved' => $request->is_approved,
+            'is_active' => $request->is_active ?? 0,
+        ]); 
+    }
+
 
         return redirect()->route('user.index');
     }

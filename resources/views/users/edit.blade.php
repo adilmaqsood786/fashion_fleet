@@ -173,7 +173,8 @@
             <!-- Is Active -->
             <div class="col-md-6 mt-4">
                 <input type="hidden" name="is_active" value="0">
-               <input type="checkbox" name="is_active" value="1" {{ ($user->vendor->is_active ?? 0) == 1 ? 'checked' : '' }}>
+               <input type="checkbox" name="is_active" id="is" value="1" {{ ($user->vendor->is_active ?? 0) == 1 ? 'checked' : '' }}>
+                 <label for="is" class="form-label">Is_active</label>
             </div>
 
             </div>

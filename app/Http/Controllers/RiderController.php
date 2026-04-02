@@ -88,7 +88,7 @@ class RiderController extends Controller
            'is_verified'=>$request->is_verified,
 
        ]);
- 
+       if($rider->user){
        $rider->user->update([
          'name' => $request->name,
             'email' => $request->email,
@@ -97,6 +97,7 @@ class RiderController extends Controller
             'role' => $request->role,
             'status' => $request->status == 'active' ? 1 : 0,
        ]);
+       }
 
 
        return \redirect()->route('riderIndex');

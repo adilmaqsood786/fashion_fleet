@@ -118,7 +118,8 @@ class VendorController extends Controller
         );
 
         //user data create
-          $vendorRecord->user()->create([
+        if($vendorRecord->user){
+        $vendorRecord->user->update([
              'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -126,6 +127,7 @@ class VendorController extends Controller
             'role' => $request->role,
             'status' => $request->status == 'active' ? 1 : 0,
           ]); 
+        }
          return redirect()->route('vendorIndex')->with('success','vendor updated successfully');
       }
    
