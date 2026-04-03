@@ -5,7 +5,7 @@
                   </div>
                   <!--end::Header-->
                   <!--begin::Form-->
-                  <form action="" method="post" class="needs-validation" novalidate>
+                  <form action="{{route('profileStore')}}" method="post" class="needs-validation" novalidate>
                     <!--begin::Body-->
                     @csrf
                     <div class="card-body">
@@ -93,6 +93,26 @@
                           <div class="invalid-feedback">Please select a valid state</div>
                         </div>
                         <!--end::Col-->
+                      
+  <!-- Latitude -->
+            <div class="col-md-6">
+                <label class="form-label">Latitude</label>
+                <input type="number" step="0.000001" name="latitude" class="form-control" required>
+            </div>
+
+            <!-- Longitude -->
+            <div class="col-md-6">
+                <label class="form-label">Longitude</label>
+                <input type="number" step="0.000001" name="longitude" class="form-control" required>
+            </div>
+
+            <!-- Is Default -->
+            <div class="col-md-6 mt-4">
+                <input type="hidden" name="is_default" value="0">
+                <input type="checkbox" name="is_default" value="1">
+                <label class="form-label">Set as Default</label>
+            </div>
+
                       </div>
                       <!--end::Row-->
                     </div>

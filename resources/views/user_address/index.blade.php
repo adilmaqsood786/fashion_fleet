@@ -7,9 +7,9 @@
                 <div class="card mb-4">
                   <div class="card-header">
                     
-                    <h3 class="card-title">User Address</h3>
+                    <div class="card-title"><h3>User Profile</h3></div>
                     <div class="d-flex justify-content-end align-items-center">
-                    <a href="" class="btn btn-outline-warning">New</a>
+                    <a href="{{route('profileCreate')}}" class="btn btn-outline-warning">New</a>
                     </div>
                   </div>
                   <!-- /.card-header -->
@@ -53,8 +53,8 @@
                           <td>{{$user['latitude']}}</td>
                           <td>{{$user['longitude']}}</td>
 
-                          {{-- <td><a href="{{route('customerEdit',['edit_id'=>$user['id']])}}" class="btn btn-outline-primary">Edit</a></td>
-                          <td><a href="{{route('customerDelete',['delete_id'=>$user['id']])}}" class="btn btn-outline-danger">Delete</a></td> --}}
+                          <td><a href="{{route('profileEdit',['edit_id'=>$user['id']])}}" class="btn btn-outline-primary">Edit</a></td>
+                          <td><a href="{{route('profileDelete',['delete_id'=>$user['id']])}}" class="btn btn-outline-danger">Delete</a></td>
                         </tr>
                       </tbody>
                   @endforeach

@@ -73,15 +73,16 @@
           <section id="customer_section" class="mt-5 d-none">
             {{--==========User_address=============--}}
                <h3>User Prfile</h3>
-            <div class="row g-3 ">
-                      {{-- <!--begin::Col-->
+          <!--begin::Row-->
+                      <div class="row g-3">
+                        <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">User_id</label>
                           
                           <input type="number" class="form-control" name="user_id" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
-                        <!--end::Col--> --}}
+                        <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom02" class="form-label">Label</label>
@@ -104,7 +105,7 @@
                         <div class="col-md-6">
                           <label for="validationCustom03" class="form-label">Phone Number</label>
                         
-                          <input type="number" class="form-control" name="profile_phone" required />
+                          <input type="number" class="form-control" name="phone" required />
                           <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
                         <!--end::Col-->
@@ -154,9 +155,30 @@
                          
                           <input type="text" class="form-control" name="country" required />
                           <div class="invalid-feedback">Please select a valid state</div>
-                        
+                        </div>
                         <!--end::Col-->
+                      
+  <!-- Latitude -->
+            <div class="col-md-6">
+                <label class="form-label">Latitude</label>
+                <input type="number" step="0.000001" name="latitude" class="form-control" required>
+            </div>
+
+            <!-- Longitude -->
+            <div class="col-md-6">
+                <label class="form-label">Longitude</label>
+                <input type="number" step="0.000001" name="longitude" class="form-control" required>
+            </div>
+
+            <!-- Is Default -->
+            <div class="col-md-6 mt-4">
+                <input type="hidden" name="is_default" value="0">
+                <input type="checkbox" name="is_default" value="1">
+                <label class="form-label">Set as Default</label>
+            </div>
+
                       </div>
+                      <!--end::Row-->
 
 
             </div>

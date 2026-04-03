@@ -21,6 +21,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->all());
         // Create User
         $user = User::create([
             'name' => $request->name,
@@ -33,22 +34,31 @@ class UserController extends Controller
 
         // Role-based insert
 
-        if($request->role == 'customer'){
-            $user->profile()->create([
-                'label' => $request->label,
-                'full_name' => $request->full_name,
-                'phone' => $request->profile_phone,
-                'address_line_1' => $request->address_line_1,
-                'address_line_2' => $request->address_line_2,
-                'city' => $request->city,
-                'state' => $request->state,
-                'postal_code' => $request->postal_code,
-                'country' => $request->country,
-                'latitude' => 0,
-                'longitude' => 0,
-                'is_default' => 1,
-            ]);
-        }
+       if($request->role == 'customer'){
+    // $request->validate([
+    //     'label' => 'required',
+    //     'full_name' => 'required',
+    //     'profile_phone' => 'required',
+    //     'address_line_1' => 'required',
+    //     'city' => 'required',
+    //     'country' => 'required',
+    // ]);
+
+    $user->profile()->create([
+        'label' => $request->label,
+        'full_name' => $request->full_name,
+        'phone' => $request->phone,
+        'address_line_1' => $request->address_line_1,
+        'address_line_2' => $request->address_line_2,
+        'city' => $request->city,
+        'state' => $request->state,
+        'postal_code' => $request->postal_code,
+        'country' => $request->country,
+        'latitude' => $request->latitude ?? 0,
+        'longitude' => $request->longitude ?? 0,
+        'is_default' => $request->is_default ?? 0,
+    ]);
+}   
 
         elseif($request->role == 'vendor'){
             $logo = null;

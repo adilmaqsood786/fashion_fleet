@@ -362,30 +362,7 @@
                 </ul>
               </li>
 
-                  {{--====Customer sidebar====--}}
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-speedometer"></i>
-                  <p>
-                    Customers
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{{route('customerIndex')}}" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>All Customer</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{route('customerCreate')}}" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>New customer</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
+                 
 
   {{--========Vendor_sidebar=======--}}
               
@@ -413,34 +390,7 @@
                  
                 </ul>
 
-  {{--========category_sidebar=======--}}
-
-
-                 <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-speedometer"></i>
-                  <p>
-                    Categories
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{{route('categoryIndex')}}" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>All Category</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{route('categoryCreate')}}" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>New category</p>
-                    </a>
-                  </li>
-                 
-                </ul>
-              </li>
-
+  
  {{--========user_profile_sidebar=======--}}
 
 
@@ -454,13 +404,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                    <li class="nav-item">
-                    <a href="{{route('addressIndex')}}" class="nav-link">
+                    <a href="{{route('profileIndex')}}" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
-                      <p>All Prafile</p>
+                      <p>All Profile</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{route('addressCreate')}}" class="nav-link">
+                    <a href="{{route('profileCreate')}}" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>New Profile</p>
                     </a>
@@ -797,12 +747,12 @@
       const sparkline3 = new ApexCharts(document.querySelector('#sparkline-3'), option_sparkline3);
       sparkline3.render();
     </script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <script>
 $(document).ready(function(){
 
-    $("#role").click(function(){
+    $("#role").change(function(){
         let role = $(this).val();
 
         // Hide all sections first
@@ -821,6 +771,34 @@ $(document).ready(function(){
             $("#rider_section").removeClass("d-none");
         }
     });
+
+});
+</script> --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function(){
+
+    function toggleSections(role){
+        $("#customer_section, #vendor_section, #rider_section").addClass("d-none");
+
+        if(role === "customer"){
+            $("#customer_section").removeClass("d-none");
+        } 
+        else if(role === "vendor"){
+            $("#vendor_section").removeClass("d-none");
+        } 
+        else if(role === "rider"){
+            $("#rider_section").removeClass("d-none");
+        }
+    }
+
+    $("#role").on("change", function(){
+        toggleSections($(this).val());
+    });
+
+    // Run on page load
+    toggleSections($("#role").val());
 
 });
 </script>
