@@ -63,18 +63,125 @@
                    <!--end::Col-->
                    </div>
                   
-                   <!--end::Row-->
-                    </div>
+                   {{-- <!--end::Row-->
+                    </div> --}}
                   
                   </section>
 
-        {{--=========User_profile=========--}}
 
-          <section id="customer_section" class="mt-5 d-none">
-            {{--==========User_address=============--}}
-               <h3>User Prfile</h3>
-          <!--begin::Row-->
-                      <div class="row g-3">
+             {{--=========vender_form=========--}}
+             <section id="vendor_section" class="mt-5 d-none">
+              <div class="row g-3">
+                <h3>Vendor</h3>
+                
+                <!--begin::Col-->
+                        <div class="col-md-6">
+                          
+                          <label for="validationCustom01" class="form-label">User Id</label>
+                          
+                          <input type="text" class="form-control" name="user_id"  required />
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                         <div class="col-md-6">
+
+                          <label for="validationCustom01" class="form-label">Store Name</label>
+                          
+                          <input type="text" class="form-control" name="store_name" required />
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <!--end::Col-->
+                      
+                         <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="slug" class="form-label">Store Slug</label>
+                        
+                          <select name="store_slug" class="form-control" required>
+                              <option value="men">Men</option>
+                              <option value="women">Women</option>
+                          </select>
+                        
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <!--end::Col-->
+                       
+                        <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">Logo</label>
+                        
+                          <input type="file" class="form-control" name="logo" required />
+                          <div class="invalid-feedback">Please provide a valid city.</div>
+                        </div>
+                        <!--end::Col-->
+                         <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="validationCustomUsername" class="form-label">Description</label>
+                          <div class="input-group has-validation">
+                           
+                            <input type="text" class="form-control" name="description" required />
+                            <div class="invalid-feedback">Please choose a username.</div>
+                          </div>
+                        </div>
+                        <!--end::Col-->
+                        
+                         <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">Address</label>
+                          
+                          <input type="text" class="form-control" name="address" required />
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <!--end::Col--> 
+                        
+                       
+                        <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">City</label>
+                          
+                          <input type="text" class="form-control" name="city" required />
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <!--end::Col--> <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">Country</label>
+                          
+                          <input type="text" class="form-control" name="country" required />
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <!--end::Col-->
+                         <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">Commission rate</label>
+                          
+                          <input type="text" class="form-control" name="commission_rate" required />
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <!--end::Col-->
+                         <!-- Is Approved -->
+            <div class="col-md-6">
+                <label class="form-label">Is Approved</label>
+                <select name="is_approved" class="form-control" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+
+            <!-- Is Active -->
+            <div class="col-md-6 mt-4">
+                <input type="hidden" name="is_active" value="0">
+                <input type="checkbox" name="is_active" value="1" checked>
+                <label class="form-label">Is Active</label>
+            </div>
+
+
+              </div>
+             </section>
+
+
+  {{--=========User_profile=========--}}
+<section id="customer_section" class="mt-5 d-none">
+ <div class="row g-3">
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">User_id</label>
@@ -178,122 +285,7 @@
             </div>
 
                       </div>
-                      <!--end::Row-->
-
-
-            </div>
-            </section>
-
-             {{--=========vender_form=========--}}
-             <section id="vendor_section" class="mt-5 d-none">
-              <div class="row g-3">
-                <h3>Vendor</h3>
-                <!--begin::Col-->
-                        {{-- <div class="col-md-6">
-                          
-                          <label for="validationCustom01" class="form-label">User Id</label>
-                          
-                          <input type="text" class="form-control" name="user_id"  required />
-                          <div class="valid-feedback">Looks good!</div>
-                        </div> --}}
-                        <!--end::Col-->
-                        <!--begin::Col-->
-                        <div class="col-md-6">
-
-                          <label for="validationCustom01" class="form-label">Store Name</label>
-                          
-                          <input type="text" class="form-control" name="store_name" required />
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col-->
-                      
-                         <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="slug" class="form-label">Store Slug</label>
-                        
-                          <select name="store_slug" class="form-control" required>
-                              <option value="men">Men</option>
-                              <option value="women">Women</option>
-                          </select>
-                        
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col-->
-                       
-                        <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustom03" class="form-label">Logo</label>
-                        
-                          <input type="file" class="form-control" name="logo" required />
-                          <div class="invalid-feedback">Please provide a valid city.</div>
-                        </div>
-                        <!--end::Col-->
-                         <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustomUsername" class="form-label">Description</label>
-                          <div class="input-group has-validation">
-                           
-                            <input type="text" class="form-control" name="description" required />
-                            <div class="invalid-feedback">Please choose a username.</div>
-                          </div>
-                        </div>
-                        <!--end::Col-->
-                        
-                         <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustom01" class="form-label">Address</label>
-                          
-                          <input type="text" class="form-control" name="address" required />
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col--> 
-                        
-                       
-                        <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustom01" class="form-label">City</label>
-                          
-                          <input type="text" class="form-control" name="city" required />
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col--> <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustom01" class="form-label">Country</label>
-                          
-                          <input type="text" class="form-control" name="country" required />
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col-->
-                         <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustom01" class="form-label">Commission rate</label>
-                          
-                          <input type="text" class="form-control" name="commission_rate" required />
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col-->
-                         <!-- Is Approved -->
-            <div class="col-md-6">
-                <label class="form-label">Is Approved</label>
-                <select name="is_approved" class="form-control" required>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                </select>
-            </div>
-
-            <!-- Is Active -->
-            <div class="col-md-6 mt-4">
-                <input type="hidden" name="is_active" value="0">
-                <input type="checkbox" name="is_active" value="1" checked>
-                <label class="form-label">Is Active</label>
-            </div>
-
-
-
-             </section>
-
-
-
+</section>
        {{--=============Rider_profile==============--}}
             <section id="rider_section" class="d-none">
                <div class="row g-3 mt-5">
@@ -350,8 +342,12 @@
              </section>
 
 
+
+      
+
                      
                     <!--end::Body-->
+                    </div>
                     <!--begin::Footer-->
                     <div class="card-footer mt-5">
                       <button class="btn btn-info" type="submit">Submit form</button>

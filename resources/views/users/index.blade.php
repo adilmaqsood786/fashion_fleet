@@ -8,7 +8,7 @@
                   <div class="card-header">
                     <h3 class="card-title">users Record</h3>
                     <div class=" d-flex justify-content-end align-items-center">
-                    <a href="" class="btn btn-outline-warning">New</a>
+                    <a href="{{route('user.create')}}" class="btn btn-info">New</a>
                     </div>
                   </div>
                   <!-- /.card-header -->
@@ -28,6 +28,7 @@
                           <th>role</th>
                           <th>status</th>
                           <th>email_verified_at</th>
+                          <th>Profile</th>
                           <th>Edit</th>
                           <th>Delete</th>
 
@@ -45,6 +46,7 @@
                           <td>{{$user['role']}}</td>
                           <td>{{$user['status']}}</td>
                           <td>{{$user['email_verified_at']}}</td>
+                             <td><a href="{{ route('user.edit',['id'=>$user['id']])}}" class="btn btn-secondary btn-sm">Profile</a></td>
                              <td><a href="{{ route('user.edit',['id'=>$user['id']])}}" class="btn btn-primary btn-sm">Edit</a></td>
                              <td><a href="{{ route('user.delete',['delete_id'=>$user['id']]) }}" class="btn btn-danger btn-sm">Delete</a></td>
                         

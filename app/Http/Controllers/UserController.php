@@ -21,7 +21,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->user->role->rider()->all());
         // Create User
         $user = User::create([
             'name' => $request->name,
