@@ -5,6 +5,8 @@ use App\Http\Controllers\VendorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\RiderController;
+use App\Http\Controllers\CategoryController;
+
 
 
 
@@ -54,3 +56,10 @@ route::post('store-vendor',[VendorController::class,'store'])->name('vendorStore
 route::post('update-vendor/{update_id}',[VendorController::class,'update'])->name('vendorUpdate');
 route::get('delete-vendor/{delete_id}',[VendorController::class,'destroy'])->name('vendorDelete');
 
+//category curd route 
+route::get('all-category',[CategoryController::class,'index'])->name('categoryIndex');
+route::get('all-create',[CategoryController::class,'create'])->name('categoryCreate');
+route::get('all-edit/{edit_id}',[CategoryController::class,'edit'])->name('categoryEdit');
+route::post('all-store',[CategoryController::class,'store'])->name('categoryStore');
+route::post('all-update/{update_id}',[CategoryController::class,'update'])->name('categoryUpdate');
+route::get('all-delete/{delete_id}',[CategoryController::class,'destroy'])->name('categoryDelete');
