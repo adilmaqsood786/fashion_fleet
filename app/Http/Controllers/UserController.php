@@ -21,7 +21,6 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->user->role->rider()->all());
         // Create User
         $user = User::create([
             'name' => $request->name,
@@ -35,14 +34,6 @@ class UserController extends Controller
         // Role-based insert
 
        if($request->role == 'customer'){
-    // $request->validate([
-    //     'label' => 'required',
-    //     'full_name' => 'required',
-    //     'profile_phone' => 'required',
-    //     'address_line_1' => 'required',
-    //     'city' => 'required',
-    //     'country' => 'required',
-    // ]);
 
     $user->profile()->create([
         'label' => $request->label,
