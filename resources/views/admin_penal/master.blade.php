@@ -363,6 +363,31 @@
               </li>
 
                  
+ {{--========Vendor_sidebar=======--}}
+              
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon bi bi-speedometer"></i>
+                  <p>
+                      Category
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{route('categoryIndex')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>All categories</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('categoryCreate')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>New categories</p>
+                    </a>
+                  </li>
+                 
+                </ul>
 
   {{--========Vendor_sidebar=======--}}
               
@@ -445,6 +470,106 @@
                  
                 </ul>
               </li>
+
+              {{--===========Products============--}}
+{{--========product_sidebar=======--}}
+
+
+                 <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon bi bi-speedometer"></i>
+                  <p>
+                    Products
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                   <li class="nav-item">
+                    <a href="{{route('productIndex')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>All Products</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('productCreate')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>New Product</p>
+                    </a>
+                  </li>
+                 
+                </ul>
+              </li>
+
+
+{{--========product_image_sidebar=======--}}
+
+
+                 <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon bi bi-speedometer"></i>
+                  <p>
+                    Product Images
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                   <li class="nav-item">
+                    <a href="{{route('imageIndex')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>All Products Image</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('imageCreate')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>New Product image</p>
+                    </a>
+                  </li>
+                 
+                </ul>
+              </li>
+
+
+
+{{--========product_Rating_sidebar=======--}}
+
+
+                 <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon bi bi-speedometer"></i>
+                  <p>
+                    Product Rating
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                   <li class="nav-item">
+                    <a href="{{route('ratingIndex')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>All Products Rating</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('ratingCreate')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>New Product Rating</p>
+                    </a>
+                  </li>
+                 
+                </ul>
+              </li>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -747,9 +872,9 @@
       const sparkline3 = new ApexCharts(document.querySelector('#sparkline-3'), option_sparkline3);
       sparkline3.render();
     </script>
-    {{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-<script>
+{{-- <script>
 $(document).ready(function(){
 
     $("#role").change(function(){
@@ -774,32 +899,26 @@ $(document).ready(function(){
 
 });
 </script> --}}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
 $(document).ready(function(){
-
-    function toggleSections(role){
+    function toggleSections() {
+        let role = $("#role").val();
+        
         $("#customer_section, #vendor_section, #rider_section").addClass("d-none");
-
+        
         if(role === "customer"){
             $("#customer_section").removeClass("d-none");
-        } 
+        }
         else if(role === "vendor"){
             $("#vendor_section").removeClass("d-none");
-        } 
+        }
         else if(role === "rider"){
             $("#rider_section").removeClass("d-none");
         }
     }
-
-    $("#role").on("change", function(){
-        toggleSections($(this).val());
-    });
-
-    // Run on page load
-    toggleSections($("#role").val());
-
+    
+    $("#role").change(toggleSections);
+    toggleSections(); // Call on page load
 });
 </script>
     <!--end::Script-->

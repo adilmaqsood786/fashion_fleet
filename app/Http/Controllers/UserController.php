@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
 
 class UserController extends Controller
 {
@@ -20,7 +22,38 @@ class UserController extends Controller
     }
 
     public function store(Request $request)
-    {
+
+{
+       //validation
+         $validate = Validator::make($request->all(),[
+            //user
+            'name' =>'required',
+            'email' =>'required|email|unique' ,
+            'phone' => 'required|int|max:11',
+            'password' => 'required|unique',
+            'role' => 'required',
+            'status' => 'required',
+            
+         
+         ]);
+
+
+
+          if($validate->fails())
+            {
+                return back()->withErrors($validate)->withInput();
+            }
+
+
+
+
+
+
+
+
+
+
+    
         // Create User
         $user = User::create([
             'name' => $request->name,
@@ -34,6 +67,34 @@ class UserController extends Controller
         // Role-based insert
 
        if($request->role == 'customer'){
+
+       $validate = Validator::$user->profile()->make($request->all(),[
+
+
+  //user_profile
+        'user_id'=>'required',
+        'label'=>'required',
+        'full_name'=>'required',
+        'phone'=>'required|unique',
+        'address_line_1'=>'required',
+        'address_line_2'=>'required',
+        'city'=>'required',
+        'state'=>'required',
+        'postal_code'=>'required',
+        'country'=>'required',
+        'latitude'=>'required',
+        'longitude'=>'required',
+        'is_default'=>'required',
+
+       ]);
+
+
+
+          if($validate->fails())
+            {
+                return back()->withErrors($validate)->withInput();
+            }
+
 
     $user->profile()->create([
         'label' => $request->label,

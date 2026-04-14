@@ -25,45 +25,76 @@ class RiderController extends Controller
 
     //store data 
 
-    public function store(Request $request)
-    {
-        $validate = Validator::make($request->all(),[
-           'user_id'=>'required',
-           'vehicle_type'=>'required',
-           'vehicle_number'=>'required',
-           'license_number'=>'required',
-           'is_available'=>'required',
-           'is_verified'=>'required',
+      public function store(Request $request)
+      {
+         $validate = Validator::make($request->all(),[
+            'user_id'=>'required',
+            'vehicle_type'=>'required',
+            'vehicle_number'=>'required',
+            'license_number'=>'required',
+            'is_available'=>'required',
+            'is_verified'=>'required',
 
-        ]);
+           // user  field
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email', // Added unique and email rules
+            'phone' => 'required|int',
+            'password' => 'required|min:6', // Added min length
+            'role' => 'required',
+            'status' => 'required',
 
-        if($validate->fails())
-             {
-              return back()->withErrors($validate)->withInput();
-             } 
- 
-       //rider data create 
+         ]
+             //custom error 
+          
+         ,[
+            'name.required'=>'name can not be empty'
+         ]
+         );
 
-        $rider =  Rider::create([
-           'user_id'=>$request->user_id,
-           'vehicle_type'=>$request->vehicle_type,
-           'vehicle_number'=>$request->vehicle_number,
-           'license_number'=>$request->license_number,
-           'is_available'=>$request->is_available,
-           'is_verified'=>$request->is_verified,
-         ]);
-     //user data create
-          $rider->user()->create([
-             'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'password' => Hash::make('123456'),
-            'role' => $request->role,
-            'status' => $request->status == 'active' ? 1 : 0,
-          ]); 
-         return redirect()->route('riderIndex');
+         if($validate->fails())
+               {
+               return back()->withErrors($validate)->withInput();
+               } 
+   
+  
+         //rider data create 
 
-    }
+         $rider =  Rider::create([
+            'user_id'=>$request->user_id,
+            'vehicle_type'=>$request->vehicle_type,
+            'vehicle_number'=>$request->vehicle_number,
+            'license_number'=>$request->license_number,
+            'is_available'=>$request->is_available,
+            'is_verified'=>$request->is_verified,
+            ]);
+      //user data create
+
+      // $validate  = $rider->user()->Validator::make($request->all(),[
+      //       'name' =>'required',
+      //          'email' => 'required',
+      //          'phone' =>' required',
+      //          'password' => 'required',
+      //          'role' => 'required',
+      //          'status' => 'required',
+
+
+      //    ]);
+
+      //    if($validate->fails())
+      //          {
+      //          return back()->withErrors($validate)->withInput();
+      //          } 
+            $rider->user()->create([
+               'name' => $request->name,
+               'email' => $request->email,
+               'phone' => $request->phone,
+               'password' => Hash::make('123456'),
+               'role' => $request->role,
+               'status' => $request->status == 'active' ? 1 : 0,
+            ]); 
+            return redirect()->route('riderIndex');
+
+      }
    
 
 

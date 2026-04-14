@@ -72,54 +72,99 @@
                   <div class="card-header">
     <div class="card-title"><h3>Rider Details</h3></div>
 </div>
-
+{{-- @if($errors->any())
+@foreach ($errors->all() as $error)
+  {{$error 
+  }}
+@endforeach
+@endif --}}
+{{-- @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif --}}
 <form action="{{ route('riderStore') }}" method="post" class="needs-validation" novalidate>
     @csrf
     <div class="card-body">
         <div class="row g-3">
+                
+
             <!-- User ID -->
             <div class="col-md-6">
                 <label class="form-label">User ID</label>
-                <input type="number" class="form-control" name="user_id" required />
+                <input type="number" class="form-control" name="user_id" value="{{old('user_id')}}" required /><br>
+                <span style="color: red">@error('user_id')
+                   {{$message}}
+                @enderror
+                </span>
                 <div class="valid-feedback">Looks good!</div>
             </div>
 
             <!-- Vehicle Type -->
             <div class="col-md-6">
                 <label class="form-label">Vehicle Type</label>
-                <input type="text" class="form-control" name="vehicle_type" required />
+                <input type="text" class="form-control"  value="{{old('vehicle_type')}}" name="vehicle_type" required />
+                <span style="color: red">
+                  @error('vehicle_type')
+                   {{$message}}
+                @enderror
+                </span>
                 <div class="valid-feedback">Looks good!</div>
             </div>
 
             <!-- Vehicle Number -->
             <div class="col-md-6">
                 <label class="form-label">Vehicle Number</label>
-                <input type="text" class="form-control" name="vehicle_number" required />
+                <input type="text" class="form-control" name="vehicle_number" value="{{old('vehicle_number')}}"  required />
                 <div class="valid-feedback">Looks good!</div>
+                 <span style="color: red">
+                  @error('vehicle_number')
+                   {{$message}}
+                @enderror
+                </span>
             </div>
 
             <!-- License Number -->
             <div class="col-md-6">
                 <label class="form-label">License Number</label>
-                <input type="text" class="form-control" name="license_number" required />
+                <input type="text" class="form-control" name="license_number" value="{{old('license_number')}}" required />
                 <div class="valid-feedback">Looks good!</div>
+                 <span style="color: red">
+                  @error('license_number')
+                   {{$message}}
+                @enderror
+                </span>
             </div>
 
             <!-- Is Available -->
             <div class="col-md-6">
                 <label class="form-label">Is Available</label>
-                <select name="is_available" class="form-control" required>
+                <select name="is_available" class="form-control" value="{{old('is_available')}}" required>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                 </select>
+                 <span style="color: red">
+                  @error('is_available')
+                   {{$message}}
+                @enderror
+                </span>
                 <div class="valid-feedback">Looks good!</div>
             </div>
 
             <!-- Is Verified -->
             <div class="col-md-6 mt-4">
                 <input type="hidden" name="is_verified" value="0">
-                <input type="checkbox" id="is" name="is_verified" value="1">
+                <input type="checkbox" id="is" name="is_verified" value="{{old('is_verified')}}" value="1">
                 <label for="is" class="form-label">Is Verified</label>
+                 <span style="color: red">
+                  @error('is_verified')
+                   {{$message}}
+                @enderror
+                </span>
             </div>
 
       {{--===========user_form===========--}}
@@ -134,7 +179,12 @@
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Name</label>
                           
-                          <input type="text" class="form-control" name="name" required />
+                          <input type="text" class="form-control" value="{{old('name')}}" name="name" required />
+                           <span style="color: red">
+                            @error('name')
+                                 {{$message}}
+                              @enderror
+                            </span>
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->
@@ -142,40 +192,62 @@
                         <div class="col-md-6">
                           <label for="validationCustom02" class="form-label">Email</label>
                           
-                          <input type="email" class="form-control" name="email" required />
+                          <input type="email" class="form-control" name="email" value="{{old('email')}}" required />
+                           <span style="color: red">
+                                @error('email')
+                                      {{$message}}
+                                @enderror
+                           </span>
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustomUsername" class="form-label">Phone Number</label>
+
                           <div class="input-group has-validation">
                            
-                            <input type="numeric" class="form-control" name="phone" required />
+                            <input type="numeric" class="form-control" name="phone" value="{{old('phone')}}" required />
+                           
+                          
                             <div class="invalid-feedback">Please choose a username.</div>
+                             
                           </div>
+                             <span style="color: red">
+                              @error('phone')
+                                     {{$message}}
+                                  @enderror
+                             </span>
                         </div>
                         <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom03" class="form-label">Role</label>
-                        <select name="role" id="role" class="form-select" required>
+                        <select name="role" id="role" class="form-select" value="{{old('role')}}" required>
                              <option value="">Select Role</option>
                              <option value="customer">Customer</option>
                              <option value="vendor">Vendor</option>
                              <option value="rider">Rider</option>
                           </select>
+                           <span style="color: red">
+                            @error('role')
+                              {{$message}}
+                            @enderror
+                         </span>
                         </div>
                         <!--end::Col-->
                           <!--begin::Col-->
                          <div class="col-md-6">
                            <label for="status" class="form-label">Status</label>
                          
-                           <select name="status" class="form-select" required>
+                           <select name="status" class="form-select" value="{{old('status')}}" required>
                                <option value="active">Active</option>
                                <option value="inactive">Inactive</option>
                            </select>
-                         
+                        <span style="color: red">@error('status')
+                   {{$message}}
+                @enderror
+                </span>  
                            <div class="invalid-feedback">Please select a valid status.</div>     
                    <!--end::Col-->
                    </div>

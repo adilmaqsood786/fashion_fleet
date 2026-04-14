@@ -6,6 +6,12 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\RiderController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductImageController;
+use App\Http\Controllers\ProductRatingController;
+
+
+
 
 
 
@@ -58,8 +64,36 @@ route::get('delete-vendor/{delete_id}',[VendorController::class,'destroy'])->nam
 
 //category curd route 
 route::get('all-category',[CategoryController::class,'index'])->name('categoryIndex');
-route::get('all-create',[CategoryController::class,'create'])->name('categoryCreate');
-route::get('all-edit/{edit_id}',[CategoryController::class,'edit'])->name('categoryEdit');
-route::post('all-store',[CategoryController::class,'store'])->name('categoryStore');
-route::post('all-update/{update_id}',[CategoryController::class,'update'])->name('categoryUpdate');
-route::get('all-delete/{delete_id}',[CategoryController::class,'destroy'])->name('categoryDelete');
+route::get('create-category',[CategoryController::class,'create'])->name('categoryCreate');
+route::get('edit-category/{edit_id}',[CategoryController::class,'edit'])->name('categoryEdit');
+route::post('store-category',[CategoryController::class,'store'])->name('categoryStore');
+route::post('update-category/{update_id}',[CategoryController::class,'update'])->name('categoryUpdate');
+route::get('delete-category/{delete_id}',[CategoryController::class,'destroy'])->name('categoryDelete');
+
+
+
+//  Product route crud
+
+   Route::get('all-product',[ProductController::class,'index'])->name('productIndex');
+   Route::get('create-product',[ProductController::class,'create'])->name('productCreate');
+   Route::get('edit-product/{edit_id}',[ProductController::class,'edit'])->name('productEdit');
+   Route::post('store-product',[ProductController::class,'store'])->name('productStore');
+   Route::post('update-product/{update_id}',[ProductController::class,'update'])->name('productUpdate');
+   Route::get('delete-product/{delete_id}',[ProductController::class,'destroy'])->name('productDelete');
+
+
+   //productImage crud route
+   Route::get('all-image',[ProductImageController::class,'index'])->name('imageIndex');
+   Route::get('create-image',[ProductImageController::class,'create'])->name('imageCreate');
+   Route::get('edit-image/{edit_id}',[ProductImageController::class,'edit'])->name('imageEdit');
+   Route::post('store-image',[ProductImageController::class,'store'])->name('imageStore');
+   Route::post('update-image/{update_id}',[ProductImageController::class,'update'])->name('imageUpdate');
+   Route::get('delete-image/{delete_id}',[ProductImageController::class,'destroy'])->name('imageDelete');
+
+//Product Rating curd 
+Route::get('all-rating',[ProductRatingController::class,'index'])->name('ratingIndex');
+Route::get('create-rating',[ProductRatingController::class,'create'])->name('ratingCreate');
+Route::get('edit-rating/{edit_id}',[ProductRatingController::class,'edit'])->name('ratingEdit');
+Route::post('store-rating',[ProductRatingController::class,'store'])->name('ratingStore');
+Route::post('update-rating/{update_id}',[ProductRatingController::class,'update'])->name('ratingUpdate');
+Route::get('delete-rating/{delete_id}',[ProductRatingController::class,'destroy'])->name('ratingDelete');
