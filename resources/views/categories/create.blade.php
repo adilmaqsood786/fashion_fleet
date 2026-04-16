@@ -1,7 +1,7 @@
 @extends('admin_penal.master')
 @section('content')
  <div class="card-header">
-                    <div class="card-title">New created Reccord</div>
+                    <div class="card-title">New category</div>
                   </div>
                   <!--end::Header-->
                   <!--begin::Form-->
@@ -39,7 +39,12 @@
                         <div class="col-md-6">
                           <label for="validationCustom02" class="form-label">Parent_id</label>
                           
-                          <input type="text" class="form-control" name="parent_id" required />
+                          {{-- <input type="text" class="form-control" name="parent_id" required /> --}}
+                       <select name="parent_id" class="form-control form-select" id="">
+                          @foreach ($categories as $cate)
+                           <option value="{{$cate->parent_id}}">{{$cate->name}}</option>
+                         @endforeach
+                         </select>
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->

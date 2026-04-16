@@ -15,7 +15,12 @@
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">User_id</label>
                           
-                          <input type="number" class="form-control" value="{{isset($userProfile->user_id)?$userProfile->user_id:""}}"  name="user_id" required />
+                          {{-- <input type="number" class="form-control" value="{{isset($userProfile->user_id)?$userProfile->user_id:""}}"  name="user_id" required /> --}}
+                           <select name="user_id" class="form-control form-select" id="id">
+                          @foreach ($users as $user )
+                           <option value="{{isset($user->userProfile->user_id)?$user->id:""}}">{{$user->name}}</option>
+                          @endforeach
+                        </select>
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->

@@ -28,10 +28,15 @@
                 <!-- Phone -->
                 <div class="col-md-6">
                     <label class="form-label">Phone Number</label>
-                    <input type="text" class="form-control" name="phone" value="{{ old('phone', $user->phone) }}" required>
+                    <input type="text" class="form-control" name="userPhone" value="{{ old('userPhone', $user->userPhone) }}" required>
                     <div class="invalid-feedback">Please provide a valid phone.</div>
                 </div>
-
+ <!-- Password -->
+                <div class="col-md-6">
+                    <label class="form-label">Password</label>
+                    <input type="text" class="form-control" name="password" value="{{ old('password', $user->password) }}" required>
+                    <div class="invalid-feedback">Please provide a valid phone.</div>
+                </div>
                 <!-- Role -->
                 <div class="col-md-6">
                     <label class="form-label">Role</label>

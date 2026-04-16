@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 use  App\Models\UserProfile;
+use  App\Models\User;
+
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class UserProfileController extends Controller
 {
     public function index(){ 
-    $users = UserProfile::all();     
+    $users = UserProfile::with(['user'])->get();     
     return view('user_profile.index',compact('users'));
     }
       
 public function create()
+
 {
-    return view('user_profile.create');
+    $users = User::all();
+    return view('user_profile.create',compact('users'));
 }
 
 public function store(Request $request)
@@ -56,8 +60,8 @@ public function store(Request $request)
         'longitude'=>$request->longitude,
         'is_default'=>$request->is_default,
         ]);
-
-return \redirect()->route('profileIndex');
+ $users = UserProfile::all();
+return \redirect()->route('profileIndex',);
 }
 
 

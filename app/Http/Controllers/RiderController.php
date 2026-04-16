@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\Rider;
+use App\Models\User;
+
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,7 +21,8 @@ class RiderController extends Controller
     //create method 
     public function create()
     {
-        return view('riders.create');
+      $users = User::all();
+        return view('riders.create',compact('users'));
     }
     
 

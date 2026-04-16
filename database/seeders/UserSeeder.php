@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
              [
                 'name' => 'Admin User',
                 'email' => 'admin'.time().'@mail.com',
-                'phone' => '0300'.rand(1000000,9999999),
+                'userPhone' => '0300'.rand(1000000,9999999),
                 'password' => Hash::make('12345678'),
                 'role' => 'admin',
                 'status' => 1,
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Vendor User',
                 'email' => 'vendor'.time().'@mail.com',
-                'phone' => '0311'.rand(1000000,9999999),
+                'userPhone' => '0311'.rand(1000000,9999999),
                 'password' => Hash::make('12345678'),
                 'role' => 'vendor',
                 'status' => 1,
@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Customer User',
                 'email' => 'customer'.time().'@mail.com',
-                'phone' => '0322'.rand(1000000,9999999),
+                'userPhone' => '0322'.rand(1000000,9999999),
                 'password' => Hash::make('12345678'),
                 'role' => 'customer',
                 'status' => 0,

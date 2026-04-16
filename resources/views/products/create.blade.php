@@ -1,7 +1,7 @@
 @extends('admin_penal.master')
 @section('content')
  <div class="card-header">
-                    <h3>Owner detaile :</h3>
+                    <h3>Owner detail :</h3>
                   </div>
                   <!--end::Header-->
                   <!--begin::Form-->
@@ -28,6 +28,7 @@
                                 {{$message}}
                             @enderror
                           </span>
+
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->
@@ -36,13 +37,13 @@
                           
                           <label for="validationCustom01" class="form-label">Category Name</label>
                           
-                          {{-- <input type="number" class="form-control" name="category_id" value="{{old('category_id')}}"  required /> --}}
-                          <select name="vendor_id" id="id" class="form-controls form-select">
+                          <input type="number" class="form-control" name="categoryProduct_id" value="{{old('category_id')}}"  required />
+                          {{-- <select name="vendor_id" id="id" class="form-controls form-select">
                               @foreach ($categories as $category)
                                  <option value="{{$category->id}}">{{$category->name}}</option>
 
                               @endforeach
-                            </select>
+                            </select> --}}
                           <span style="color: red">
                             @error('category_id')
                                 {{$message}}
@@ -54,7 +55,7 @@
                         <!--begin::Col-->
                         <div class="col-md-6">
 
-                          <label for="validationCustom01" class="form-label">Name</label>
+                          <label for="validationCustom01" class="form-label">Product Name</label>
                           
                           <input type="text" class="form-control" value="{{old('name')}}" name="name" required />
                           <span style="color: red">
@@ -69,25 +70,26 @@
                          <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="slug" class="form-label">Slug</label>
-                        
-                          <select name="slug" class="form-select form-control"  required>
+                        <input type="text" name="slug" value="{{old('slug')}}"  class="form-control"  id="slug" >
+                          {{-- <select name="slug" class="form-select form-control"  required>
                               <option value="iPhone">iPhone</option>
                               <option value="Android">Android</option>
-                          </select>
-                        {{-- <span style="color: red">
+                          </select> --}}
+                        <span style="color: red">
                             @error('slug')
                                 {{$message}}
                             @enderror
-                          </span> --}}
+                          </span>
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->
                        
                         <!--begin::Col-->
                         <div class="col-md-6">
-                          <label for="validationCustom03" class="form-label">Short description</label>
+                          <label for="short_description" class="form-label">Short description</label>
                         
-                          <input type="text" class="form-control" value="{{old('short_description')}}" name="short_description" required />
+                          {{-- <input type="text" class="form-control" value="{{old('short_description')}}" name="short_description" required /> --}}
+                           <textarea name="short_description"  class="form-control"  id="short_description" >{{old('short_description')}}</textarea>
                           <span style="color: red">
                             @error('short_description')
                                 {{$message}}
@@ -98,10 +100,11 @@
                         <!--end::Col-->
                          <!--begin::Col-->
                         <div class="col-md-6">
-                          <label for="validationCustomUsername" class="form-label">Description</label>
+                          <label for="description" class="form-label">Description</label>
                           <div class="input-group has-validation">
                            
-                            <input type="text" class="form-control" value="{{old('description')}}" name="description" required />
+                            {{-- <input type="text" class="form-control" value="{{old('description')}}" name="description" required /> --}}
+                           <textarea name="description"  class="form-control"  id="description" >{{old('description')}}</textarea>
                             
                             <div class="invalid-feedback">Please choose a username.</div>
                             
@@ -158,7 +161,7 @@
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Stock</label>
                           
-                          <input type="text" class="form-control" value="{{old('stock')}}" name="stock" required />
+                          <input type="number" class="form-control" value="{{old('stock')}}" name="stock" required />
                           <span style="color: red">
                             @error('stock')
                                 {{$message}}
@@ -184,7 +187,7 @@
                       
                         <!-- Is Active Dropdown -->
                     <div class="form-group col-md-6">
-                        <label for="is_active" class="form-label">Is Active</label>
+                        <label for="is_active" class="form-label">Status</label>
                         <select name="is_active" id="is_active" class="form-select">
                             <option value="1" {{ old('is_active', $item->is_active ?? false) ? 'selected' : '' }}>Active</option>
                             <option value="0" {{ old('is_active', $item->is_active ?? false) ? '' : 'selected' }}>Inactive</option>
@@ -198,7 +201,7 @@
                     
                     <!-- Is Featured Dropdown -->
                     <div class="form-group col-md-6">
-                        <label for="is_featured" class="form-label">Is Featured</label>
+                        <label for="is_featured" class="form-label">Featured</label>
                         <select name="is_featured" id="is_featured" class="form-select">
                             <option value="1" {{ old('is_featured', $item->is_featured ?? false) ? 'selected' : '' }}>Featured</option>
                             <option value="0" {{ old('is_featured', $item->is_featured ?? false) ? '' : 'selected' }}>Regular</option>

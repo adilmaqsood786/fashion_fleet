@@ -19,7 +19,7 @@
                       <thead class="table-dark">
                         <tr>
                           <th style="width: 10px">#</th>
-                          <th>User_id</th>
+                          <th>User</th>
                           <th>Label</th>
                           <th>Full Name</th>
                           <th>Phone no.</th>
@@ -31,6 +31,7 @@
                           <th>Country</th>
                           <th>latitude</th>
                           <th>longitude</th>
+                          <th>Status</th>
                           <th>Edit</th>
                           <th>Delete</th>
 
@@ -40,7 +41,7 @@
                       <tbody>
                         <tr class="align-middle">
                           <td>{{$user['id']}}</td>
-                          <td>{{$user['user_id']}}</td>
+                          <td>{{$user['user_id']?$user->user->name:""}}</td>
                           <td>{{$user['label']}}</td>
                           <td>{{$user['full_name']}}</td>
                           <td>{{$user['phone']}}</td>
@@ -52,7 +53,7 @@
                           <td>{{$user['country']}}</td>
                           <td>{{$user['latitude']}}</td>
                           <td>{{$user['longitude']}}</td>
-
+                          <td>{{$user->is_default?"yes":"no"}}</td>
                           <td><a href="{{route('profileEdit',['edit_id'=>$user['id']])}}" class="btn btn-outline-primary">Edit</a></td>
                           <td><a href="{{route('profileDelete',['delete_id'=>$user['id']])}}" class="btn btn-outline-danger">Delete</a></td>
                         </tr>

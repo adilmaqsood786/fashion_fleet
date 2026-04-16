@@ -28,16 +28,15 @@ class UserController extends Controller
          $validate = Validator::make($request->all(),[
             //user
             'name' =>'required',
-            'email' =>'required|email|unique' ,
-            'phone' => 'required|int|max:11',
-            'password' => 'required|unique',
+            'email' =>'required|email|unique:users,email' ,
+            'userPhone' => 'required|nullable',
             'role' => 'required',
             'status' => 'required',
             
          
          ]);
 
-
+// dd($validate);
 
           if($validate->fails())
             {
@@ -58,7 +57,7 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'phone' => $request->phone,
+            'userPhone' => $request->userPhone,
             'password' => Hash::make('123456'),
             'role' => $request->role,
             'status' => $request->status == 'active' ? 1 : 0,
@@ -68,32 +67,32 @@ class UserController extends Controller
 
        if($request->role == 'customer'){
 
-       $validate = Validator::$user->profile()->make($request->all(),[
+//        $validate = Validator::$user->profile()->make($request->all(),[
 
 
-  //user_profile
-        'user_id'=>'required',
-        'label'=>'required',
-        'full_name'=>'required',
-        'phone'=>'required|unique',
-        'address_line_1'=>'required',
-        'address_line_2'=>'required',
-        'city'=>'required',
-        'state'=>'required',
-        'postal_code'=>'required',
-        'country'=>'required',
-        'latitude'=>'required',
-        'longitude'=>'required',
-        'is_default'=>'required',
+//   //user_profile
+//         'user_id'=>'required',
+//         'label'=>'required',
+//         'full_name'=>'required',
+//         'phone'=>'required|unique',
+//         'address_line_1'=>'required',
+//         'address_line_2'=>'required',
+//         'city'=>'required',
+//         'state'=>'required',
+//         'postal_code'=>'required',
+//         'country'=>'required',
+//         'latitude'=>'required',
+//         'longitude'=>'required',
+//         'is_default'=>'required',
 
-       ]);
+//        ]);
 
 
 
-          if($validate->fails())
-            {
-                return back()->withErrors($validate)->withInput();
-            }
+//           if($validate->fails())
+//             {
+//                 return back()->withErrors($validate)->withInput();
+//             }
 
 
     $user->profile()->create([
@@ -159,7 +158,10 @@ class UserController extends Controller
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'phone' => $request->phone,
+            'userPhone' => $request->userPhone,
+            'password' => Hash::make('123456'),
+            'role' => $request->role,
+            'status' => $request->status == 'active' ? 1 : 0,
         ]);
 
         if($user->role == 'customer' && $user->profile){

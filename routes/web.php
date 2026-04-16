@@ -5,7 +5,7 @@ use App\Http\Controllers\VendorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\RiderController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\ProductRatingController;
@@ -63,12 +63,12 @@ route::post('update-vendor/{update_id}',[VendorController::class,'update'])->nam
 route::get('delete-vendor/{delete_id}',[VendorController::class,'destroy'])->name('vendorDelete');
 
 //category curd route 
-route::get('all-category',[CategoryController::class,'index'])->name('categoryIndex');
-route::get('create-category',[CategoryController::class,'create'])->name('categoryCreate');
-route::get('edit-category/{edit_id}',[CategoryController::class,'edit'])->name('categoryEdit');
-route::post('store-category',[CategoryController::class,'store'])->name('categoryStore');
-route::post('update-category/{update_id}',[CategoryController::class,'update'])->name('categoryUpdate');
-route::get('delete-category/{delete_id}',[CategoryController::class,'destroy'])->name('categoryDelete');
+route::get('all-category',[CategoryProductController::class,'index'])->name('categoryIndex');
+route::get('create-category',[CategoryProductController::class,'create'])->name('categoryCreate');
+route::get('edit-category/{edit_id}',[CategoryProductController::class,'edit'])->name('categoryEdit');
+route::post('store-category',[CategoryProductController::class,'store'])->name('categoryStore');
+route::post('update-category/{update_id}',[CategoryProductController::class,'update'])->name('categoryUpdate');
+route::get('delete-category/{delete_id}',[CategoryProductController::class,'destroy'])->name('categoryDelete');
 
 
 

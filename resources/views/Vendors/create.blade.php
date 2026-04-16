@@ -5,7 +5,7 @@
 
 
  <div class="card-header">
-                    <h3>Owner detaile :</h3>
+                    <h3>New vendor :</h3>
                   </div>
                   <!--end::Header-->
                   <!--begin::Form-->
@@ -18,9 +18,15 @@
                          <!--begin::Col-->
                         <div class="col-md-6">
                           
-                          <label for="validationCustom01" class="form-label">User Id</label>
+                          <label for="validationCustom01" class="form-label">User</label>
                           
-                          <input type="text" class="form-control" name="user_id"  required />
+                          {{-- <input type="text" class="form-control" name="user_id"  required /> --}}
+                          <select name="user_id" class="form-control form-select" id="">
+                                  @foreach ($users as $user )
+                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                    
+                                  @endforeach
+                          </select>
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->

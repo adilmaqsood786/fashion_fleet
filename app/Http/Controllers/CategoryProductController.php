@@ -1,23 +1,24 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Category;
+use App\Models\CategoryProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CategoryController extends Controller
+class CategoryProductController extends Controller
 {
-       public function index()
+        public function index()
        {
-        $categories = Category::all();
+        $categories = CategoryProduct::all();
         return view('categories.index',compact('categories'));
        }  
 
        public function create()
        {
-        return view('categories.create');
+        $categories = CategoryProduct::all();
+        return view('categories.create',compact('categories'));
        } 
-
+     
        public function store(Request $request)
        {
          $validate =  Validator::make($request->all(),[
@@ -26,7 +27,7 @@ class CategoryController extends Controller
                 'slug' => 'required',
                 'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
                 'parent_id' => 'required',
-                'is_active' => "required",
+                'is_active' => "required|Nullable",
 
          ]); 
 
@@ -45,7 +46,7 @@ class CategoryController extends Controller
         
     }
 
-            Category::create([
+            CategoryProduct::create([
                 'name'=>$request->name,
                 'slug'=>$request->slug,
                 'image'=>$imagePath,
@@ -60,7 +61,7 @@ class CategoryController extends Controller
         //edit method
      public function edit($edit_id)
      {
-        $categoryRecord = Category::where('id',$edit_id)->first();
+        $categoryRecord = CategoryProduct::where('id',$edit_id)->first();
         return view('categories.edit',compact('categoryRecord'));
      }
 
@@ -69,7 +70,7 @@ class CategoryController extends Controller
      //update method
      public function update(Request $request)
      {
-         $categoryRecord = Category::where('id',$request->update_id)->first();
+         $categoryRecord = CategoryProduct::where('id',$request->update_id)->first();
       
          $imagePath = $categoryRecord->image;
       
@@ -95,7 +96,7 @@ class CategoryController extends Controller
     //  //Delete method
       public function destroy($delete_id)
       {
-           Category::where('id',$delete_id)->first()->delete();
+           CategoryProduct::where('id',$delete_id)->first()->delete();
            return redirect()->route('categoryIndex')->with('success','Category Delete successfully');
       }
 

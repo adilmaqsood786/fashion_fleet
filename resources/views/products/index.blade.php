@@ -9,7 +9,7 @@
         
                 <div class="card mb-4">
                   <div class="card-header">
-                    <h3 class="card-title">Category Record</h3>
+                    <h3 class="card-title">Product Detail</h3>
                     <div class=" d-flex justify-content-end align-items-center">
                     <a href="{{route('productCreate')}}" class="btn btn-info">New</a>
                     </div>
@@ -21,8 +21,8 @@
                       <thead>
                         <tr>
                             <th>ID</th>
-                          <th>Vender_id</th>
-                          <th>Categroy_id</th>
+                          <th>Vender</th>
+                          <th>Categroy</th>
                           <th>Name</th>
                           <th>Slug</th>
                           <th>Short description</th>
@@ -32,8 +32,8 @@
                           <th>Sale Price</th>
                           <th>Stock</th>
                           <th>Sale Image</th>
-                          <th>is_active</th>
-                          <th>is_featured</th>
+                          <th>Active</th>
+                          <th>Featured</th>
                           <th>Edit</th>
                           <th>Delete</th>
 
@@ -43,8 +43,8 @@
                       <tbody>
                         <tr class="align-middle">
                          <td>{{ $pro->id}}</td>
-                         <td>{{ $pro->vendor_id}}</td>
-                         <td>{{ $pro->category_id }}</td>
+                         <td>{{ $pro->vendor->store_name}}</td>
+                         <td>{{ $pro->categories->name}}</td>
                          <td>{{ $pro->name}}</td>
                          <td>{{ $pro->slug}}</td>
                          <td>{{ $pro->short_description}}</td>

@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
     // Base tables
-    CategorySeeder::class,
+    CategoryProductSeeder::class,
     UserSeeder::class,
     RiderSeeder::class,
     

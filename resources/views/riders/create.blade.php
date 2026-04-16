@@ -70,7 +70,7 @@
                   </form> --}}
                   <!--end::Form--> 
                   <div class="card-header">
-    <div class="card-title"><h3>Rider Details</h3></div>
+    <div class="card-title"><h3>New Rider Create</h3></div>
 </div>
 {{-- @if($errors->any())
 @foreach ($errors->all() as $error)
@@ -95,8 +95,14 @@
 
             <!-- User ID -->
             <div class="col-md-6">
-                <label class="form-label">User ID</label>
-                <input type="number" class="form-control" name="user_id" value="{{old('user_id')}}" required /><br>
+                <label class="form-label">User</label>
+               
+                {{-- <input type="number" class="form-control" name="user_id" value="{{old('user_id')}}" required /><br> --}}
+                <select name="user_id" class="form-control form-select" id="id">
+                          @foreach ($users as $user )
+                           <option value="{{$user->id}}">{{$user->name}}</option>
+                          @endforeach
+                        </select>
                 <span style="color: red">@error('user_id')
                    {{$message}}
                 @enderror
@@ -207,14 +213,14 @@
 
                           <div class="input-group has-validation">
                            
-                            <input type="numeric" class="form-control" name="phone" value="{{old('phone')}}" required />
+                            <input type="numeric" class="form-control" name="userPhone" value="{{old('userPhone')}}" required />
                            
                           
                             <div class="invalid-feedback">Please choose a username.</div>
                              
                           </div>
                              <span style="color: red">
-                              @error('phone')
+                              @error('userPhone')
                                      {{$message}}
                                   @enderror
                              </span>

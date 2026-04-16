@@ -27,8 +27,8 @@
                           <th>City</th>
                           <th>Country</th>
                           <th>Commission rate</th>
-                          <th>Is_approved</th>
-                          <th>Is_active</th>
+                          <th>Approved</th>
+                          <th>Status</th>
                           <th>Edit</th>
                           <th>Delete</th>
 
@@ -46,8 +46,8 @@
                           <td>{{$vendor['city']}}</td>
                           <td>{{$vendor['country']}}</td>
                           <td>{{$vendor['commission_rate']}}</td>
-                          <td>{{$vendor['is_approved']}}</td>
-                          <td>{{$vendor['is_active']}}</td>
+                          <td>{{$vendor['is_approved']?"yes":"no"}}</td>
+                          <td>{{$vendor['is_active']?"yes":"no"}}</td>
                           <td><a href="{{route('vendorEdit',['edit_id'=>$vendor['id']])}}" class="btn btn-outline-primary">Edit</a></td>
                           <td><a href="{{route('vendorDelete',['delete_id'=>$vendor['id']])}}" class="btn btn-outline-danger">Delete</a></td>
                         </tr>

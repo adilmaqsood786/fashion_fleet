@@ -5,7 +5,7 @@
 
 
  <div class="card-header">
-                    <h3>Owner detaile :</h3>
+                    <h3>New vendor:</h3>
                   </div>
                   <!--end::Header-->
                   <!--begin::Form-->

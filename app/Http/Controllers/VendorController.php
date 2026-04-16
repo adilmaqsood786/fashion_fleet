@@ -3,6 +3,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Vendor;
+use App\Models\User;
+
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -17,13 +19,15 @@ class VendorController extends Controller
 
       public function create()
       {
-        return view('Vendors.create');
+        $users = User::all();
+        return view('Vendors.create',compact('users'));
       }
 
 
       public function store(Request $request)
 {
     $validate = Validator::make($request->all(),[
+      'user_id'=>'required',
         'store_name'=>'required',
         'store_slug'=>'required',
         'logo'=>'required|image|mimes:jpg,png,jpeg|max:2048',
@@ -36,7 +40,7 @@ class VendorController extends Controller
         'is_active'=>'required',
 
     ]); 
-
+// dd($validate);
     if($validate->fails())
     {
         return back()->withErrors($validate)->withInput();
@@ -70,7 +74,7 @@ class VendorController extends Controller
 
       'name' => $request->name,
             'email' => $request->email,
-            'phone' => $request->phone,
+            'userPhone' => $request->phone,
             'password' => Hash::make('123456'),
             'role' => $request->role,
             'status' => $request->status == 'active' ? 1 : 0,

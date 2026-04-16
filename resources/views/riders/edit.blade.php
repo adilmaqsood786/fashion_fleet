@@ -6,7 +6,7 @@
 @section('content')
 
                   <div class="card-header">
-    <div class="card-title"><h3>Rider Details</h3></div>
+    <div class="card-title"><h3>Edit Rider</h3></div>
 </div>
 
 <form action="{{ route('riderUpdate',['update_id'=>$riderRecord['id']]) }}" method="post" class="needs-validation" novalidate>
@@ -87,7 +87,7 @@
                           <label for="validationCustomUsername" class="form-label">Phone Number</label>
                           <div class="input-group has-validation">
                            
-                            <input type="numeric" class="form-control" name="phone" value="{{isset($riderRecord->user->phone)?$riderRecord->user->phone:""}}" required />
+                            <input type="numeric" class="form-control" name="userPhone" value="{{isset($riderRecord->user->userPhone)?$riderRecord->user->userPhone:""}}" required />
                             <div class="invalid-feedback">Please choose a username.</div>
                           </div>
                         </div>

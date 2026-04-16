@@ -8,9 +8,9 @@
         
                 <div class="card mb-4">
                   <div class="card-header">
-                    <h3 class="card-title">Category Record</h3>
+                    <h3 class="card-title">All Rider Record</h3>
                     <div class=" d-flex justify-content-end align-items-center">
-                    <a href="{{route('categoryCreate')}}" class="btn btn-outline-warning">New</a>
+                    <a href="{{route('riderCreate')}}" class="btn btn-outline-warning">New</a>
                     </div>
                   </div>
                   <!-- /.card-header -->
@@ -20,7 +20,7 @@
                       <thead>
                         <tr>
                             <th>ID</th>
-                          <th>User_id</th>
+                          <th>User </th>
                           <th>vehicle type</th>
                           <th>Vehicle number</th>
                           <th>License number</th>
@@ -35,12 +35,12 @@
                       <tbody>
                         <tr class="align-middle">
                          <td>{{ $rider['id'] }}</td>
-                         <td>{{ $rider['user_id'] }}</td>
+                         <td>{{ $rider->user->name }}</td>
                          <td>{{ $rider['vehicle_type'] }}</td>
                          <td>{{ $rider['vehicle_number']}}</td>
                          <td>{{ $rider['license_number']}}</td>
-                         <td>{{ $rider['is_available']}}</td>
-                         <td>{{ $rider['is_verified']}}</td>
+                         <td>{{ $rider['is_available']?"yes":"no"}}</td>
+                         <td>{{ $rider['is_verified']?"yes":"no"}}</td>
 
 
                           <td><a href="{{route('riderEdit',['edit_id'=>$rider['id']])}}" class="btn btn-outline-primary">Edit</a></td>

@@ -17,7 +17,7 @@ class Product extends Model
     // Categories relationship (Many-to-Many)
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(CategoryProduct::class);
     }
 }
 

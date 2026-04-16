@@ -24,7 +24,6 @@
                           <th>Name</th>
                           <th>Email</th>
                           <th>Phone</th>
-                          <th>Password </th>
                           <th>role</th>
                           <th>status</th>
                           <th>email_verified_at</th>
@@ -41,10 +40,9 @@
                           <td>{{$user['id']}}</td>
                           <td>{{$user['name']}}</td>
                           <td>{{$user['email']}}</td>
-                          <td>{{$user['phone']}}</td>
-                          <td>{{$user['password']}}</td>
+                          <td>{{$user['userPhone']}}</td>
                           <td>{{$user['role']}}</td>
-                          <td>{{$user['status']}}</td>
+                          <td>{{$user->status ?'yes':'no'}}</td>
                           <td>{{$user['email_verified_at']}}</td>
                              <td><a href="{{ route('user.edit',['id'=>$user['id']])}}" class="btn btn-secondary btn-sm">Profile</a></td>
                              <td><a href="{{ route('user.edit',['id'=>$user['id']])}}" class="btn btn-primary btn-sm">Edit</a></td>

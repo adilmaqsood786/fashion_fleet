@@ -12,23 +12,23 @@ class ProductController extends Controller
     
   public  function index()
   {
-    $product = Product::all();
+    $product = Product::with(['vendor','categories'])->get();
     return view('products.index',compact('product'));
   }
 
   public function create()
   { 
      $vendors = Vendor::all();
-     $categories = Category::whereNull('parent_id')->get();
-// dd($vendors); 
-     return view('products.create',compact('vendors','categories'));
+    //  $categories = Category::whereNull('parent_id')->get();
+// dd($vendors,$categories); 
+     return view('products.create',compact('vendors'));
   }
 
   public function store(Request $request)
   {
     $validate = Validator::make($request->all(),[
         'vendor_id'=>'required',
-        'category_id'=>'required',
+        'category_id'=>'required|nullable',
         'name'=>'required',
         'slug'=>'required|nullable',
         'short_description'=>'required',

@@ -13,9 +13,14 @@
                       <div class="row g-3">
                         <!--begin::Col-->
                         <div class="col-md-6">
-                          <label for="validationCustom01" class="form-label">User_id</label>
+                          <label for="validationCustom01" class="form-label">User</label>
                           
-                          <input type="number" class="form-control" name="user_id" required />
+                          {{-- <input type="number" class="form-control" name="user_id" required /> --}}
+                        <select name="user_id" class="form-control form-select" id="id">
+                          @foreach ($users as $user )
+                           <option value="{{$user->id}}">{{$user->name}}</option>
+                          @endforeach
+                        </select>
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->

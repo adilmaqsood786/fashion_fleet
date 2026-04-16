@@ -47,10 +47,24 @@
                           <label for="validationCustomUsername" class="form-label">Phone Number</label>
                           <div class="input-group has-validation">
                            
-                            <input type="numeric" class="form-control" name="phone" required />
+                            <input type="number" class="form-control" name="userPhone" />
                             <div class="invalid-feedback">Please choose a username.</div>
-                          </div>
+                          </div>  
                         </div>
+                               {{-- <input type="number" name="userPhone"> --}}
+
+                        <!--end::Col-->
+                         <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="validationCustomUsername" class="form-label">Password</label>
+                          <div class="input-group has-validation">
+                           
+                            <input type="password" class="form-control" name="password" />
+                            <div class="invalid-feedback">Please choose a username.</div>
+                          </div>  
+                        </div>
+                               {{-- <input type="number" name="userPhone"> --}}
+
                         <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col-md-6">
