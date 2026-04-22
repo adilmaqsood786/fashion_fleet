@@ -9,6 +9,8 @@ use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\ProductRatingController;
+use App\Http\Controllers\OrderController;
+
 
 
 
@@ -21,6 +23,16 @@ use App\Http\Controllers\ProductRatingController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+
+//order curd route
+Route::get('all-order',[OrderController::class,'index'])->name('orderIndex');
+Route::get('create-order',[OrderController::class,'create'])->name('orderCreate');
+Route::get('edit-order/{edit_id}',[OrderController::class,'edit'])->name('orderEdit');
+Route::post('store-order',[OrderController::class,'store'])->name('orderStore');
+Route::post('update-order/{update_id}',[OrderController::class,'update'])->name('orderUpdate');
+Route::get('delete-order/{delete_id}',[OrderController::class,'destroy'])->name('orderDelete');
 
 
 //user curd route 

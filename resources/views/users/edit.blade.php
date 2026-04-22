@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Phone</label>
-                    <input type="text" class="form-control" name="profile_phone" value="{{ $user->profile->phone ?? '' }}">
+                    <input type="text" class="form-control" name="profilePhone" value="{{ $user->profile->phone ?? '' }}">
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Address Line 1</label>
@@ -95,7 +95,27 @@
                     <label class="form-label">Country</label>
                     <input type="text" class="form-control" name="country" value="{{ $user->profile->country ?? '' }}">
                 </div>
+
+                                  
+  <!-- Latitude -->
+            <div class="col-md-6">
+                <label class="form-label">Latitude</label>
+                <input type="number" step="0.000001" name="latitude" class="form-control" value="{{isset($user->profile->latitude)?$user->profile->latitude:""}}" required>
+            </div>  
+
+            <!-- Longitude -->
+            <div class="col-md-6">
+                <label class="form-label">Longitude</label>
+                <input type="number" step="0.000001" name="longitude" class="form-control" value="{{isset($user->profile->longitude)?$user->profile->longitude:""}}" required>
             </div>
+             <!-- Is Default -->
+            <div class="col-md-6 mt-4">
+                <input type="hidden" name="is_default" value="0">
+                <input type="checkbox" name="is_default" value="{{isset($user->profile->is_default)?$user->profile->is_default:""}}" value="1">
+                <label class="form-label">Set as Default</label>
+            </div>
+            </div>
+
         </section>
 
         {{--================= Vendor Profile =================--}}
@@ -113,11 +133,9 @@
                              <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Store Slug</label>
                             
-                        <select name="store_slug" class="form-control">
-                           <option value="men" {{ ($user->vendor->store_slug ?? '') == 'men' ? 'selected' : '' }}>Men</option>
-                           <option value="women" {{ ($user->vendor->store_slug ?? '') == 'women' ? 'selected' : '' }}>Women</option>
-                        </select>
-                             </div>
+                       
+                    <input type="text" name="slug" class="form-control" value="{{old('$user->vendor->store_slug ',isset($user->vendor->store_slug )?$user->vendor->store_slug :"")}}"  id="slug">         
+                    </div>
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom03" class="form-label">Logo</label>

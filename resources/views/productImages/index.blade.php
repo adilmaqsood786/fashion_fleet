@@ -24,7 +24,7 @@
                       <thead>
                         <tr>
                           <th style="width: 10px">#</th>
-                          <th>product_id</th>
+                          <th>Product</th>
                           <th>Image</th>
                           <th>sort_order</th>
                           <th>Edit</th>
@@ -33,7 +33,7 @@
                         </tr>
                       </thead>
                   @foreach ($image as $img )
-                      <tbody>
+                      <tbody> 
                         <tr class="align-middle">
                           <td>{{$img['id']}}</td>
                           <td>{{$img->product_id}}</td>

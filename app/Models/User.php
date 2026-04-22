@@ -21,4 +21,12 @@ class User extends Model
     {
         return $this->hasOne(Rider::class);
     }
+    public function orders()
+{
+    return $this->hasMany(Order::class);
+}
+ public function productRatings()
+    {
+        return $this->hasMany(ProductRating::class);
+    }
 }

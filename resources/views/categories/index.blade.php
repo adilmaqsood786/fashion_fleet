@@ -22,7 +22,7 @@
                           <th>Name</th>
                           <th>Slug</th>
                           <th>Image</th>
-                          <th>Parent</th>
+                          <th>Main Category</th>
                           <th>Status</th>
                           <th>Edit</th>
                           <th>Delete</th>
@@ -36,7 +36,7 @@
                          <td>{{ $category['name'] }}</td>
                          <td>{{ $category['slug'] }}</td>
                          <td><img src="{{ asset('storage/'.$category->image) }}" width="100" height="100"></td>
-                         <td>{{ $category['parent_id']? $category->name:""}}</td>
+                         <td>{{ $category->parent_id? $category->name:""}}</td>
                          <td>{{ $category['is_active']?"yes":"no"}}</td>
                           <td><a href="{{route('categoryEdit',['edit_id'=>$category['id']])}}" class="btn btn-outline-primary">Edit</a></td>
                           <td><a href="{{route('categoryDelete',['delete_id'=>$category['id']])}}" class="btn btn-outline-danger">Delete</a></td>

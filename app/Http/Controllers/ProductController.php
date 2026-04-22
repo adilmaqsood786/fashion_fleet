@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Vendor;
-use App\Models\Category;
+use App\Models\CategoryProduct;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -12,23 +12,26 @@ class ProductController extends Controller
     
   public  function index()
   {
-    $product = Product::with(['vendor','categories'])->get();
+    // dd("here");
+    $product = Product::with(['vendor'])->get();
+    // dd($product);
     return view('products.index',compact('product'));
   }
 
   public function create()
   { 
      $vendors = Vendor::all();
-    //  $categories = Category::whereNull('parent_id')->get();
+     $categories = CategoryProduct::whereNull('parent_id')->get();
 // dd($vendors,$categories); 
-     return view('products.create',compact('vendors'));
+     return view('products.create',compact('vendors','categories'));
   }
 
   public function store(Request $request)
   {
+    // dd($request->all());
     $validate = Validator::make($request->all(),[
         'vendor_id'=>'required',
-        'category_id'=>'required|nullable',
+        'category_id'=>'required',
         'name'=>'required',
         'slug'=>'required|nullable',
         'short_description'=>'required',

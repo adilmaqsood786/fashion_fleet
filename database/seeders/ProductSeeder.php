@@ -13,21 +13,22 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         Product::insert([
-             [
-                'vendor_id' => 1,
-                'categoryProduct_id' => 2,
-                'name' => 'iPhone 13',
-                'slug' => 'iphone-13',
-                'short_description' => 'Latest Apple iPhone',
-                'description' => 'High performance smartphone',
-                'sku' => 'SKU001',
-                'price' => 150000,
-                'sale_price' => 140000,
-                'stock' => 10,
-                'main_image' => null,
-                'is_active' => 1,
-                'is_featured' => 1,
-            ],
+           [
+    'vendor_id' => 1,
+    'category_id' => 2, 
+
+    'name' => 'iPhone 13',
+    'slug' => 'iphone-13',
+    'short_description' => 'Latest Apple iPhone',
+    'description' => 'High performance smartphone',
+    'sku' => 'SKU001',
+    'price' => 150000,
+    'sale_price' => 140000,
+    'stock' => 10,
+    'main_image' => null,
+    'is_active' => 1,
+    'is_featured' => 1,
+],
                 // [
                 //     'vendor_id' => 2,
                 //     // 'category_id' => 2,

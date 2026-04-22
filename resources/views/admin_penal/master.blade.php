@@ -389,9 +389,9 @@
                  
                 </ul>
 
-  {{--========Vendor_sidebar=======--}}
+  {{-- ========Vendor_sidebar======= --}}
               
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
                   <p>
@@ -413,12 +413,12 @@
                     </a>
                   </li>
                  
-                </ul>
+                </ul> --}}
 
   
  {{--========user_profile_sidebar=======--}}
 
-
+{{-- 
                  <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
@@ -442,11 +442,11 @@
                   </li>
                  
                 </ul>
-              </li>
+              </li> --}}
  {{--========category_sidebar=======--}}
 
 
-                 <li class="nav-item">
+                 {{-- <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
                   <p>
@@ -469,7 +469,7 @@
                   </li>
                  
                 </ul>
-              </li>
+              </li> --}}
 
               {{--===========Products============--}}
 {{--========product_sidebar=======--}}
@@ -558,7 +558,33 @@
                  
                 </ul>
               </li>
+{{--========product_Rating_sidebar=======--}}
 
+
+                 <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon bi bi-speedometer"></i>
+                  <p>
+                    Order
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                   <li class="nav-item">
+                    <a href="{{route('orderIndex')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>All order</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('orderCreate')}}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>New Order</p>
+                    </a>
+                  </li>
+                 
+                </ul>
+              </li>
 
 
 

@@ -1,7 +1,7 @@
 @extends('admin_penal.master')
 @section('content')
  <div class="card-header">
-                    <h3>Owner detail :</h3>
+                    <h3>New Product:</h3>
                   </div>
                   <!--end::Header-->
                   <!--begin::Form-->
@@ -37,13 +37,13 @@
                           
                           <label for="validationCustom01" class="form-label">Category Name</label>
                           
-                          <input type="number" class="form-control" name="categoryProduct_id" value="{{old('category_id')}}"  required />
-                          {{-- <select name="vendor_id" id="id" class="form-controls form-select">
+                          {{-- <input type="number" class="form-control" name="categoryProduct_id" value="{{old('category_id')}}"  required /> --}}
+                          <select name="category_id" id="id" class="form-controls form-select">
                               @foreach ($categories as $category)
                                  <option value="{{$category->id}}">{{$category->name}}</option>
 
                               @endforeach
-                            </select> --}}
+                            </select>
                           <span style="color: red">
                             @error('category_id')
                                 {{$message}}

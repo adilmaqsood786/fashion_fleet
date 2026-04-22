@@ -21,16 +21,17 @@ class CategoryProductController extends Controller
      
        public function store(Request $request)
        {
-         $validate =  Validator::make($request->all(),[
+// dd($request->all());
+       $validate =  Validator::make($request->all(),[
             
                 'name' => 'required',
                 'slug' => 'required',
                 'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
-                'parent_id' => 'required',
+                'parent_id' => 'Nullable',
                 'is_active' => "required|Nullable",
 
          ]); 
-
+// dd($validate); 
          if($validate->fails())
             {
                //   dd($validate->errors());Q
@@ -62,7 +63,9 @@ class CategoryProductController extends Controller
      public function edit($edit_id)
      {
         $categoryRecord = CategoryProduct::where('id',$edit_id)->first();
-        return view('categories.edit',compact('categoryRecord'));
+        $categories = CategoryProduct::all();
+
+        return view('categories.edit',compact('categoryRecord','categories'));
      }
 
 

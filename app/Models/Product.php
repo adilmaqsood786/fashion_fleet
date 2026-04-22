@@ -18,6 +18,28 @@ class Product extends Model
     public function categories()
     {
         return $this->belongsToMany(CategoryProduct::class);
+
     }
+      // Product has many images
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
+    // Product has many ratings
+    public function ratings()
+    {
+        return $this->hasMany(ProductRating::class);
+    }
+
+    // (optional) average rating helper
+    public function averageRating()
+    {
+        return $this->ratings()->avg('rating');
+    }
+    public function orderItems()
+{
+    return $this->hasMany(OrderItem::class);
+}
 }
 

@@ -13,7 +13,7 @@ class ProductRatingController extends Controller
 {
     public function index()
     {
-        $rating = ProductRating::all();
+        $rating = ProductRating::with(['product','user','order'])->get();
         return view('productRating.index',compact('rating'));
     }
 

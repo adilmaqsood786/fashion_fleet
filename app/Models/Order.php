@@ -26,4 +26,9 @@ public function profile()
 {
     return $this->belongsTo(UserProfile::class);
 }
+
+public function items()
+{
+    return $this->hasMany(Order_item::class);
+}
 }

@@ -39,7 +39,19 @@
                         <div class="col-md-6">
                           <label for="validationCustom02" class="form-label">Parent_id</label>
                           
-                          <input type="text" class="form-control" value="{{isset($categoryRecord['parent_id'])?$categoryRecord['parent_id']:""}}" name="parent_id" required />
+                          {{-- <input type="text" class="form-control" value="{{isset($categoryRecord['parent_id'])?$categoryRecord['parent_id']:""}}" name="parent_id" required /> --}}
+                        <select name="parent_id" class="form-control form-select">
+                           <option value="">None</option>
+                       
+                           @foreach ($categories as $cate)
+                               @if (empty($cate->parent_id) && $cate->id != $cate->id)
+                                   <option value="{{ $cate->id }}"
+                                       {{ old('parent_id', $brandRecord->parent_id) == $cate->id ? 'selected' : '' }}>
+                                       {{ $cate->name }}
+                                   </option>
+                               @endif
+                           @endforeach
+                       </select>
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->

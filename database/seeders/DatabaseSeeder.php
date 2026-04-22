@@ -42,28 +42,24 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
     // Base tables
-    CategoryProductSeeder::class,
-    UserSeeder::class,
-    RiderSeeder::class,
-    
-    // User extensions
-    UserProfileSeeder::class,
-    VendorSeeder::class,
-    
-    // Products
-    ProductSeeder::class,
-    ProductImageSeeder::class,
-    
-    // Orders and related
-    OrderSeeder::class,
-    Order_itemSeeder::class,
-    
-    // Reviews (needs orders and products)
-    ProductRatingSeeder::class,
-    
-    // Fulfillment
-    DeliverySeeder::class,
-    PaymentSeeder::class,
+   CategoryProductSeeder::class,
+UserSeeder::class,
+RiderSeeder::class,
+
+UserProfileSeeder::class,
+VendorSeeder::class,
+
+ProductSeeder::class,
+ProductImageSeeder::class,
+
+OrderSeeder::class,
+
+Order_itemSeeder::class,
+
+ProductRatingSeeder::class,
+
+DeliverySeeder::class,
+PaymentSeeder::class,
 ]);
     }
 }

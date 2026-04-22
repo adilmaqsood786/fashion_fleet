@@ -43,15 +43,6 @@ class UserController extends Controller
                 return back()->withErrors($validate)->withInput();
             }
 
-
-
-
-
-
-
-
-
-
     
         // Create User
         $user = User::create([
@@ -70,35 +61,11 @@ class UserController extends Controller
 //        $validate = Validator::$user->profile()->make($request->all(),[
 
 
-//   //user_profile
-//         'user_id'=>'required',
-//         'label'=>'required',
-//         'full_name'=>'required',
-//         'phone'=>'required|unique',
-//         'address_line_1'=>'required',
-//         'address_line_2'=>'required',
-//         'city'=>'required',
-//         'state'=>'required',
-//         'postal_code'=>'required',
-//         'country'=>'required',
-//         'latitude'=>'required',
-//         'longitude'=>'required',
-//         'is_default'=>'required',
-
-//        ]);
-
-
-
-//           if($validate->fails())
-//             {
-//                 return back()->withErrors($validate)->withInput();
-//             }
 
 
     $user->profile()->create([
-        'label' => $request->label,
         'full_name' => $request->full_name,
-        'phone' => $request->phone,
+        'profilePhone' => $request->profilePhone,
         'address_line_1' => $request->address_line_1,
         'address_line_2' => $request->address_line_2,
         'city' => $request->city,
@@ -164,12 +131,21 @@ class UserController extends Controller
             'status' => $request->status == 'active' ? 1 : 0,
         ]);
 
-        if($user->role == 'customer' && $user->profile){
-            $user->profile->update([
-                'full_name' => $request->full_name,
-                'city' => $request->city,
+           if($user->role == 'customer' && $user->profile){
+       $user->profile->update([
+        'full_name' => $request->full_name,
+        'profilePhone' => $request->profilePhone,
+        'address_line_1' => $request->address_line_1,
+        'address_line_2' => $request->address_line_2,
+        'city' => $request->city,
+        'state' => $request->state,
+        'postal_code' => $request->postal_code,
+        'country' => $request->country,
+        'latitude' => $request->latitude ?? 0,
+        'longitude' => $request->longitude ?? 0,
+        'is_default' => $request->is_default ?? 0,
             ]);
-        }
+            }
       
         
         // VENDOR UPDATE 

@@ -14,40 +14,63 @@ class ProductRatingSeeder extends Seeder
      */
     public function run(): void
     {
-        ProductRating::insert([
-  [
-                'product_id' => 1,
-                'order_id' => 1,
-                'user_id' => 1,
-                'rating' => 5,
-                'title' => 'Excellent product!',
-                'review' => 'This product exceeded my expectations. Very high quality and fast delivery. Will definitely buy again.',
-                'is_approved' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'product_id' => 2,
-                'order_id' => 2,
-                'user_id' => 2,
-                'rating' => 4,
-                'title' => 'Good value for money',
-                'review' => 'Pretty good product for the price. A few minor issues but overall satisfied.',
-                'is_approved' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'product_id' => 3,
-                'order_id' => 3,
-                'user_id' => 3,
-                'rating' => 3,
-                'title' => 'Average product',
-                'review' => 'Its okay, nothing special. Works as described but could be better.',
-                'is_approved' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
+$products = \App\Models\Product::all();
+$users = \App\Models\User::all();
+$orders = \App\Models\Order::all();
+
+$ratings = [];
+
+foreach ($products->take(3) as $index => $product) {
+
+    $ratings[] = [
+        'product_id' => $product->id,   // ✅ real ID
+        'user_id' => $users[$index]->id ?? $users->first()->id,
+        'order_id' => $orders[$index]->id ?? $orders->first()->id,
+
+        'rating' => rand(3, 5),
+        'title' => ['Excellent product!', 'Good value for money', 'Average product'][$index] ?? 'Good product',
+        'review' => 'Auto generated review for testing purposes',
+
+        'is_approved' => true,
+        'created_at' => now(),
+        'updated_at' => now(),
+    ];
+}
+
+\DB::table('product_ratings')->insert($ratings);
+//   [
+//                 'product_id' => 1,
+//                 'order_id' => 1,
+//                 'user_id' => 1,
+//                 'rating' => 5,
+//                 'title' => 'Excellent product!',
+//                 'review' => 'This product exceeded my expectations. Very high quality and fast delivery. Will definitely buy again.',
+//                 'is_approved' => true,
+//                 'created_at' => now(),
+//                 'updated_at' => now(),
+//             ],
+//             [
+//                 'product_id' => 2,
+//                 'order_id' => 2,
+//                 'user_id' => 2,
+//                 'rating' => 4,
+//                 'title' => 'Good value for money',
+//                 'review' => 'Pretty good product for the price. A few minor issues but overall satisfied.',
+//                 'is_approved' => true,
+//                 'created_at' => now(),
+//                 'updated_at' => now(),
+//             ],
+//             [
+//                 'product_id' => 3,
+//                 'order_id' => 3,
+//                 'user_id' => 3,
+//                 'rating' => 3,
+//                 'title' => 'Average product',
+//                 'review' => 'Its okay, nothing special. Works as described but could be better.',
+//                 'is_approved' => true,
+//                 'created_at' => now(),
+//                 'updated_at' => now(),
+//             ],
             // [
             //     'product_id' => 1,
             //     'order_id' => 4,
@@ -125,6 +148,5 @@ class ProductRatingSeeder extends Seeder
             //     'created_at' => now(),
             //     'updated_at' => now(),
             // ],
-        ]);
     }
 }

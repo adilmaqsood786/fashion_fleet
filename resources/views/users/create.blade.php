@@ -101,15 +101,7 @@
               <div class="row g-3">
                 <h3>Vendor</h3>
                 
-                <!--begin::Col-->
-                        <div class="col-md-6">
-                          
-                          <label for="validationCustom01" class="form-label">User Id</label>
-                          
-                          <input type="text" class="form-control" name="user_id"  required />
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col-->
+        
                         <!--begin::Col-->
                          <div class="col-md-6">
 
@@ -124,11 +116,11 @@
                         <div class="col-md-6">
                           <label for="slug" class="form-label">Store Slug</label>
                         
-                          <select name="store_slug" class="form-control" required>
+                          {{-- <select name="store_slug"  required>
                               <option value="men">Men</option>
                               <option value="women">Women</option>
-                          </select>
-                        
+                          </select> --}}
+                        <input type="text" name="slug" class="form-control" id="slug" >
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->
@@ -209,22 +201,7 @@
   {{--=========User_profile=========--}}
 <section id="customer_section" class="mt-5 d-none">
  <div class="row g-3">
-                        <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustom01" class="form-label">User_id</label>
-                          
-                          <input type="number" class="form-control" name="user_id" required />
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col-->
-                        <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustom02" class="form-label">Label</label>
-                          
-                          <input type="text" class="form-control" name="label" required />
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col-->
+                       
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustomUsername" class="form-label">Full Name</label>

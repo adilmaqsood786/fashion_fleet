@@ -13,7 +13,7 @@ class ProductImageController extends Controller
 
 public function index(){
     // $image = ProductImage::select('product_id','image_path')->get();
-    $image = ProductImage::all();
+    $image = ProductImage::with(['product'])->get();
 
     return view('productImages.index',compact('image')); 
 }

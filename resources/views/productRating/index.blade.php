@@ -13,7 +13,7 @@
         
                 <div class="card mb-4">
                   <div class="card-header">
-                    <h3 class="card-title">Category Record</h3>
+                    <h3 class="card-title">All Product Rating</h3>
                     <div class=" d-flex justify-content-end align-items-center">
                     <a href="{{route('ratingCreate')}}" class="btn btn-info">New</a>
                     </div>
@@ -42,9 +42,9 @@
                       <tbody>
                         <tr class="align-middle">
                          <td>{{$rate->id }}</td>
-                         <td>{{$rate->product_id }}</td>
-                         <td>{{$rate->user_id }}</td>
-                         <td>{{$rate->order_id}}</td>
+                         <td>{{$rate->product_id}}</td>
+                         <td>{{$rate->user->name }}</td>
+                         <td>{{$rate->order->payment_status}}</td>
                          <td>{{$rate->rating}}</td>
                          <td>{{$rate->title}}</td>
                          <td>{{$rate->review}}</td>
