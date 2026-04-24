@@ -5,7 +5,7 @@
 @section('content')
 
                   <div class="card-header">
-    <div class="card-title"><h3>Rider Details</h3></div>
+    <div class="card-title"><h3>Edit Product Rating </h3></div>
 </div>
 {{-- @if($errors->any())
 @foreach ($errors->all() as $error)

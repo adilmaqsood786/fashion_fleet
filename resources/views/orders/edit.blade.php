@@ -296,7 +296,7 @@
 
 
                    {{--===========order_item===========--}}
-                    <section class="mt-5">
+                    {{-- <section class="mt-5">
 
                   <h3>Order Items</h3>
                       <div class="row g-3">
@@ -401,7 +401,7 @@
                          
                       
                       </div>
-                    </section>
+                    </section> --}}
 
 
 

@@ -24,6 +24,7 @@ class UserController extends Controller
     public function store(Request $request)
 
 {
+    // dd($request->profilePhone);   
        //validation
          $validate = Validator::make($request->all(),[
             //user
@@ -58,7 +59,8 @@ class UserController extends Controller
 
        if($request->role == 'customer'){
 
-//        $validate = Validator::$user->profile()->make($request->all(),[
+
+       //        $validate = Validator::$user->profile()->make($request->all(),[
 
 
 

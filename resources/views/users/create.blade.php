@@ -120,7 +120,7 @@
                               <option value="men">Men</option>
                               <option value="women">Women</option>
                           </select> --}}
-                        <input type="text" name="slug" class="form-control" id="slug" >
+                        <input type="text" name="store_slug" class="form-control" id="slug" >
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->
@@ -138,7 +138,8 @@
                           <label for="validationCustomUsername" class="form-label">Description</label>
                           <div class="input-group has-validation">
                            
-                            <input type="text" class="form-control" name="description" required />
+                            {{-- <input type="text" class="form-control" name="description" required /> --}}
+                           <textarea name="description" class="form-control" ></textarea>
                             <div class="invalid-feedback">Please choose a username.</div>
                           </div>
                         </div>
@@ -216,7 +217,7 @@
                         <div class="col-md-6">
                           <label for="validationCustom03" class="form-label">Phone Number</label>
                         
-                          <input type="number" class="form-control" name="phone" required />
+                          <input type="number" class="form-control" name="profilePhone" required />
                           <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
                         <!--end::Col-->

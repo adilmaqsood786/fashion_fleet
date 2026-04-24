@@ -52,13 +52,13 @@ class OrderController extends Controller
              'placed_at'=>'required',
              'delivered_at'=>'required',
 
-//order items
-              'order_id'=>'required',
-             'product_id'=>'required',
-             'product_name'=>'required',
-             'product_price'=>'required',
-             'quantity'=>'required',
-             'total'=>'required',
+// //order items
+//               'order_id'=>'required',
+//              'product_id'=>'required',
+//              'product_name'=>'required',
+//              'product_price'=>'required',
+//              'quantity'=>'required',
+//              'total'=>'required',
 
            ]);
 
@@ -86,15 +86,13 @@ class OrderController extends Controller
              'delivered_at'=>$request->delivered_at,
         ]);
 
-
-        $order->items()->create([
-            'order_id'=>$request->order_id,
-             'product_id'=>$request->product_id,
-             'product_name'=>$request->product_name,
-             'product_price'=>$request->product_price,
-             'quantity'=>$request->quantity,
-             'total'=>$request->total,
-        ]);
+        // $order->items()->create([
+        //      'product_id'=>$request->product_id,
+        //      'product_name'=>$request->product_name,
+        //      'product_price'=>$request->product_price,
+        //      'quantity'=>$request->quantity,
+        //      'total'=>$request->total,
+        // ]);
   
          return redirect()->route('orderIndex');
    }
@@ -106,11 +104,11 @@ class OrderController extends Controller
     $vendors = Vendor::all();
     $riders = Rider::all();
     $profiles = UserProfile::all();
-    $orders = Order::all();
-    $products = Product::all();
+    // $orders = Order::all();
+    // $products = Product::all();
 
 
-    return view('orders.edit',compact('orderRecord','users','vendors','riders','profiles','orders','products'));
+    return view('orders.edit',compact('orderRecord','users','vendors','riders','profiles'));
 
    }
 
@@ -147,27 +145,27 @@ class OrderController extends Controller
       //  ]);
             
 
-                  $item = $orderRecord->items()->first();
+            //       $item = $orderRecord->items()->first();
             
-            if ($item) {
-                $item->update([
-                    'product_id' => $request->product_id,
-                    'product_name' => $request->product_name,
-                    'product_price' => $request->product_price,
-                    'quantity' => $request->quantity,
-                     'total'=>$request->total,
+            // if ($item) {
+            //     $item->update([
+            //         'product_id' => $request->product_id,
+            //         'product_name' => $request->product_name,
+            //         'product_price' => $request->product_price,
+            //         'quantity' => $request->quantity,
+            //          'total'=>$request->total,
 
-                ]);
-            } else {
-                $orderRecord->items()->create([
-                    'product_id' => $request->product_id,
-                    'product_name' => $request->product_name,
-                    'product_price' => $request->product_price,
-                    'quantity' => $request->quantity,
-                    'total'=>$request->total,
+            //     ]);
+            // } else {
+            //     $orderRecord->items()->create([
+            //         'product_id' => $request->product_id,
+            //         'product_name' => $request->product_name,
+            //         'product_price' => $request->product_price,
+            //         'quantity' => $request->quantity,
+            //         'total'=>$request->total,
                 
-                    ]);
-            }
+            //         ]);
+            // }
                       return \redirect()->route('orderIndex');  
      } 
 
