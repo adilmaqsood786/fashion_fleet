@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\ProductController;
+
+
+route::get('product',[ProductController::class,'index']);
+
 
 
 Route::get('all-customers', [ CustomerController::class,'index']);
