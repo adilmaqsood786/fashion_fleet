@@ -60,6 +60,8 @@ ProductRatingSeeder::class,
 
 DeliverySeeder::class,
 PaymentSeeder::class,
+// RegistrationUserSeeder::class,
+
 ]);
     }
 }

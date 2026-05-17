@@ -38,7 +38,8 @@
                       <tbody>
                         <tr class="align-middle">
                           <td>{{$user['id']}}</td>
-                          <td>{{$user['name']}}</td>
+                          {{-- <td>{{$user['name']}}</td> --}}
+                          <td>{{Auth::user()->name}}</td>
                           <td>{{$user['email']}}</td>
                           <td>{{$user['userPhone']}}</td>
                           <td>{{$user['role']}}</td>

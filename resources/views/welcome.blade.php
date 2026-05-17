@@ -83,7 +83,7 @@
         <div class="card-body login-card-body">
           <p class="login-box-msg">Sign in to start your session</p>
 
-       <form id="loginForm" action="{{ route('user.index') }}" method="">
+       <form id="loginForm" action="{{route('loginCheck')}}" method="POST">
     @csrf
 
     <div class="input-group mb-3">

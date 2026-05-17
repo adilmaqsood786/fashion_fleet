@@ -34,7 +34,7 @@
  <!-- Password -->
                 <div class="col-md-6">
                     <label class="form-label">Password</label>
-                    <input type="text" class="form-control" name="password" value="{{ old('password', $user->password) }}" required>
+                    <input type="text" class="form-control" name="password" value="" required>
                     <div class="invalid-feedback">Please provide a valid phone.</div>
                 </div>
                 <!-- Role -->

@@ -21,9 +21,23 @@ use App\Http\Controllers\OrderController;
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -43,8 +57,10 @@ Route::post('/user/store', [UserController::class, 'store'])->name('user.store')
 Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
 Route::post('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
 Route::get('/user/{delete_id}', [UserController::class, 'destroy'])->name('user.delete');
+route::get('login',[UserController::class,'loginUser'])->name('loginUser');
+route::post('login-user',[UserController::class, 'loginCheck'])->name('loginCheck');
 
-
+    
 
 
 //user_address curd route

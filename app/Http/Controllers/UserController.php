@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 
 class UserController extends Controller
@@ -26,16 +27,16 @@ class UserController extends Controller
 {
     // dd($request->profilePhone);   
        //validation
-         $validate = Validator::make($request->all(),[
-            //user
-            'name' =>'required',
-            'email' =>'required|email|unique:users,email' ,
-            'userPhone' => 'required|nullable',
-            'role' => 'required',
-            'status' => 'required',
-            
-         
-         ]);
+        $validate = Validator::make($request->all(),[
+
+    'name' =>'required',
+    'email' =>'required|email|unique:users,email',
+    'password' => 'required|min:6',
+    'userPhone' => 'required',
+    'role' => 'required',
+    'status' => 'required',
+
+]);
 
 // dd($validate);
 
@@ -50,7 +51,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'userPhone' => $request->userPhone,
-            'password' => Hash::make('123456'),
+            'password' => Hash::make($request->password),
             'role' => $request->role,
             'status' => $request->status == 'active' ? 1 : 0,
         ]); 
@@ -128,7 +129,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'userPhone' => $request->userPhone,
-            'password' => Hash::make('123456'),
+            'password' => Hash::make($request->password),
             'role' => $request->role,
             'status' => $request->status == 'active' ? 1 : 0,
         ]);
@@ -182,4 +183,27 @@ class UserController extends Controller
         User::where('id',$delete_id)->first()->delete();
         return redirect()->route('user.index');
     }
-}   
+   
+
+
+ public function loginUser(){    
+     return view('welcome');
+    }
+
+
+
+
+
+     public function loginCheck(Request $request){
+
+      $userLogin = Auth::attempt(['email'=>$request->email, 'password' =>$request->password]);
+     
+     if($userLogin){
+       return redirect()->route('user.index');
+
+     }
+     return redirect()->back();
+
+
+    }
+}

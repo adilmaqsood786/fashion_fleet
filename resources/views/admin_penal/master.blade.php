@@ -328,11 +328,11 @@
               id="navigation"
             > 
              <li class="nav-item">
-                <a href="/" class="nav-link">
+                <a href="{{route('loginUser')}}" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
                   <p>
                     Home
-                    {{-- <i class="nav-arrow bi bi-chevron-right"></i> --}}
+                     <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>
                 <li>
@@ -365,33 +365,11 @@
                  
  {{--========Vendor_sidebar=======--}}
               
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-speedometer"></i>
-                  <p>
-                      Category
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{{route('categoryIndex')}}" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>All categories</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{route('categoryCreate')}}" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>New categories</p>
-                    </a>
-                  </li>
-                 
-                </ul>
+              </
 
   {{-- ========Vendor_sidebar======= --}}
               
-              {{-- <li class="nav-item">
+               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
                   <p>
@@ -413,12 +391,12 @@
                     </a>
                   </li>
                  
-                </ul> --}}
+                </ul> 
 
   
  {{--========user_profile_sidebar=======--}}
 
-{{-- 
+
                  <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
@@ -442,11 +420,11 @@
                   </li>
                  
                 </ul>
-              </li> --}}
+              </li> 
  {{--========category_sidebar=======--}}
 
 
-                 {{-- <li class="nav-item">
+                 <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
                   <p>
@@ -469,13 +447,13 @@
                   </li>
                  
                 </ul>
-              </li> --}}
+              </li>
 
               {{--===========Products============--}}
 {{--========product_sidebar=======--}}
 
 
-                 <li class="nav-item">
+                  <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
                   <p>
@@ -526,15 +504,15 @@
                     </a>
                   </li>
                  
-                </ul>
-              </li>
+                </ul> 
+              {{-- </li> --}}
 
 
 
 {{--========product_Rating_sidebar=======--}}
 
 
-                 <li class="nav-item">
+                <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
                   <p>
@@ -561,30 +539,30 @@
 {{--========product_Rating_sidebar=======--}}
 
 
-                 <li class="nav-item">
+                 {{-- <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
                   <p>
-                    Order
+                    User
                     <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
                    <li class="nav-item">
-                    <a href="{{route('orderIndex')}}" class="nav-link">
+                    <a href="" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
-                      <p>All order</p>
+                      <p>All user</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{route('orderCreate')}}" class="nav-link">
+                    <a href="{{route('registration')}}" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
-                      <p>New Order</p>
+                      <p>Add user</p>
                     </a>
                   </li>
                  
                 </ul>
-              </li>
+              </li>   --}}
 
 
 
