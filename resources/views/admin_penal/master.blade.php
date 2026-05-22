@@ -368,26 +368,26 @@
               </
 
   {{-- ========Vendor_sidebar======= --}}
-              
+              <ul>
                <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
                   <p>
-                    Vendors
+                    Categories
                     <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{route('vendorIndex')}}" class="nav-link">
+                    <a href="{{route('categoryIndex')}}" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
-                      <p>All Vendor</p>
+                      <p>All Categories</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{route('vendorCreate')}}" class="nav-link">
+                    <a href="{{route('categoryCreate')}}" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
-                      <p>New Vendor</p>
+                      <p>Add Category</p>
                     </a>
                   </li>
                  
@@ -401,21 +401,21 @@
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
                   <p>
-                    User Profile
+                    Order
                     <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
                    <li class="nav-item">
-                    <a href="{{route('profileIndex')}}" class="nav-link">
+                    <a href="{{route('orderIndex')}}" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
-                      <p>All Profile</p>
+                      <p>All Orders</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{route('profileCreate')}}" class="nav-link">
+                    <a href="{{route('orderCreate')}}" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
-                      <p>New Profile</p>
+                      <p>Add Order</p>
                     </a>
                   </li>
                  
@@ -423,7 +423,7 @@
               </li> 
  {{--========category_sidebar=======--}}
 
-
+{{-- 
                  <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
@@ -447,7 +447,7 @@
                   </li>
                  
                 </ul>
-              </li>
+              </li> --}}
 
               {{--===========Products============--}}
 {{--========product_sidebar=======--}}

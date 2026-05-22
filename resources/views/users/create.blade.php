@@ -89,9 +89,19 @@
                            <div class="invalid-feedback">Please select a valid status.</div>     
                    <!--end::Col-->
                    </div>
+
+                   <div class="col-md-6">
+                       <label>Email Verification</label>
+                   
+                       <select name="email_verified" class="form-control form-select">
+                           <option value="1">Verified</option>
+                           <option value="0">Not Verified</option>
+                       </select>
+                           <div class="invalid-feedback">Please select a valid status.</div>     
+                   </div>
                   
-                   {{-- <!--end::Row-->
-                    </div> --}}
+                   <!--end::Row-->
+                    </div>
                   
                   </section>
 

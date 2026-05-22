@@ -42,7 +42,7 @@
                       <tbody>
                         <tr class="align-middle">
                          <td>{{$rate->id }}</td>
-                         <td>{{$rate->product_id}}</td>
+                         <td>{{$rate->product_id ? $rate->product->name:""}}</td>
                          <td>{{$rate->user->name }}</td>
                          <td>{{$rate->order->payment_status}}</td>
                          <td>{{$rate->rating}}</td>

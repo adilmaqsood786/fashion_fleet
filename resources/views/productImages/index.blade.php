@@ -36,7 +36,7 @@
                       <tbody> 
                         <tr class="align-middle">
                           <td>{{$img['id']}}</td>
-                          <td>{{$img->product_id}}</td>
+                          <td>{{$img->product_id ? $img->product->name:""}}</td>
                           <td><img src="{{ asset('storage/'.$img->image_path) }}" width="100" height="100"></td>
                           <td>{{$img->sort_order}}</td>
                           <td><a href="{{route('imageEdit',['edit_id'=>$img->id])}}" class="btn btn-outline-primary">Edit</a></td>

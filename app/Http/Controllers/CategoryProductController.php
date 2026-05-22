@@ -70,27 +70,27 @@ class CategoryProductController extends Controller
 
 
      
-     //update method
-     public function update(Request $request)
-     {
-         $categoryRecord = CategoryProduct::where('id',$request->update_id)->first();
-      
-         $imagePath = $categoryRecord->image;
-      
-                if($request->hasFile('image')) {
-                $path = $request->file('image')->store('/image','public');
-                $imagePath = $path; // store full path
+      //update method
+      public function update(Request $request)
+      {
+            $categoryRecord = CategoryProduct::where('id',$request->update_id)->first();
          
-                }
+            $imagePath = $categoryRecord->image;
          
-                $categoryUpdate = $categoryRecord->update([
-                'name'=>$request->name,
-                'slug'=>$request->slug,
-                'image'=>$imagePath,
-                'parent_id'=>$request->parent_id,
-                'is_active'=>$request->is_active,
+                  if($request->hasFile('image')) {
+                  $path = $request->file('image')->store('/image','public');
+                  $imagePath = $path; // store full path
+            
+                  }
+            
+                  $categoryUpdate = $categoryRecord->update([
+                  'name'=>$request->name,
+                  'slug'=>$request->slug,
+                  'image'=>$imagePath,
+                  'parent_id'=>$request->parent_id,
+                  'is_active'=>$request->is_active,
 
-         ]);
+            ]);
          return redirect()->route('categoryIndex')->with('success','category updated successfully');
      }
 

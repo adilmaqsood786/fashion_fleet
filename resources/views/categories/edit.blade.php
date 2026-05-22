@@ -5,7 +5,7 @@
                   </div>
                   <!--end::Header-->
                   <!--begin::Form-->
-                  <form action="{{route('categoryUpdate',['update_id'=>$categoryRecord['id']])}}" method="post" class="needs-validation" novalidate>
+                  <form action="{{route('categoryUpdate',['update_id'=>$categoryRecord['id']])}}" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
                     <!--begin::Body-->
                     @csrf
                     <div class="card-body">
@@ -43,14 +43,21 @@
                         <select name="parent_id" class="form-control form-select">
                            <option value="">None</option>
                        
-                           @foreach ($categories as $cate)
+                           {{-- @foreach ($categories as $cate)
                                @if (empty($cate->parent_id) && $cate->id != $cate->id)
                                    <option value="{{ $cate->id }}"
                                        {{ old('parent_id', $brandRecord->parent_id) == $cate->id ? 'selected' : '' }}>
                                        {{ $cate->name }}
                                    </option>
                                @endif
-                           @endforeach
+                           @endforeach --}}
+                             @foreach ($categories as $cate)
+                                        @if (empty($cate->parent_id))
+                                            <option value="{{ $cate->id }}" {{ old('parent_id') == $cate->id ? 'selected' : '' }}>
+                                                {{ $cate->name }}
+                                            </option>
+                                        @endif
+                                    @endforeach
                        </select>
                           <div class="valid-feedback">Looks good!</div>
                         </div>

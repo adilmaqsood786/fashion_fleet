@@ -12,6 +12,18 @@ class User extends Authenticatable
      use Notifiable;
     use HasApiTokens;
     protected $guarded = ['id'];
+//     protected $fillable = [
+//     'store_name',
+//     'store_slug',
+//     'logo',
+//     'description',
+//     'address',
+//     'city',
+//     'country',
+//     'commission_rate',
+//     'is_approved',
+//     'is_active',
+// ];
     //  protected $hidden = [
     //     'password',
     //     'remember_token',

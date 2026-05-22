@@ -134,7 +134,7 @@
                           <label for="validationCustom01" class="form-label">Store Slug</label>
                             
                        
-                    <input type="text" name="slug" class="form-control" value="{{old('$user->vendor->store_slug ',isset($user->vendor->store_slug )?$user->vendor->store_slug :"")}}"  id="slug">         
+                    <input type="text" name="store_slug" class="form-control" value="{{old('$user->vendor->store_slug ',isset($user->vendor->store_slug )?$user->vendor->store_slug :"")}}"  id="slug">         
                     </div>
                         <!--begin::Col-->
                         <div class="col-md-6">
@@ -169,7 +169,7 @@
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">City</label>
                           
-                          <input type="text" class="form-control" name="city" value="{{  $user->vendor->city ?? '' }}" required />
+                          <input type="text" class="form-control" name="city" value="{{ old("city",isset($user->vendor->city) ?$user->vendor->city : '')  }}" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col--> <!--begin::Col-->

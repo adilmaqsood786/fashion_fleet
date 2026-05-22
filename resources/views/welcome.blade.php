@@ -93,22 +93,35 @@
         </div>
     </div>
     <small class="text-danger" id="email_error"></small>
-
+{{-- 
     <div class="input-group mb-3">
-        <input type="password" name="password" id="password" class="form-control" placeholder="Password" />
+        <input type="password" name="password"  id="password" class="form-control" placeholder="Password" />
         <div class="input-group-text">
-            <span class="bi bi-lock-fill"></span>
+        <i class="bi bi-eye"></i>
         </div>
+    </div> --}}
+    <div class="input-group mb-3">
+    
+    <input type="password"
+           name="password"
+           id="password"
+           class="form-control"
+           placeholder="Password" />
+
+    <div class="input-group-text" id="togglePassword" style="cursor:pointer;">
+        <i class="bi bi-eye" id="eyeIcon"></i>
     </div>
+
+</div>
     <small class="text-danger" id="password_error"></small>
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-8">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="remember">
                 <label class="form-check-label"> Remember Me </label>
             </div>
-        </div>
+        </div> --}}
 
         <div class="col-4">
             <div class="d-grid gap-2">
@@ -217,6 +230,38 @@ $(document).ready(function(){
     }
 
 });
+</script>
+
+<script>
+    
+$(document).ready(function(){
+
+    $("#togglePassword").click(function(){
+
+        let passwordField = $("#password");
+        let type = passwordField.attr("type");
+
+        if(type == "password"){
+
+            passwordField.attr("type", "text");
+
+            $("#eyeIcon")
+                .removeClass("bi-eye")
+                .addClass("bi-eye-slash");
+
+        } else {
+
+            passwordField.attr("type", "password");
+
+            $("#eyeIcon")
+                .removeClass("bi-eye-slash")
+                .addClass("bi-eye");
+        }
+
+    });
+
+});
+
 </script>
     <!--end::OverlayScrollbars Configure-->
     <!--end::Script-->

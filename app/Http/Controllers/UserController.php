@@ -25,8 +25,10 @@ class UserController extends Controller
     public function store(Request $request)
 
 {
-    // dd($request->profilePhone);   
-       //validation
+// dd($request->all()); 
+    
+// dd($request->profilePhone);   
+    //    validation
         $validate = Validator::make($request->all(),[
 
     'name' =>'required',
@@ -35,6 +37,7 @@ class UserController extends Controller
     'userPhone' => 'required',
     'role' => 'required',
     'status' => 'required',
+
 
 ]);
 
@@ -54,6 +57,9 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'role' => $request->role,
             'status' => $request->status == 'active' ? 1 : 0,
+
+       'email_verified_at' =>
+        $request->email_verified == 1 ? now() : null,
         ]); 
 
         // Role-based insert
@@ -85,7 +91,7 @@ class UserController extends Controller
             $logo = null;
 
             if($request->hasFile('logo')){
-                $logo = $request->file('logo')->store('vendor','public');
+                $logo = $request->file('logo')->store('image/','public');
             }
 
             $user->vendor()->create([
