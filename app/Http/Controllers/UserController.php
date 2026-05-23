@@ -141,7 +141,7 @@ class UserController extends Controller
         ]);
 
            if($user->role == 'customer' && $user->profile){
-       $user->profile->update([
+        $user->profile->update([
         'full_name' => $request->full_name,
         'profilePhone' => $request->profilePhone,
         'address_line_1' => $request->address_line_1,
@@ -154,6 +154,7 @@ class UserController extends Controller
         'longitude' => $request->longitude ?? 0,
         'is_default' => $request->is_default ?? 0,
             ]);
+
             }
       
         
@@ -172,8 +173,8 @@ class UserController extends Controller
             'logo' => $logo,
             'description' => $request->description,
             'address' => $request->address,
-            'city' => $request->city,
-            'country' => $request->country,
+            'vendor_city' => $request->vendor_city,
+            'vendor_country' => $request->vendor_country,
             'commission_rate' => $request->commission_rate,
             'is_approved' => $request->is_approved,
             'is_active' => $request->is_active ?? 0,

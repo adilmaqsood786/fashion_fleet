@@ -37,7 +37,7 @@
                         <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col-md-6">
-                          <label for="validationCustom02" class="form-label">Parent_id</label>
+                          <label for="validationCustom02" class="form-label">Main Category</label>
                           
                           {{-- <input type="text" class="form-control" value="{{isset($categoryRecord['parent_id'])?$categoryRecord['parent_id']:""}}" name="parent_id" required /> --}}
                         <select name="parent_id" class="form-control form-select">

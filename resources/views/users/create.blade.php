@@ -169,14 +169,14 @@
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">City</label>
                           
-                          <input type="text" class="form-control" name="city" required />
+                          <input type="text" class="form-control" name="vendor_city" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col--> <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Country</label>
                           
-                          <input type="text" class="form-control" name="country" required />
+                          <input type="text" class="form-control" name="vendor_country" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->

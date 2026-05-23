@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Phone</label>
-                    <input type="text" class="form-control" name="profilePhone" value="{{ $user->profile->phone ?? '' }}">
+                    <input type="text" class="form-control" name="profilePhone" value="{{ $user->profile->profilePhone ?? '' }}">
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Address Line 1</label>
@@ -111,7 +111,11 @@
              <!-- Is Default -->
             <div class="col-md-6 mt-4">
                 <input type="hidden" name="is_default" value="0">
-                <input type="checkbox" name="is_default" value="{{isset($user->profile->is_default)?$user->profile->is_default:""}}" value="1">
+                {{-- <input type="checkbox" name="is_default" value="{{isset($user->profile->is_default)?$user->profile->is_default:""}}" value="1"> --}}
+                           <input type="checkbox"
+                  name="is_default"
+                  value="1"
+                  {{ ($user->profile->is_default ?? 0) == 1 ? 'checked' : '' }}>
                 <label class="form-label">Set as Default</label>
             </div>
             </div>
@@ -169,14 +173,14 @@
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">City</label>
                           
-                          <input type="text" class="form-control" name="city" value="{{ old("city",isset($user->vendor->city) ?$user->vendor->city : '')  }}" required />
+                          <input type="text" class="form-control" name="vendor_city" value="{{ old("city",isset($user->vendor->venedor_city) ?$user->vendor->city : '')  }}" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col--> <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Country</label>
                           
-                          <input type="text" class="form-control" value="{{  $user->vendor->country ?? '' }}" name="country" required />
+                          <input type="text" class="form-control" value="{{  $user->vendor->venedor_country ?? '' }}" name="venedor_country" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->

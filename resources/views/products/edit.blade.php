@@ -14,9 +14,14 @@
                          <!--begin::Col-->
                         <div class="col-md-6">
                           
-                          <label for="validationCustom01" class="form-label">Vendor_Id</label>
-                          
-                          <input type="number" class="form-control" name="vendor_id" value="{{old('vendor_id',isset($productRecord->vendor_id)?$productRecord->vendor_id:"")}}"  required />
+                          <label for="validationCustom01" class="form-label">Vendor Name</label>
+                          <select name="vendor_id" id="id" class="form-controls form-select">
+                              @foreach ($vendors as $vendor)
+                                 <option value="{{$vendor->id}}">{{$vendor->store_name}}</option>
+
+                              @endforeach
+                            </select>
+                          {{-- <input type="number" class="form-control" name="vendor_id" value="{{old('vendor_id',isset($productRecord->vendor_id)?$productRecord->vendor_id:"")}}"  required /> --}}
                           <span style="color: red">
                             @error('vendor_id')
                                 {{$message}}
@@ -28,9 +33,14 @@
                          <!--begin::Col-->
                         <div class="col-md-6">
                           
-                          <label for="validationCustom01" class="form-label">Category_Id</label>
-                          
-                          <input type="number" class="form-control" name="category_id" value="{{old('category_id',isset($productRecord->category_id)?$productRecord->category_id:"")}}"  required />
+                          <label for="validationCustom01" class="form-label">Category</label>
+                           <select name="category_id" id="id" class="form-controls form-select">
+                              @foreach ($categories as $category)
+                                 <option value="{{$category->id}}">{{$category->name}}</option>
+
+                              @endforeach
+                              </select>
+                          {{-- <input type="number" class="form-control" name="category_id" value="{{old('category_id',isset($productRecord->category_id)?$productRecord->category_id:"")}}"  required /> --}}
                           <span style="color: red">
                             @error('category_id')
                                 {{$message}}

@@ -115,13 +115,7 @@
 </div>
     <small class="text-danger" id="password_error"></small>
 
-    {{-- <div class="row">
-        <div class="col-8">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="remember">
-                <label class="form-check-label"> Remember Me </label>
-            </div>
-        </div> --}}
+    {{-- w --}}
 
         <div class="col-4">
             <div class="d-grid gap-2">

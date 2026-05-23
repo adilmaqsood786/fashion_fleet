@@ -85,7 +85,9 @@ class ProductController extends Controller
   public function edit($edit_id)
   {
      $productRecord = Product::where('id',$edit_id)->first();
-     return \view('products.edit',compact('productRecord'));
+      $vendors = Vendor::all();
+     $categories = CategoryProduct::whereNull('parent_id')->get();
+     return \view('products.edit',compact('productRecord','vendors','categories'));
   }
 
   public function update(Request $request)
