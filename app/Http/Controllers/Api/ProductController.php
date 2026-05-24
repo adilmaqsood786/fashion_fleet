@@ -23,44 +23,12 @@ class ProductApiController extends Controller
         ]);
     }
 
-    // SHOW CREATE DATA (vendors + categories)
-    public function create()
-    {
-        $vendors = Vendor::all();
-        $categories = CategoryProduct::whereNull('parent_id')->get();
-
-        return response()->json([
-            'status' => true,
-            'vendors' => $vendors,
-            'categories' => $categories
-        ]);
-    }
+   
 
     // STORE PRODUCT
     public function store(Request $request)
     {
-        $validate = Validator::make($request->all(), [
-            'vendor_id' => 'required',
-            'category_id' => 'required',
-            'name' => 'required',
-            'slug' => 'nullable',
-            'short_description' => 'required',
-            'description' => 'required',
-            'sku' => 'required',
-            'price' => 'required',
-            'sale_price' => 'required',
-            'stock' => 'required',
-            'main_image' => 'required|image|mimes:png,jpg,jpeg|max:2048',
-            'is_active' => 'required',
-            'is_featured' => 'required',
-        ]);
-
-        if ($validate->fails()) {
-            return response()->json([
-                'status' => false,
-                'errors' => $validate->errors()
-            ], 422);
-        }
+       
 
         // IMAGE UPLOAD
         $main = null;
@@ -243,10 +211,10 @@ class ProductApiController extends Controller
 // //         'message' => 'product list',
 // //         'data' => $products
 // //     ]);
-// // }   
+// // }
 
 
-// // index method 
+// // index method
 // public function index()
 // {
 //     $products = Product::select('main_image','name','sku','price')->get();
@@ -258,7 +226,7 @@ class ProductApiController extends Controller
 // }
 
 
-// // store method 
+// // store method
 // //  public function store(Request $request)
 // //   {
 // //     // dd($request->all());
@@ -294,7 +262,7 @@ class ProductApiController extends Controller
 
 
 // //   $product =  Product::create([
-                   
+
 // //         'vendor_id'=>$request->vendor_id,
 // //         'category_id'=>$request->category_id,
 // //         'name'=>$request->name,
@@ -379,7 +347,7 @@ class ProductApiController extends Controller
 
 //   public function update(Request $request)
 //   {
-     
+
 //       $productRecord = Product::where('id',$request->update_id)->first();
 
 //       //image
@@ -391,7 +359,7 @@ class ProductApiController extends Controller
 //         }
 
 //       $porductUpdate = $productRecord->update([
-               
+
 //          'vendor_id'=>$request->vendor_id,
 //         'category_id'=>$request->category_id,
 //         'name'=>$request->name,
@@ -406,7 +374,7 @@ class ProductApiController extends Controller
 //         'is_active'=>$request->is_active,
 //         'is_featured'=>$request->is_featured,
 
-//       ]);  
+//       ]);
 
 //       return response()->json([
 //         'message' => 'Product Successfully Update',
