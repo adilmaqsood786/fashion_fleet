@@ -91,7 +91,7 @@ public function index()
                 'vehicle_number' => $request->vehicle_number,
                 'license_number' => $request->license_number,
                 'is_available' => $request->is_available ?? 0,
-                'is_verified' => $request->is_verified ?? 0,
+                'is_verified' => $request->is_verified ??  0,
             ]);
         }
 
@@ -186,28 +186,7 @@ public function destroy($delete_id)
        }
    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Auth security
     public function login(Request $request){
         //  $login  = $request->all();
         $user = User::where('email',$request->email)->first();

@@ -1,7 +1,7 @@
 @extends('admin_penal.master')
 @section('content')
 
-
+{{-- 
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul class="mb-0">
@@ -10,7 +10,7 @@
             @endforeach
         </ul>
     </div>
-@endif
+@endif --}}
 
 
  <div class="card-header">
@@ -31,6 +31,11 @@
                           <label for="validationCustom01" class="form-label">Name</label>
                           
                           <input type="text" class="form-control" name="name" required />
+                            <span style="color: red">
+                            @error('name')
+                                {{$message}}
+                            @enderror
+                          </span>
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->
@@ -39,6 +44,11 @@
                           <label for="validationCustom02" class="form-label">Email</label>
                           
                           <input type="email" class="form-control" name="email" required />
+                            <span style="color: red">
+                            @error('email')
+                                {{$message}}
+                            @enderror
+                          </span>
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->
@@ -46,10 +56,14 @@
                         <div class="col-md-6">
                           <label for="validationCustomUsername" class="form-label">Phone Number</label>
                           <div class="input-group has-validation">
-                           
                             <input type="number" class="form-control" name="userPhone" />
                             <div class="invalid-feedback">Please choose a username.</div>
                           </div>  
+                           <span style="color: red">
+                            @error('userPhone')
+                                {{$message}}
+                            @enderror
+                          </span>
                         </div>
                                {{-- <input type="number" name="userPhone"> --}}
 
@@ -60,8 +74,14 @@
                           <div class="input-group has-validation">
                            
                             <input type="password" class="form-control" name="password" />
+                           
+                          </span>
                             <div class="invalid-feedback">Please choose a username.</div>
                           </div>  
+                            <span style="color: red">
+                           @error('password')
+                                {{$message}}
+                            @enderror
                         </div>
                                {{-- <input type="number" name="userPhone"> --}}
 
@@ -85,7 +105,11 @@
                                <option value="active">Active</option>
                                <option value="inactive">Inactive</option>
                            </select>
-                         
+                           {{-- <span style="color: red">
+                            @error('status')
+                                {{$message}}
+                            @enderror
+                          </span> --}}
                            <div class="invalid-feedback">Please select a valid status.</div>     
                    <!--end::Col-->
                    </div>
@@ -295,8 +319,8 @@
             <!-- Is Default -->
             <div class="col-md-6 mt-4">
                 <input type="hidden" name="is_default" value="0">
-                <input type="checkbox" name="is_default" value="1">
-                <label class="form-label">Set as Default</label>
+                <input type="checkbox" id="id" name="is_default" value="1">
+                <label class="form-label" for="id">Set as Default</label>
             </div>
 
                       </div>

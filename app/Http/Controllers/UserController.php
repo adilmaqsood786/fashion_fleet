@@ -38,6 +38,19 @@ class UserController extends Controller
     'role' => 'required',
     'status' => 'required',
 
+    //prrfile user 
+
+        // 'full_name' =>"require",
+        // 'profilePhone' =>"require" ,
+        // 'address_line_1' => "require",
+        // 'address_line_2' => "require",
+        // 'city' => "require",
+        // 'state' => "require",
+        // 'postal_code' =>"require" ,
+        // 'country' => "require",
+        // 'latitude' => "require",
+        // 'longitude' => "require",
+        // 'is_default' => "require",
 
 ]);
 
@@ -196,9 +209,6 @@ class UserController extends Controller
  public function loginUser(){    
      return view('welcome');
     }
-
-
-
 
 
      public function loginCheck(Request $request){

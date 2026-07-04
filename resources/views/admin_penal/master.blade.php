@@ -878,7 +878,7 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-{{-- <script>
+<script>
 $(document).ready(function(){
 
     $("#role").change(function(){
@@ -902,8 +902,8 @@ $(document).ready(function(){
     });
 
 });
-</script> --}}
-<script>
+</script>
+{{-- <script>
 $(document).ready(function(){
     function toggleSections() {
         let role = $("#role").val();
@@ -924,7 +924,7 @@ $(document).ready(function(){
     $("#role").change(toggleSections);
     toggleSections(); // Call on page load
 });
-</script>
+</script> --}}
     <!--end::Script-->
   </body>
   <!--end::Body-->
