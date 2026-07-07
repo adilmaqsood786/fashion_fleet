@@ -54,6 +54,26 @@
                         <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col-md-6">
+                          
+                          <label for="validationCustom01" class="form-label">Subcategory Name</label>
+                          
+                          {{-- <input type="number" class="form-control" name="categoryProduct_id" value="{{old('category_id')}}"  required /> --}}
+                          <select name="category_id" id="id" class="form-controls form-select">
+                              @foreach ($subcategories as $sub)
+                                 <option value="{{$sub->id}}">{{$sub->name}}</option>
+
+                              @endforeach
+                            </select>
+                          <span style="color: red">
+                            @error('category_id')
+                                {{$message}}
+                            @enderror
+                          </span>
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6">
 
                           <label for="validationCustom01" class="form-label">Product Name</label>
                           

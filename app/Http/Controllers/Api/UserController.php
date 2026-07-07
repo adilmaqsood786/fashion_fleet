@@ -198,6 +198,7 @@ public function destroy($delete_id)
                 ]);
 
             }
+            
      $success['token'] = $user->createToken('MyApp')->plainTextToken;
         $user['name'] =$user->name; 
 

@@ -18,7 +18,7 @@
                   </div>
                   <!--end::Header-->
                   <!--begin::Form-->
-                  <form action="{{ route('user.store') }}" method="post" class="needs-validation" novalidate>
+                  <form action="{{ route('user.store') }}" method="post"  enctype="multipart/form-data" class="needs-validation" novalidate>
                     <!--begin::Body-->
                     @csrf
                     <div class="card-body">
@@ -164,6 +164,22 @@
                           <label for="validationCustom03" class="form-label">Logo</label>
                         
                           <input type="file" class="form-control" name="logo" required />
+                          <div class="invalid-feedback">Please provide a valid city.</div>
+                        </div>
+                        <!--end::Col-->
+                         <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">Registration Number</label>
+                        
+                          <input type="text" class="form-control" name="registor" required />
+                          <div class="invalid-feedback">Please provide a valid city.</div>
+                        </div>
+                        <!--end::Col-->
+                         <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">License Number</label>
+                        
+                          <input type="text" class="form-control" name="license" required />
                           <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
                         <!--end::Col-->

@@ -22,8 +22,8 @@ class ProductController extends Controller
   { 
      $vendors = Vendor::all();
      $categories = CategoryProduct::whereNull('parent_id')->get();
-// dd($vendors,$categories); 
-     return view('products.create',compact('vendors','categories'));
+ $subcategories = CategoryProduct::whereNotNull('parent_id')->get(); // subcategories// dd($vendors,$categories); 
+     return view('products.create',compact('vendors','categories','subcategories'));
   }
 
   public function store(Request $request)

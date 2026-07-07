@@ -18,7 +18,8 @@ class OrderController extends Controller
   {
   $orders = Order::with(['user','vendor','rider','profile','items'])->get();
     // dd($orders);
-    return view('orders.index',compact('orders'));
+      $users = User::where('role','rider')->get();
+    return view('orders.index',compact('orders','users'));
   }
 
   public function create()

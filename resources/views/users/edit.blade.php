@@ -31,12 +31,12 @@
                     <input type="text" class="form-control" name="userPhone" value="{{ old('userPhone', $user->userPhone) }}" required>
                     <div class="invalid-feedback">Please provide a valid phone.</div>
                 </div>
- <!-- Password -->
+ {{-- <!-- Password -->
                 <div class="col-md-6">
                     <label class="form-label">Password</label>
                     <input type="text" class="form-control" name="password" value="" required>
                     <div class="invalid-feedback">Please provide a valid phone.</div>
-                </div>
+                </div> --}}
                 <!-- Role -->
                 <div class="col-md-6">
                     <label class="form-label">Role</label>
@@ -144,7 +144,23 @@
                         <div class="col-md-6">
                           <label for="validationCustom03" class="form-label">Logo</label>
                         
-                          <input type="file" class="form-control" value="{{  $user->vendor->logo ?? '' }}  name="logo" required />
+                          <input type="file" class="form-control" value="{{  $user->vendor->logo ?? '' }} " name="logo" required />
+                          <div class="invalid-feedback">Please provide a valid city.</div>
+                        </div>
+                        <!--end::Col-->
+                         <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">Registration Number</label>
+                        
+                          <input type="text" class="form-control" name="registor" value="{{  $user->vendor->registor ?? '' }} " required />
+                          <div class="invalid-feedback">Please provide a valid city.</div>
+                        </div>
+                        <!--end::Col-->
+                         <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">License Number</label>
+                        
+                          <input type="text" class="form-control" name="license" value="{{  $user->vendor->license ?? '' }} " required />
                           <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
                         <!--end::Col-->
@@ -173,14 +189,14 @@
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">City</label>
                           
-                          <input type="text" class="form-control" name="vendor_city" value="{{ old("city",isset($user->vendor->venedor_city) ?$user->vendor->city : '')  }}" required />
+                          <input type="text" class="form-control" name="vendor_city" value="{{ old("vendor_city",isset($user->vendor->vendor_city) ?$user->vendor->vendor_city : '')  }}" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col--> <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Country</label>
                           
-                          <input type="text" class="form-control" value="{{  $user->vendor->venedor_country ?? '' }}" name="venedor_country" required />
+                          <input type="text" class="form-control" value="{{  $user->vendor->vendor_country ?? '' }}" name="vendor_country" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->
