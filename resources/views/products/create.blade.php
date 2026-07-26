@@ -213,7 +213,7 @@
                             <option value="0" {{ old('is_active', $item->is_active ?? false) ? '' : 'selected' }}>Inactive</option>
                         </select>
                         <span style="color: red">
-                            @error('is_active')
+                            @error('is_active') 
                                 {{$message}}
                             @enderror
                           </span>
