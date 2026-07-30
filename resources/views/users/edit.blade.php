@@ -206,27 +206,43 @@
                           
                           <input type="text" class="form-control" value="{{  $user->vendor->commission_rate ?? '' }}" name="commission_rate" required />
                           <div class="valid-feedback">Looks good!</div>
-                        </div><div class="col-md-6">
+                        </div>
+    <div class="col-md-6">
     <label class="form-label">Is Approved</label>
     <select name="is_approved" class="form-control" required>
         <option value="1" {{ ($user->vendor->is_approved ?? 0) == 1 ? 'selected' : '' }}>Yes</option>
         <option value="0" {{ ($user->vendor->is_approved ?? 0) == 0 ? 'selected' : '' }}>No</option>
     </select>
 </div>
-            <!-- Is Active -->
+            {{-- <!-- Is Active -->
             <div class="col-md-6 mt-4">
                 <input type="hidden" name="is_active" value="0">
                <input type="checkbox" name="is_active" id="is" value="1" {{ ($user->vendor->is_active ?? 0) == 1 ? 'checked' : '' }}>
                  <label for="is" class="form-label">Is_active</label>
-            </div>
+            </div> --}}
+
+            <!-- Is Default -->
+            <!-- Is Default -->
+<div class="col-md-6 mt-4">
+    <label class="form-label" for="id">Set as Default</label>
+
+    <select name="is_default" class="form-select form-control" id="id">
+        <option value="1" {{ ($user->vendor->is_default ?? 0) == 1 ? 'selected' : '' }}>Yes</option>
+        <option value="0" {{ ($user->vendor->is_default ?? 0) == 0 ? 'selected' : '' }}>No</option>
+    </select>
+</div>
 
             </div>
+
+
+
+            
         </section>
 
     </div>
 
     <div class="card-footer mt-5">
-        <button class="btn btn-info" type="submit">Update User</button>
+        <button class="btn btn-success" type="submit">Update User</button>
     </div>
 </form>
 

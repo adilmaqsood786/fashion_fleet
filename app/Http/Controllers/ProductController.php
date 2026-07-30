@@ -55,7 +55,8 @@ class ProductController extends Controller
      $main = null;
      if($request->hasfile('main_image'))
         {
-             $path = $request->file('main_image')->store('/product','public');
+            //  $path = $request->file('main_image')->store('/product','public');
+            $path = $request->file('main_image')->store('product', 'public');
              $main = $path;
         }
 

@@ -230,8 +230,8 @@
                         <!--end::Col-->
                          <!-- Is Approved -->
             <div class="col-md-6">
-                <label class="form-label">Is Approved</label>
-                <select name="is_approved" class="form-control" required>
+                <label class="form-label">Status</label>
+                <select name="is_approved" class="form-control form-select" required>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                 </select>
@@ -240,8 +240,12 @@
             <!-- Is Active -->
             <div class="col-md-6 mt-4">
                 <input type="hidden" name="is_active" value="0">
-                <input type="checkbox" name="is_active" value="1" checked>
-                <label class="form-label">Is Active</label>
+                {{-- <input type="checkbox" name="is_active" value="1" checked> --}}
+                <label class="form-label" for="is">Active</label>
+                <select name="is_active" class="form-control form-select" id="is">
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
             </div>
 
 
@@ -335,8 +339,14 @@
             <!-- Is Default -->
             <div class="col-md-6 mt-4">
                 <input type="hidden" name="is_default" value="0">
-                <input type="checkbox" id="id" name="is_default" value="1">
+                {{-- <input type="checkbox" id="id" name="is_default" value="1"> --}}
                 <label class="form-label" for="id">Set as Default</label>
+
+                 <select name="is_default" class="form-select form-control" id="id">
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                 </select>
+                 
             </div>
 
                       </div>
@@ -379,7 +389,7 @@
                         <!--end::Col-->
                          <!--begin::Col-->
                         <div class="col-md-6">
-                          <label for="validationCustom02" class="form-label">Is_available</label>
+                          <label for="validationCustom02" class="form-label">Available</label>
                               <select name="is_available" class="form-control">
                            <option value="1">Yes</option>
                            <option value="0">No</option>
@@ -389,13 +399,17 @@
                         <!--end::Col-->
                       <!--begin::Col-->
                         <div class="col-md-6">
-                        <input type="checkbox" id="is" name="is_verified" value="1">
-                        <label for="status" for="is" class="form-label">Is_Verified</label>
+                        {{-- <input type="checkbox" id="is" name="is_verified" value="1"> --}}
+                        <label for="status" for="is" class="form-label">Verification</label>
+                        <select name="is_verified" class="form-control form-select" id="is">
+                          <option value="1">Verified</option>
+                          <option value="0">Not Verified</option>
+                        </select>
                         </div>
                     <!--end::Body-->
                       </div>
              </section>
-
+             
 
 
       
@@ -405,7 +419,7 @@
                     </div>
                     <!--begin::Footer-->
                     <div class="card-footer mt-5">
-                      <button class="btn btn-info" type="submit">Submit form</button>
+                      <button class="btn btn-success" type="submit">Submit form</button>
                     </div>
                     <!--end::Footer-->
                   </form>

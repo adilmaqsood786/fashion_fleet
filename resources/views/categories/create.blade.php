@@ -63,7 +63,7 @@
                     <!--end::Body-->
                     <!--begin::Footer-->
                     <div class="card-footer mt-5">
-                      <button class="btn btn-info" type="submit">Submit form</button>
+                      <button class="btn btn-success" type="submit">Submit form</button>
                     </div>
                     <!--end::Footer-->
                   </form>

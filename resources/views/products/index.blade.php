@@ -53,7 +53,7 @@
                          <td>{{ $pro->price}}</td>
                          <td>{{ $pro->sale_price}}</td>
                          <td>{{ $pro->stock}}</td>
-                         <td><img src="{{ asset('storage/'.$pro->main_image) }}" width="100" height="100"></td>
+                              <td><img src="{{ asset('storage/'.$pro->main_image) }}" width="100" height="100"></td>
                          <td>{{ $pro->is_active?'yes':"no"}}</td>
                          <td>{{ $pro->is_featured ?'yes':"no"}}</td>
 

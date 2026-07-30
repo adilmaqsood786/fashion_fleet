@@ -137,8 +137,21 @@ class ProductController extends Controller
             'message' => 'Product deleted successfully'
         ]);
     }
-}
+    
+   //Single image Api 
 
+    public function productSingle($id)
+    {
+        $single = Product::where('id',$id)->get();
+         
+        return response()->json([
+            "message"=> "Success Single Product",
+             "data"=> $single    
+        ]);
+    }
+
+
+}
 
 
 
