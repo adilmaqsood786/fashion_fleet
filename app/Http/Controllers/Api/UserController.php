@@ -233,13 +233,13 @@ public function destroy($delete_id)
         $input = $request->all();
         $input["password"] = bcrypt($input["password"]);
         $user = User::create($input);
-        $user['token'] = $user->createToken('MyApp')->plainTextToken;
-//        $user['name'] =$user->name;
+        $success['token'] = $user->createToken('MyApp')->plainTextToken;
+        $user['name'] =$user->name;
        // $msg = "signup function";
 
         return response()->json([
              'success'=>'ture',
-            'data'=>$user
+            'data'=>$success
         ]);
     }
 }
