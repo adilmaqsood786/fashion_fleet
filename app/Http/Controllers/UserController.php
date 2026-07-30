@@ -11,6 +11,7 @@ use Auth;
 
 class UserController extends Controller
 {
+
     public function index()
     {
         $users = User::with(['profile','vendor','rider'])->get();
@@ -38,6 +39,19 @@ class UserController extends Controller
     'role' => 'required',
     'status' => 'required',
 
+    //prrfile user 
+
+        // 'full_name' =>"require",
+        // 'profilePhone' =>"require" ,
+        // 'address_line_1' => "require",
+        // 'address_line_2' => "require",
+        // 'city' => "require",
+        // 'state' => "require",
+        // 'postal_code' =>"require" ,
+        // 'country' => "require",
+        // 'latitude' => "require",
+        // 'longitude' => "require",
+        // 'is_default' => "require",
 
 ]);
 
@@ -88,20 +102,23 @@ class UserController extends Controller
 }   
 
         elseif($request->role == 'vendor'){
-            $logo = null;
+            $logoPath = null;
 
             if($request->hasFile('logo')){
                 $logo = $request->file('logo')->store('image/','public');
+                $logoPath = $logo;
             }
 
             $user->vendor()->create([
                 'store_name' => $request->store_name,
                 'store_slug' => $request->store_slug,
-                'logo' => $logo,
+                'logo' => $logoPath,
+                'license'=>$request->license,
+                'registor'=>$request->registor,
                 'description' => $request->description,
                 'address' => $request->address,
-                'city' => $request->city,
-                'country' => $request->country,
+                'vendor_city' => $request->vendor_city,
+                'vendor_country' => $request->vendor_country,
                 'commission_rate' => 10,
                 'is_approved' => 1,
                 'is_active' => 1,
@@ -196,9 +213,6 @@ class UserController extends Controller
  public function loginUser(){    
      return view('welcome');
     }
-
-
-
 
 
      public function loginCheck(Request $request){

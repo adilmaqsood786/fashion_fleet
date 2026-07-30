@@ -7,9 +7,9 @@ use App\Models\Product;
 use App\Models\Vendor;
 use App\Models\CategoryProduct;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+// use Illuminate\Support\Facades\Validator;
 
-class ProductApiController extends Controller
+class ProductController extends Controller
 {
     // GET ALL PRODUCTS
     public function index()

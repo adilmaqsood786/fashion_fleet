@@ -27,7 +27,7 @@
                           <th>role</th>
                           <th>status</th>
                           <th>email_verified_at</th>
-                          <th>Profile</th>
+                          {{-- <th>Profile</th> --}}
                           <th>Edit</th>
                           <th>Delete</th>
 
@@ -45,7 +45,7 @@
                           <td>{{$user['role']}}</td>
                           <td>{{$user->status ?'yes':'no'}}</td>
                           <td>{{$user['email_verified_at']}}</td>
-                             <td><a href="{{ route('user.edit',['id'=>$user['id']])}}" class="btn btn-secondary btn-sm">Profile</a></td>
+                             {{-- <td><a href="{{ route('user.edit',['id'=>$user['id']])}}" class="btn btn-secondary btn-sm">Profile</a></td> --}}
                              <td><a href="{{ route('user.edit',['id'=>$user['id']])}}" class="btn btn-primary btn-sm">Edit</a></td>
                              <td><a href="{{ route('user.delete',['delete_id'=>$user['id']]) }}" class="btn btn-danger btn-sm">Delete</a></td>
                         

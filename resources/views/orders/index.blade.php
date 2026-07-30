@@ -38,6 +38,7 @@
                           <th>Notes</th>
                           <th>Placed At</th>
                           <th>Delivered At</th>
+                          <th>Rider</th>
                           <th>Edit</th>
                           <th>Delete</th>
 
@@ -62,6 +63,43 @@
                          <td>{{ $order->notes}}</td>
                          <td>{{ $order->placed_at}}</td>
                          <td>{{ $order->delivered_at}}</td>
+                         <td>
+                          {{-- <select name="rider" class="form-control from-select" id="">
+                            @foreach ($users as $user)
+                                <option value="">{{$user->name}} <a href="" type="button" class="btn btn-outline-secondary">Assign</a></option>
+                            @endforeach
+
+</select> --}}
+
+
+
+
+
+
+
+
+
+
+
+                               <div class="dropdown">
+                               <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                                 Rider
+                               </button>
+                               <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                @foreach ($users as $user)
+                                 {{-- <li>  <a href="" class="dropdown-item " type="button" >{{$user->name}} <span class="btn btn-outline-primary font-right">Assign</span></a></li> --}}
+                                 <li>
+                                     <a href=""
+                                        class="dropdown-item d-flex justify-content-between align-items-center">
+                                         <span>{{ $user->name }}</span>
+                                         <span class="btn btn-sm btn-outline-primary">Assign</span>
+                                     </a>
+                                 </li>
+                                @endforeach
+                               </ul>
+                             </div>
+                          
+                         </td>
                           <td><a href="{{route('orderEdit',['edit_id'=>$order['id']])}}" class="btn btn-outline-primary">Edit</a></td>
                           <td><a href="{{route('orderDelete',['delete_id'=>$order['id']])}}" class="btn btn-outline-danger">Delete</a></td>
                         </tr>

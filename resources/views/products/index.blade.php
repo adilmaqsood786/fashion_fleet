@@ -62,6 +62,7 @@
 
                           <td><a href="{{route('productEdit',['edit_id'=>$pro['id']])}}" class="btn btn-outline-primary">Edit</a></td>
                           <td><a href="{{route('productDelete',['delete_id'=>$pro['id']])}}" class="btn btn-outline-danger">Delete</a></td>
+
                         </tr>
                       </tbody>
                   @endforeach

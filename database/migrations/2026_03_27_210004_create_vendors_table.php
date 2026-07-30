@@ -17,10 +17,12 @@ return new class extends Migration
             $table->string('store_name');
             $table->string('store_slug');
             $table->string('logo')->nullable();
+            $table->string('license')->nullable();
+            $table->string('registor')->nullable();
             $table->text('description')->nullable();
             $table->string('address')->nullable();
-            $table->string('city')->nullable();
-            $table->string('country')->nullable();
+            $table->string('vendor_city')->nullable();
+            $table->string('vendor_country')->nullable();
             $table->decimal('commission_rate');
             $table->boolean('is_approved');
             $table->boolean('is_active')->default(1);
