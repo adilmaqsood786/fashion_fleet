@@ -25,7 +25,7 @@ public function index()
     public function store(Request $request)
 
 {
-    
+
         // Create User
         $user = User::create([
             'name' => $request->name,
@@ -37,7 +37,7 @@ public function index()
 
        'email_verified_at' =>
         $request->email_verified == 1 ? now() : null,
-        ]); 
+        ]);
 
         // Role-based insert
 
@@ -62,7 +62,7 @@ public function index()
         'longitude' => $request->longitude ?? 0,
         'is_default' => $request->is_default ?? 0,
     ]);
-}   
+}
 
         elseif($request->role == 'vendor'){
             $logo = null;
@@ -142,9 +142,9 @@ public function index()
             ]);
 
             }
-      
-        
-        // VENDOR UPDATE 
+
+
+        // VENDOR UPDATE
     if($user->role == 'vendor' && $user->vendor){
 
         $logo = $user->vendor->logo;
@@ -164,7 +164,7 @@ public function index()
             'commission_rate' => $request->commission_rate,
             'is_approved' => $request->is_approved,
             'is_active' => $request->is_active ?? 0,
-        ]); 
+        ]);
     }
 
 
@@ -172,8 +172,8 @@ public function index()
             "message"=>"success",
             "data"=>$$userUpdate
          ]);    }
-   
-         
+
+
 // delete method
 public function destroy($delete_id)
     {
@@ -182,9 +182,9 @@ public function destroy($delete_id)
             "message"=>"success",
             "data"=>$user
          ]);
-   
+
        }
-   
+
 
 
 
@@ -212,35 +212,34 @@ public function destroy($delete_id)
         //  $login  = $request->all();
         $user = User::where('email',$request->email)->first();
         if(!$user || !Hash::check($request->password,$user->password))
-            { 
+            {
                    return \response()->json([
                  'data'=> "User Not Found",
                   "Success" => 'fales'
                 ]);
 
             }
-     $success['token'] = $user->createToken('MyApp')->plainTextToken;
-        $user['name'] =$user->name; 
+     $user['token'] = $user->createToken('MyApp')->plainTextToken;
+//        $user['name'] =$user->name;
 
         return response()->json([
              'success'=>'ture',
-            'data'=>$success
-
+            'data'=>$user
             ]);
          }
- 
+
     public function signup(Request $request)
     {
         $input = $request->all();
         $input["password"] = bcrypt($input["password"]);
         $user = User::create($input);
-        $success['token'] = $user->createToken('MyApp')->plainTextToken;
-        $user['name'] =$user->name; 
+        $user['token'] = $user->createToken('MyApp')->plainTextToken;
+//        $user['name'] =$user->name;
        // $msg = "signup function";
 
         return response()->json([
              'success'=>'ture',
-            'data'=>$success
+            'data'=>$user
         ]);
     }
 }
