@@ -151,7 +151,53 @@ class ProductController extends Controller
     }
 
 
+
+//Product vendor 
+   
+    public function productVendor($id)
+    {
+        $products = Product::with("vendor")
+        ->where("vendor_id",$id)
+        ->latest()
+        ->get();
+  
+        return  response()->json([
+             "status"=>true,
+             "message"=>"Vendor Products",
+             "data"=>$products
+        ]);
+        }
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

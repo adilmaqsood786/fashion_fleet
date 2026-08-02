@@ -184,8 +184,9 @@ class UserController extends Controller
             $logo = $request->file('logo')->store('vendor','public');
         }
 
-        $user->vendor->update([
+      $dd =   $user->vendor->update([
             'store_name' => $request->store_name,
+            
             'store_slug' => $request->store_slug,
             'logo' => $logo,
             'description' => $request->description,
@@ -195,8 +196,13 @@ class UserController extends Controller
             'commission_rate' => $request->commission_rate,
             'is_approved' => $request->is_approved,
             'is_active' => $request->is_active ?? 0,
+             dd($request->store_name)
         ]); 
-    }
+    
+
+        }
+    
+        
 
 
         return redirect()->route('user.index');
