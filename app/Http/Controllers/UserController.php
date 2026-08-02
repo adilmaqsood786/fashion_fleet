@@ -88,7 +88,6 @@ class UserController extends Controller
 
     $user->profile()->create([
         'full_name' => $request->full_name,
-        'profilePhone' => $request->profilePhone,
         'address_line_1' => $request->address_line_1,
         'address_line_2' => $request->address_line_2,
         'city' => $request->city,
@@ -160,7 +159,6 @@ class UserController extends Controller
            if($user->role == 'customer' && $user->profile){
         $user->profile->update([
         'full_name' => $request->full_name,
-        'profilePhone' => $request->profilePhone,
         'address_line_1' => $request->address_line_1,
         'address_line_2' => $request->address_line_2,
         'city' => $request->city,
@@ -184,9 +182,8 @@ class UserController extends Controller
             $logo = $request->file('logo')->store('vendor','public');
         }
 
-      $dd =   $user->vendor->update([
+        $user->vendor->update([
             'store_name' => $request->store_name,
-            
             'store_slug' => $request->store_slug,
             'logo' => $logo,
             'description' => $request->description,
@@ -196,7 +193,7 @@ class UserController extends Controller
             'commission_rate' => $request->commission_rate,
             'is_approved' => $request->is_approved,
             'is_active' => $request->is_active ?? 0,
-             dd($request->store_name)
+            
         ]); 
     
 

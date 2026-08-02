@@ -67,10 +67,7 @@
                     <label class="form-label">Full Name</label>
                     <input type="text" class="form-control" name="full_name" value="{{ $user->profile->full_name ?? '' }}">
                 </div>
-                <div class="col-md-6">
-                    <label class="form-label">Phone</label>
-                    <input type="text" class="form-control" name="profilePhone" value="{{ $user->profile->profilePhone ?? '' }}">
-                </div>
+                
                 <div class="col-md-6">
                     <label class="form-label">Address Line 1</label>
                     <input type="text" class="form-control" name="address_line_1" value="{{ $user->profile->address_line_1 ?? '' }}">

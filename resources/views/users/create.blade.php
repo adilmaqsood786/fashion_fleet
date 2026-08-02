@@ -267,14 +267,7 @@
                           </div>
                         </div>
                         <!--end::Col-->
-                        <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustom03" class="form-label">Phone Number</label>
-                        
-                          <input type="number" class="form-control" name="profilePhone" required />
-                          <div class="invalid-feedback">Please provide a valid city.</div>
-                        </div>
-                        <!--end::Col-->
+                       
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom04" class="form-label">Address line 1</label>
