@@ -26,7 +26,7 @@ class OrderController extends Controller
   {
     $users = User::all();
     $vendors = Vendor::all();
-    $riders = Rider::all();
+    $riders = User::where('role','rider')->get();
     $profiles = UserProfile::all();
     $orders = Order::all();
     $products = Product::all();
@@ -37,7 +37,7 @@ class OrderController extends Controller
    public function store(Request $request)
    {
            $validate = Validator::make($request->all(),[
-             'user_id'=>'required',
+             
              'vendor_id'=>'required',
              'rider_id'=>'required',
              'profile_id'=>'required',
@@ -103,7 +103,7 @@ class OrderController extends Controller
     $orderRecord = Order::where('id',$edit_id)->first();
     $users = User::all();
     $vendors = Vendor::all();
-    $riders = Rider::all();
+    $riders =  User::where('role','rider')->get();
     $profiles = UserProfile::all();
     // $orders = Order::all();
     // $products = Product::all();

@@ -13,7 +13,7 @@
                       <!--begin::Row-->
                       <div class="row g-3">
                         <!--begin::Col-->
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                           
                           <label for="validationCustom01" class="form-label">User Name</label>
                           
@@ -31,7 +31,7 @@
 
                           <div class="valid-feedback">Looks good!</div>
                         </div>
-                        <!--end::Col-->
+                        <!--end::Col--> --}}
                          <!--begin::Col-->
                         <div class="col-md-6">
                           
@@ -60,7 +60,7 @@
                           
                             <select name="rider_id" id="id" class="form-controls form-select">
                               @foreach ($riders as $rider)
-                                 <option value="{{$rider->id}} {{ old('rider_id') == $rider->id ? "selected":"" }}">{{$rider->vehicle_type}}</option>
+                                 <option value="{{$rider->id}} {{ old('rider_id') == $rider->id ? "selected":"" }}">{{$rider->name  }}</option>
 
                               @endforeach
                             </select>
@@ -251,8 +251,8 @@
                         </div>
                         <!--end::Col-->
                              <!--end::Col--> <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustom01" class="form-label">Delivered At</label>
+                        {{-- <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">Delivered Date</label>
                           
                           <input type="date" class="form-control " name="delivered_at" value="{{old('delivered_at')}}" required />
                           <span style="color: red">
@@ -261,120 +261,12 @@
                             @enderror
                           </span>
                           <div class="valid-feedback">Looks good!</div>
-                        </div>
+                        </div> --}}
                         <!--end::Col--> 
                                            
                       </div>
                   </section>
 
-
-                  {{-- ===========order_item===========
-                    <section class="mt-5">
-
-                  <h3>Order Items</h3>
-                      <div class="row g-3">
-                         <!--begin::Col-->
-                        <div class="col-md-6">
-                          
-                          <label for="validationCustom01" class="form-label">Order</label>
-                          
-                            <select name="order_id" id="id" class="form-controls form-select">
-                              @foreach ($orders as $order)
-                                 <option value="{{$order->id}} {{ old('order_id') == $order->id ? "selected":"" }}">{{$order->order_number}}</option>
-
-                              @endforeach
-                            </select>
-                          <span style="color: red">
-                            @error('order_id')
-                                {{$message}}
-                            @enderror
-                          </span>
-
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col-->
-                         <!--begin::Col-->
-                        <div class="col-md-6">
-                          
-                          <label for="validationCustom01" class="form-label">Product</label>
-                          
-                          <select name="product_id" id="id" class="form-controls form-select">
-                              @foreach ($products as $pro )
-                                 <option value="{{$pro->id}}" {{ old('product_id') == $pro->id ? "selected" : ""}}>{{$pro->name}}</option>
-
-                              @endforeach
-                            </select>
-                          <span style="color: red">
-                            @error('product_id')
-                                {{$message}}
-                            @enderror
-                          </span>
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col-->
-                        <!--begin::Col-->
-                        <div class="col-md-6">
-
-                          <label for="validationCustom01" class="form-label">Product Name</label>
-                          
-                          <input type="text" class="form-control" value="{{old('product_name')}}" name="product_name" required />
-                          <span style="color: red">
-                            @error('product_name')
-                                {{$message}}
-                            @enderror
-                          </span>
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col-->
-                      
-                         <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="slug" class="form-label">Product Price</label>
-                        <input type="number" name="product_price" value="{{old('product_price')}}"  class="form-control"  id="slug" >
-                         
-                        <span style="color: red">
-                            @error('product_price')
-                                {{$message}}
-                            @enderror
-                          </span>
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col-->
-                       
-                        <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="short_description" class="form-label">Quantity</label>
-                        
-                          <input type="number" class="form-control" value="{{old('quantity')}}" name="quantity" required />
-                          <span style="color: red">
-                            @error('quantity')
-                                {{$message}}
-                            @enderror
-                          </span>
-                          <div class="invalid-feedback">Please provide a valid city.</div>
-                        </div>
-                        <!--end::Col-->
-                         <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="description" class="form-label">Tatol</label>
-                          <div class="input-group has-validation">
-                           
-                            <input type="number" class="form-control" value="{{old('total')}}" name="total" required />
-                            
-                            <div class="invalid-feedback">Please choose a username.</div>
-                            
-                          </div>
-                          <span style="color: red">
-                            @error('total')
-                                {{$message}}
-                            @enderror
-                          </span>
-                        </div>
-                        <!--end::Col-->
-                         
-                      
-                      </div>
-                    </section> --}}
 
 
 

@@ -12,7 +12,7 @@
                       <!--begin::Row-->
                       <section>
                       <div class="row g-3">
-                        <!--begin::Col-->
+                        {{-- <!--begin::Col-->
                         <div class="col-md-6">
                           
                           <label for="validationCustom01" class="form-label">User Name</label>
@@ -31,7 +31,7 @@
 
                           <div class="valid-feedback">Looks good!</div>
                         </div>
-                        <!--end::Col-->
+                        <!--end::Col--> --}}
                          <!--begin::Col-->
                         <div class="col-md-6">
                           
@@ -60,7 +60,7 @@
                           
                             <select name="rider_id" id="id" class="form-controls form-select">
                               @foreach ($riders as $rider)
-                                 <option value="{{$rider->id}} {{ old('rider_id') == $rider->id ? "selected":"" }}">{{$rider->vehicle_type}}</option>
+                                 <option value="{{$rider->id}} {{ old('rider_id') == $rider->id ? "selected":"" }}">{{$rider->name}}</option>
 
                               @endforeach
                             </select>
@@ -275,7 +275,7 @@
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->
-                             <!--end::Col--> <!--begin::Col-->
+                             {{-- <!--end::Col--> <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Delivered At</label>
                           
@@ -286,7 +286,7 @@
                             @enderror
                           </span>
                           <div class="valid-feedback">Looks good!</div>
-                        </div>
+                        </div> --}}
                         <!--end::Col-->                    
                       </div>
                   
