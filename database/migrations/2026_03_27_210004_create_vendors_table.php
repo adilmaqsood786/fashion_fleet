@@ -19,12 +19,10 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->string('license')->nullable();
             $table->string('register')->nullable();
-            $table->text('description')->nullable();
             $table->string('address')->nullable();
             $table->string('vendor_city')->nullable();
             $table->string('vendor_country')->nullable();
             $table->decimal('commission_rate');
-            $table->boolean('is_approved');
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
