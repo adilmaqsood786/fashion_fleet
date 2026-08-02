@@ -104,7 +104,7 @@ class UserController extends Controller
                 'vendor_city' => $request->vendor_city,
                 'vendor_country' => $request->vendor_country,
                 'commission_rate' => $request->commission_rate,
-                'is_active' => $request->is_active,
+                'is_active' => $request->is_active ? 1 :0,
             ]);
         }
 
@@ -181,7 +181,7 @@ class UserController extends Controller
             'vendor_city' => $request->vendor_city,
             'vendor_country' => $request->vendor_country,
             'commission_rate' => $request->commission_rate,
-            'is_active' => $request->is_active ?? 0
+            'is_active' => $request->is_active ? 1 : 0
         ]); 
         }
 

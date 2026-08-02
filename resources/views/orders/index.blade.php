@@ -51,7 +51,7 @@
                          <td>{{ $order->user->name}}</td>
                          <td>{{ $order->vendor->store_name}}</td>
                          {{-- <td>{{ $order->rider->vehicle_type?$order->rider->vehicle_type:"No vehicle_type"}}</td> --}}
-                         <td>{{ isset($order->rider->vehicle_number) ? $order->rider->name: 'Not Assigned' }}</td>
+                         <td>{{ isset($order->rider->vehicle_number) ? $order->rider->vehicle_number: 'Not Assigned' }}</td>
                          <td>{{ $order->profile->full_name}}</td>
                          <td>{{ $order->order_number}}</td>
                          <td>{{ $order->subtotal}}</td>

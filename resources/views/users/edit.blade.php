@@ -217,9 +217,9 @@
 <div class="col-md-6 mt-4">
     <label class="form-label" for="id">Active</label>   
 
-    <select name="is_default" class="form-select form-control" id="id">
-        <option value="1" {{ ($user->vendor->is_default ?? 0) == 1 ? 'selected' : '' }}>Yes</option>
-        <option value="0" {{ ($user->vendor->is_default ?? 0) == 0 ? 'selected' : '' }}>No</option>
+    <select name="is_active" class="form-select form-control" id="id">
+        <option value="1" {{ ($user->vendor->is_active ?? 0) == 1 ? 'selected' : '' }}>Yes</option>
+        <option value="0" {{ ($user->vendor->is_active ?? 0) == 0 ? 'selected' : '' }}>No</option>
     </select>
 </div>
 

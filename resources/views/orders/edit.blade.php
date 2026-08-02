@@ -11,27 +11,27 @@
                     <div class="card-body">
                       <!--begin::Row-->
                       <section>
-                      <div class="row g-3">
-                        {{-- <!--begin::Col-->
-                        <div class="col-md-6">
-                          
-                          <label for="validationCustom01" class="form-label">User Name</label>
-                          
-                            <select name="user_id" id="id" class="form-controls form-select">
-                              @foreach ($users as $user)
-                                 <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : ''}}>{{$user->name}}</option>
+                      <div class="row gss-3">
+                          {{-- <!--begin::Col-->
+                          <div class="col-md-6">
+                            
+                            <label for="validationCustom01" class="form-label">User Name</label>
+                            
+                              <select name="user_id" id="id" class="form-controls form-select">
+                                @foreach ($users as $user)
+                                  <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : ''}}>{{$user->name}}</option>
 
-                              @endforeach
-                            </select>
-                          <span style="color: red">
-                            @error('user_id')
-                                {{$message}}
-                            @enderror
-                          </span>
+                                @endforeach
+                              </select>
+                            <span style="color: red">
+                              @error('user_id')
+                                  {{$message}}
+                              @enderror
+                            </span>
 
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col--> --}}
+                            <div class="valid-feedback">Looks good!</div>
+                          </div>
+                          <!--end::Col--> --}}
                          <!--begin::Col-->
                         <div class="col-md-6">
                           

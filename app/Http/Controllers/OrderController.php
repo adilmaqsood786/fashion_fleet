@@ -119,7 +119,7 @@ class OrderController extends Controller
 
         $orderUpdate = $orderRecord->update(
             [
-                 'user_id'=>$request->user_id,
+                 'user_id'=>auth()->user()->id,
              'vendor_id'=>$request->vendor_id,
              'rider_id'=>$request->rider_id,
              'profile_id'=>$request->profile_id,
