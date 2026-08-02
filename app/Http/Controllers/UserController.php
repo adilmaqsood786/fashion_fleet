@@ -36,7 +36,7 @@ class UserController extends Controller
     'email' =>'required|email|unique:users,email',
     'password' => 'required|min:6',
     'userPhone' => 'required',
-    'role' => 'required',
+    'role' => 'required ',
     'status' => 'required',
 
 ]);
@@ -56,9 +56,9 @@ class UserController extends Controller
             'userPhone' => $request->userPhone,
             'password' => Hash::make($request->password),
             'role' => $request->role,
-            'status' => $request->status == 'active' ? 1 : 0,
+            'status' => $request->status ? 1 :0,
 
-       'email_verified_at' =>
+         'email_verified_at' =>
         $request->email_verified == 1 ? now() : null,
         ]);
 
@@ -100,13 +100,11 @@ class UserController extends Controller
                 'logo' => $logoPath,
                 'license'=>$request->license,
                 'register'=>$request->register,
-                'description' => $request->description,
                 'address' => $request->address,
                 'vendor_city' => $request->vendor_city,
                 'vendor_country' => $request->vendor_country,
-                'commission_rate' => 10,
-                'is_approved' => 1,
-                'is_active' => 1,
+                'commission_rate' => $request->commission_rate,
+                'is_active' => $request->is_active,
             ]);
         }
 
@@ -131,6 +129,7 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
+        // dd($request->all());
         $user = User::where('id',$request->id)->first();
 
         $user->update([
@@ -139,7 +138,10 @@ class UserController extends Controller
             'userPhone' => $request->userPhone,
             'password' => Hash::make($request->password),
             'role' => $request->role,
-            'status' => $request->status == 'active' ? 1 : 0,
+            'status' => $request->status ? 1 : 0,
+            
+       'email_verified_at' =>
+        $request->email_verified == 1 ? now() : null,
         ]);
 
            if($user->role == 'customer' && $user->profile){
@@ -173,17 +175,26 @@ class UserController extends Controller
             'store_name' => $request->store_name,
             'store_slug' => $request->store_slug,
             'logo' => $logo,
-            'description' => $request->description,
            'register'=>$request->register,
            'license'=>$request->license,
             'address' => $request->address,
             'vendor_city' => $request->vendor_city,
             'vendor_country' => $request->vendor_country,
             'commission_rate' => $request->commission_rate,
-            'is_approved' => $request->is_approved,
             'is_active' => $request->is_active ?? 0
         ]); 
         }
+
+
+          elseif($request->role == 'rider'){
+            $user->rider()->update([
+                'vehicle_type' => $request->vehicle_type,
+                'vehicle_number' => $request->vehicle_number,
+                'license_number' => $request->license_number,
+                'is_available' => $request->is_available ?? 0,
+                'is_verified' => $request->is_verified ?? 0,
+            ]);
+        }   
 
         return redirect()->route('user.index');
     }

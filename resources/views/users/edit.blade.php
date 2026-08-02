@@ -40,22 +40,39 @@
                 <!-- Role -->
                 <div class="col-md-6">
                     <label class="form-label">Role</label>
-                    <select name="role" id="role" class="form-select" required>
+                    <select name="role" id="role"  class="form-select" disabled>
                         <option value="">Select Role</option>
                         <option value="customer" {{ $user->role == 'customer' ? 'selected' : '' }}>Customer</option>
                         <option value="vendor" {{ $user->role == 'vendor' ? 'selected' : '' }}>Vendor</option>
                         <option value="rider" {{ $user->role == 'rider' ? 'selected' : '' }}>Rider</option>
                     </select>
+                       <input type="hidden" name="role" value="{{ $user->role }}">
                 </div>
 
                 <!-- Status -->
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <label class="form-label">Status</label>
                     <select name="status" class="form-select" required>
                         <option value="active" {{ $user->status == 'active' ? 'selected' : '' }}>Active</option>
                         <option value="inactive" {{ $user->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
                     </select>
-                </div>
+                </div> --}}
+<div class="col-md-6">
+    <label class="form-label">Status</label>
+    <select name="status" class="form-select" required>
+        <option value="1" {{ $user->status == 1 ? 'selected' : '' }}>Active</option>
+        <option value="0" {{ $user->status == 0 ? 'selected' : '' }}>Inactive</option>
+    </select>
+</div>
+
+                <div class="col-md-6">
+    <label>Email Verification</label>
+
+    <select name="email_verified" class="form-control form-select">
+        <option value="1" {{ $user->email_verified_at ? 'selected' : '' }}>Verified</option>
+        <option value="0" {{ !$user->email_verified_at ? 'selected' : '' }}>Not Verified</option>
+    </select>
+</div>
             </div>
         </section>
 
@@ -69,11 +86,11 @@
                 </div>
                 
                 <div class="col-md-6">
-                    <label class="form-label">Address Line 1</label>
+                    <label class="form-label">Address 1</label>
                     <input type="text" class="form-control" name="address_line_1" value="{{ $user->profile->address_line_1 ?? '' }}">
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Address Line 2</label>
+                    <label class="form-label">Address 2</label>
                     <input type="text" class="form-control" name="address_line_2" value="{{ $user->profile->address_line_2 ?? '' }}">
                 </div>
                 <div class="col-md-6">
@@ -105,16 +122,15 @@
                 <label class="form-label">Longitude</label>
                 <input type="number" step="0.000001" name="longitude" class="form-control" value="{{isset($user->profile->longitude)?$user->profile->longitude:""}}" required>
             </div>
-             <!-- Is Default -->
+          
             <div class="col-md-6 mt-4">
-                <input type="hidden" name="is_default" value="0">
-                {{-- <input type="checkbox" name="is_default" value="{{isset($user->profile->is_default)?$user->profile->is_default:""}}" value="1"> --}}
-                           <input type="checkbox"
-                  name="is_default"
-                  value="1"
-                  {{ ($user->profile->is_default ?? 0) == 1 ? 'checked' : '' }}>
-                <label class="form-label">Set as Default</label>
-            </div>
+    <label class="form-label" for="id">Set as Default</label>
+
+    <select name="is_default" class="form-select form-control" id="id">
+        <option value="1" {{ ($user->profile->is_default ?? 0) == 1 ? 'selected' : '' }}>Yes</option>
+        <option value="0" {{ ($user->profile->is_default ?? 0) == 0 ? 'selected' : '' }}>No</option>
+    </select>
+</div>
             </div>
 
         </section>
@@ -144,7 +160,7 @@
                           <input type="file" class="form-control" value="{{  $user->vendor->logo ?? '' }} " name="logo" required />
                           <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
-                        <!--end::Col-->
+                        <!--end::Col--> 
                          <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom03" class="form-label">Registration Number</label>
@@ -160,16 +176,7 @@
                           <input type="text" class="form-control" name="license" value="{{  $user->vendor->license ?? '' }} " required />
                           <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
-                        <!--end::Col-->
-                         <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustomUsername" class="form-label">Description</label>
-                          <div class="input-group has-validation">
-
-                            <input type="text" class="form-control"  value="{{  $user->vendor->description ?? '' }}" name="description" required />
-                            <div class="invalid-feedback">Please choose a username.</div>
-                          </div>
-                        </div>
+                        
                         <!--end::Col-->
 
                          <!--begin::Col-->
@@ -204,24 +211,11 @@
                           <input type="text" class="form-control" value="{{  $user->vendor->commission_rate ?? '' }}" name="commission_rate" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
-    <div class="col-md-6">
-    <label class="form-label">Is Approved</label>
-    <select name="is_approved" class="form-control" required>
-        <option value="1" {{ ($user->vendor->is_approved ?? 0) == 1 ? 'selected' : '' }}>Yes</option>
-        <option value="0" {{ ($user->vendor->is_approved ?? 0) == 0 ? 'selected' : '' }}>No</option>
-    </select>
-</div>
-            {{-- <!-- Is Active -->
-            <div class="col-md-6 mt-4">
-                <input type="hidden" name="is_active" value="0">
-               <input type="checkbox" name="is_active" id="is" value="1" {{ ($user->vendor->is_active ?? 0) == 1 ? 'checked' : '' }}>
-                 <label for="is" class="form-label">Is_active</label>
-            </div> --}}
 
-            <!-- Is Default -->
+          
             <!-- Is Default -->
 <div class="col-md-6 mt-4">
-    <label class="form-label" for="id">Set as Default</label>
+    <label class="form-label" for="id">Active</label>   
 
     <select name="is_default" class="form-select form-control" id="id">
         <option value="1" {{ ($user->vendor->is_default ?? 0) == 1 ? 'selected' : '' }}>Yes</option>
@@ -235,11 +229,71 @@
 
 
         </section>
+ 
+{{--================= Rider Profile =================--}}
+<section id="rider_section" class="mt-5 {{ $user->role != 'rider' ? 'd-none' : '' }}">
+    <h3>Rider Profile</h3>
+
+    <div class="row g-3">
+
+        <div class="col-md-6">
+            <label class="form-label">Vehicle Type</label>
+            <input type="text"
+                   class="form-control"
+                   name="vehicle_type"
+                   value="{{ old('vehicle_type', $user->rider->vehicle_type ?? '') }}">
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Vehicle Number</label>
+            <input type="text"
+                   class="form-control"
+                   name="vehicle_number"
+                   value="{{ old('vehicle_number', $user->rider->vehicle_number ?? '') }}">
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">License Number</label>
+            <input type="text"
+                   class="form-control"
+                   name="license_number"
+                   value="{{ old('license_number', $user->rider->license_number ?? '') }}">
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Available</label>
+            <select name="is_available" class="form-select">
+                <option value="1" {{ ($user->rider->is_available ?? 1) == 1 ? 'selected' : '' }}>
+                    Yes
+                </option>
+
+                <option value="0" {{ ($user->rider->is_available ?? 1) == 0 ? 'selected' : '' }}>
+                    No
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Verification</label>
+            <select name="is_verified" class="form-select">
+                <option value="1" {{ ($user->rider->is_verified ?? 0) == 1 ? 'selected' : '' }}>
+                    Verified
+                </option>
+
+                <option value="0" {{ ($user->rider->is_verified ?? 0) == 0 ? 'selected' : '' }}>
+                    Not Verified
+                </option>
+            </select>
+        </div>
+
+    </div>
+</section>
+
 
     </div>
 
     <div class="card-footer mt-5">
-        <button class="btn btn-success" type="submit">Update User</button>
+        <button class="btn btn-success" type="submit">Update</button>
     </div>
 </form>
 

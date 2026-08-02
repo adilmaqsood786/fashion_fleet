@@ -183,18 +183,7 @@
                           <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
                         <!--end::Col-->
-                         <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustomUsername" class="form-label">Description</label>
-                          <div class="input-group has-validation">
-
-                            {{-- <input type="text" class="form-control" name="description" required /> --}}
-                           <textarea name="description" class="form-control" ></textarea>
-                            <div class="invalid-feedback">Please choose a username.</div>
-                          </div>
-                        </div>
-                        <!--end::Col-->
-
+                        
                          <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Address</label>
@@ -228,14 +217,6 @@
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->
-                         <!-- Is Approved -->
-            <div class="col-md-6">
-                <label class="form-label">Status</label>
-                <select name="is_approved" class="form-control form-select" required>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                </select>
-            </div>
 
             <!-- Is Active -->
             <div class="col-md-6 mt-4">
@@ -267,21 +248,10 @@
                           </div>
                         </div>
                         <!--end::Col-->
-<<<<<<< HEAD
-                       
-=======
+                      
                         <!--begin::Col-->
                         <div class="col-md-6">
-                          <label for="validationCustom03" class="form-label">Phone Number</label>
-
-                          <input type="number" class="form-control" name="profilePhone" required />
-                          <div class="invalid-feedback">Please provide a valid city.</div>
-                        </div>
-                        <!--end::Col-->
->>>>>>> f882697b3978ac504f87416a684229d587b4d08e
-                        <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustom04" class="form-label">Address line 1</label>
+                          <label for="validationCustom04" class="form-label">Address 1</label>
 
                           <input type="text" class="form-control" name="address_line_1" required />
                           <div class="invalid-feedback">Please select a valid state.</div>
@@ -289,7 +259,7 @@
                         <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col-md-6">
-                          <label for="validationCustom05" class="form-label">Address line 2</label>
+                          <label for="validationCustom05" class="form-label">Address 2</label>
 
                           <input type="text" class="form-control" name="address_line_2" required />
                           <div class="invalid-feedback">Please provide a valid zip.</div>
@@ -313,7 +283,7 @@
                         <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col-md-6">
-                          <label for="validationCustom04" class="form-label">Postal_code</label>
+                          <label for="validationCustom04" class="form-label">Postal code</label>
 
                           <input type="text" class="form-control" name="postal_code" required />
                           <div class="invalid-feedback">Please select a valid state.</div>
@@ -423,7 +393,7 @@
                     </div>
                     <!--begin::Footer-->
                     <div class="card-footer mt-5">
-                      <button class="btn btn-success" type="submit">Submit form</button>
+                      <button class="btn btn-success" type="submit">Submit</button>
                     </div>
                     <!--end::Footer-->
                   </form>

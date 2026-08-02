@@ -119,7 +119,7 @@
     </div>
 
     <div class="card-footer mt-5">
-        <button class="btn btn-success" type="submit">Submit Form</button>
+        <button class="btn btn-success" type="submit">Submit</button>
     </div>
 </form>
 

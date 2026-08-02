@@ -73,7 +73,7 @@
                           <!--end::Col-->
                     <!--begin::Footer-->
                     <div class="card-footer mt-5">
-                      <button class="btn btn-success" type="submit">Submit form</button>
+                      <button class="btn btn-success" type="submit">Submit</button>
                     </div>
                     <!--end::Footer-->
                   </form>
