@@ -31,7 +31,7 @@ class OrderController extends Controller
     $orders = Order::all();
     $products = Product::all();
     return view('orders.create',compact('users','vendors','riders','profiles','orders','products'));
-    
+
   }
 
    public function store(Request $request)
@@ -70,7 +70,7 @@ class OrderController extends Controller
 // dd($validate);
 
        $order = Order::create([
-            'user_id'=>$request->user_id,
+            'user_id'=>auth()->user()->id,
              'vendor_id'=>$request->vendor_id,
              'rider_id'=>$request->rider_id,
              'profile_id'=>$request->profile_id,
@@ -94,7 +94,7 @@ class OrderController extends Controller
         //      'quantity'=>$request->quantity,
         //      'total'=>$request->total,
         // ]);
-  
+
          return redirect()->route('orderIndex');
    }
 
@@ -144,10 +144,10 @@ class OrderController extends Controller
       //        'quantity'=>$request->quantity,
       //        'total'=>$request->total,
       //  ]);
-            
+
 
             //       $item = $orderRecord->items()->first();
-            
+
             // if ($item) {
             //     $item->update([
             //         'product_id' => $request->product_id,
@@ -164,17 +164,17 @@ class OrderController extends Controller
             //         'product_price' => $request->product_price,
             //         'quantity' => $request->quantity,
             //         'total'=>$request->total,
-                
+
             //         ]);
             // }
-                      return \redirect()->route('orderIndex');  
-     } 
+                      return \redirect()->route('orderIndex');
+     }
 
 
      public function destroy($delete_id)
      {
         Order::where('id',$delete_id)->first()->delete();
-          return \redirect()->route('orderIndex');  
+          return \redirect()->route('orderIndex');
 
      }
 }
