@@ -1,7 +1,7 @@
 @extends('admin_penal.master')
 @section('content')
 
-{{-- 
+{{--
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul class="mb-0">
@@ -29,7 +29,7 @@
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Name</label>
-                          
+
                           <input type="text" class="form-control" name="name" required />
                             <span style="color: red">
                             @error('name')
@@ -42,7 +42,7 @@
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom02" class="form-label">Email</label>
-                          
+
                           <input type="email" class="form-control" name="email" required />
                             <span style="color: red">
                             @error('email')
@@ -58,7 +58,7 @@
                           <div class="input-group has-validation">
                             <input type="number" class="form-control" name="userPhone" />
                             <div class="invalid-feedback">Please choose a username.</div>
-                          </div>  
+                          </div>
                            <span style="color: red">
                             @error('userPhone')
                                 {{$message}}
@@ -72,12 +72,12 @@
                         <div class="col-md-6">
                           <label for="validationCustomUsername" class="form-label">Password</label>
                           <div class="input-group has-validation">
-                           
+
                             <input type="password" class="form-control" name="password" />
-                           
+
                           </span>
                             <div class="invalid-feedback">Please choose a username.</div>
-                          </div>  
+                          </div>
                             <span style="color: red">
                            @error('password')
                                 {{$message}}
@@ -100,7 +100,7 @@
                           <!--begin::Col-->
                          <div class="col-md-6">
                            <label for="status" class="form-label">Status</label>
-                         
+
                            <select name="status" class="form-select" required>
                                <option value="active">Active</option>
                                <option value="inactive">Inactive</option>
@@ -110,23 +110,23 @@
                                 {{$message}}
                             @enderror
                           </span> --}}
-                           <div class="invalid-feedback">Please select a valid status.</div>     
+                           <div class="invalid-feedback">Please select a valid status.</div>
                    <!--end::Col-->
                    </div>
 
                    <div class="col-md-6">
                        <label>Email Verification</label>
-                   
+
                        <select name="email_verified" class="form-control form-select">
                            <option value="1">Verified</option>
                            <option value="0">Not Verified</option>
                        </select>
-                           <div class="invalid-feedback">Please select a valid status.</div>     
+                           <div class="invalid-feedback">Please select a valid status.</div>
                    </div>
-                  
+
                    <!--end::Row-->
                     </div>
-                  
+
                   </section>
 
 
@@ -134,22 +134,22 @@
              <section id="vendor_section" class="mt-5 d-none">
               <div class="row g-3">
                 <h3>Vendor</h3>
-                
-        
+
+
                         <!--begin::Col-->
                          <div class="col-md-6">
 
                           <label for="validationCustom01" class="form-label">Store Name</label>
-                          
+
                           <input type="text" class="form-control" name="store_name" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->
-                      
+
                          <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="slug" class="form-label">Store Slug</label>
-                        
+
                           {{-- <select name="store_slug"  required>
                               <option value="men">Men</option>
                               <option value="women">Women</option>
@@ -158,11 +158,11 @@
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->
-                       
+
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom03" class="form-label">Logo</label>
-                        
+
                           <input type="file" class="form-control" name="logo" required />
                           <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
@@ -170,15 +170,15 @@
                          <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom03" class="form-label">Registration Number</label>
-                        
-                          <input type="text" class="form-control" name="registor" required />
+
+                          <input type="text" class="form-control" name="register" required />
                           <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
                         <!--end::Col-->
                          <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom03" class="form-label">License Number</label>
-                        
+
                           <input type="text" class="form-control" name="license" required />
                           <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
@@ -187,35 +187,35 @@
                         <div class="col-md-6">
                           <label for="validationCustomUsername" class="form-label">Description</label>
                           <div class="input-group has-validation">
-                           
+
                             {{-- <input type="text" class="form-control" name="description" required /> --}}
                            <textarea name="description" class="form-control" ></textarea>
                             <div class="invalid-feedback">Please choose a username.</div>
                           </div>
                         </div>
                         <!--end::Col-->
-                        
+
                          <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Address</label>
-                          
+
                           <input type="text" class="form-control" name="address" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
-                        <!--end::Col--> 
-                        
-                       
+                        <!--end::Col-->
+
+
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">City</label>
-                          
+
                           <input type="text" class="form-control" name="vendor_city" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col--> <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Country</label>
-                          
+
                           <input type="text" class="form-control" name="vendor_country" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
@@ -223,7 +223,7 @@
                          <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Commission rate</label>
-                          
+
                           <input type="text" class="form-control" name="commission_rate" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
@@ -256,12 +256,12 @@
   {{--=========User_profile=========--}}
 <section id="customer_section" class="mt-5 d-none">
  <div class="row g-3">
-                       
+
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustomUsername" class="form-label">Full Name</label>
                           <div class="input-group has-validation">
-                           
+
                             <input type="text" class="form-control" name="full_name" required />
                             <div class="invalid-feedback">Please choose a username.</div>
                           </div>
@@ -270,7 +270,7 @@
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom03" class="form-label">Phone Number</label>
-                        
+
                           <input type="number" class="form-control" name="profilePhone" required />
                           <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
@@ -278,7 +278,7 @@
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom04" class="form-label">Address line 1</label>
-                         
+
                           <input type="text" class="form-control" name="address_line_1" required />
                           <div class="invalid-feedback">Please select a valid state.</div>
                         </div>
@@ -286,7 +286,7 @@
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom05" class="form-label">Address line 2</label>
-                         
+
                           <input type="text" class="form-control" name="address_line_2" required />
                           <div class="invalid-feedback">Please provide a valid zip.</div>
                         </div>
@@ -294,7 +294,7 @@
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom04" class="form-label">City</label>
-                         
+
                           <input type="text" class="form-control" name="city" required />
                           <div class="invalid-feedback">Please select a valid state.</div>
                         </div>
@@ -302,7 +302,7 @@
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom04" class="form-label">State</label>
-                         
+
                           <input type="text" class="form-control" name="state" required />
                           <div class="invalid-feedback">Please select a valid state.</div>
                         </div>
@@ -310,7 +310,7 @@
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom04" class="form-label">Postal_code</label>
-                         
+
                           <input type="text" class="form-control" name="postal_code" required />
                           <div class="invalid-feedback">Please select a valid state.</div>
                         </div>
@@ -318,12 +318,12 @@
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom04" class="form-label">Country</label>
-                         
+
                           <input type="text" class="form-control" name="country" required />
                           <div class="invalid-feedback">Please select a valid state</div>
                         </div>
                         <!--end::Col-->
-                      
+
   <!-- Latitude -->
             <div class="col-md-6">
                 <label class="form-label">Latitude</label>
@@ -346,7 +346,7 @@
                   <option value="1">Yes</option>
                   <option value="0">No</option>
                  </select>
-                 
+
             </div>
 
                       </div>
@@ -358,7 +358,7 @@
                         <!--begin::Col-->
                         {{-- <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">User_id</label>
-                          
+
                           <input type="number" class="form-control" name="user_id" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div> --}}
@@ -366,7 +366,7 @@
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Vehicle Type</label>
-                          
+
                           <input type="text" class="form-control" name="vehicle_type" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
@@ -374,7 +374,7 @@
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Vehicle Number</label>
-                          
+
                           <input type="text" class="form-control" name="vehicle_number" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
@@ -382,7 +382,7 @@
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom02" class="form-label">License Number</label>
-                          
+
                           <input type="text" class="form-control" name="license_Number" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
@@ -409,12 +409,12 @@
                     <!--end::Body-->
                       </div>
              </section>
-             
 
 
-      
 
-                     
+
+
+
                     <!--end::Body-->
                     </div>
                     <!--begin::Footer-->

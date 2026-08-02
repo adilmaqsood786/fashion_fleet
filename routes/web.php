@@ -20,15 +20,16 @@ use App\Http\Controllers\OrderController;
 
 use Illuminate\Support\Facades\Storage;
 
+
 Route::get('/storage/{path}', function ($path) {
-    $fullPath = storage_path('app/public/' . $path);
+    $file = storage_path('app/public/' . $path);
 
-    if (!file_exists($fullPath)) {
-        abort(404);
-    }
+    abort_unless(file_exists($file), 404);
 
-    return response()->file($fullPath, [
+    return Response::file($file, [
         'Access-Control-Allow-Origin' => '*',
+        'Access-Control-Allow-Methods' => 'GET',
+        'Access-Control-Allow-Headers' => '*',
     ]);
 })->where('path', '.*');
 
@@ -36,22 +37,23 @@ Route::get('/storage/{path}', function ($path) {
 
 
 
+// Route::get('/storage/{path}', function ($path) {
+//     $fullPath = storage_path('app/public/' . $path);
+
+//     if (!file_exists($fullPath)) {
+//         abort(404);
+//     }
+
+//     return response()->file($fullPath, [
+//         'Access-Control-Allow-Origin' => '*',
+//     ]);
+// })->where('path', '.*'
 
 
+Route::get('login',[UserController::class,'loginUser'])->name('loginUser');
+Route::post('login-user',[UserController::class, 'loginCheck'])->name('loginCheck');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+Route::middleware(['auth'])->group(function () {
 
 //order curd route
 Route::get('all-order',[OrderController::class,'index'])->name('orderIndex');
@@ -62,17 +64,16 @@ Route::post('update-order/{update_id}',[OrderController::class,'update'])->name(
 Route::get('delete-order/{delete_id}',[OrderController::class,'destroy'])->name('orderDelete');
 
 
-//user curd route 
+//user curd route
 Route::get('/user', [UserController::class, 'index'])->name('user.index');
 Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
 Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
 Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
 Route::post('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
 Route::get('/user/{delete_id}', [UserController::class, 'destroy'])->name('user.delete');
-route::get('login',[UserController::class,'loginUser'])->name('loginUser');
-route::post('login-user',[UserController::class, 'loginCheck'])->name('loginCheck');
 
-    
+
+
 
 
 //user_address curd route
@@ -84,7 +85,7 @@ route::post('update-profile/{update_id}',[UserProfileController::class,'update']
 route::get('delete-profile/{delete_id}',[UserProfileController::class,'destroy'])->name('profileDelete');
 
 
-//Rider route curd 
+//Rider route curd
 route::get('all-rider',[RiderController::class,'index'])->name('riderIndex');
 route::get('create-rider',[RiderController::class,'create'])->name('riderCreate');
 route::get('edit-rider/{edit_id}',[RiderController::class,'edit'])->name('riderEdit');
@@ -95,7 +96,7 @@ route::get('delete-rider/{delete_id}',[RiderController::class,'destroy'])->name(
 
 
 
-//Vendor curd route 
+//Vendor curd route
 route::get('all-vendor',[VendorController::class,'index'])->name('vendorIndex');
 route::get('create-vendor',[VendorController::class,'create'])->name('vendorCreate');
 route::get('edit-vendor/{edit_id}',[VendorController::class,'edit'])->name('vendorEdit');
@@ -103,7 +104,7 @@ route::post('store-vendor',[VendorController::class,'store'])->name('vendorStore
 route::post('update-vendor/{update_id}',[VendorController::class,'update'])->name('vendorUpdate');
 route::get('delete-vendor/{delete_id}',[VendorController::class,'destroy'])->name('vendorDelete');
 
-//category curd route 
+//category curd route
 route::get('all-category',[CategoryProductController::class,'index'])->name('categoryIndex');
 route::get('create-category',[CategoryProductController::class,'create'])->name('categoryCreate');
 route::get('edit-category/{edit_id}',[CategoryProductController::class,'edit'])->name('categoryEdit');
@@ -131,10 +132,11 @@ route::get('delete-category/{delete_id}',[CategoryProductController::class,'dest
    Route::post('update-image/{update_id}',[ProductImageController::class,'update'])->name('imageUpdate');
    Route::get('delete-image/{delete_id}',[ProductImageController::class,'destroy'])->name('imageDelete');
 
-//Product Rating curd 
+//Product Rating curd
 Route::get('all-rating',[ProductRatingController::class,'index'])->name('ratingIndex');
 Route::get('create-rating',[ProductRatingController::class,'create'])->name('ratingCreate');
 Route::get('edit-rating/{edit_id}',[ProductRatingController::class,'edit'])->name('ratingEdit');
 Route::post('store-rating',[ProductRatingController::class,'store'])->name('ratingStore');
 Route::post('update-rating/{update_id}',[ProductRatingController::class,'update'])->name('ratingUpdate');
 Route::get('delete-rating/{delete_id}',[ProductRatingController::class,'destroy'])->name('ratingDelete');
+});

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('store_slug');
             $table->string('logo')->nullable();
             $table->string('license')->nullable();
-            $table->string('registor')->nullable();
+            $table->string('register')->nullable();
             $table->text('description')->nullable();
             $table->string('address')->nullable();
             $table->string('vendor_city')->nullable();
