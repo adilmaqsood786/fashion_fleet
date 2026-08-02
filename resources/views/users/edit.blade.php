@@ -93,12 +93,12 @@
                     <input type="text" class="form-control" name="country" value="{{ $user->profile->country ?? '' }}">
                 </div>
 
-                                  
+
   <!-- Latitude -->
             <div class="col-md-6">
                 <label class="form-label">Latitude</label>
                 <input type="number" step="0.000001" name="latitude" class="form-control" value="{{isset($user->profile->latitude)?$user->profile->latitude:""}}" required>
-            </div>  
+            </div>
 
             <!-- Longitude -->
             <div class="col-md-6">
@@ -133,14 +133,14 @@
                         <!--end::Col-->
                              <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Store Slug</label>
-                            
-                       
-                    <input type="text" name="store_slug" class="form-control" value="{{old('$user->vendor->store_slug ',isset($user->vendor->store_slug )?$user->vendor->store_slug :"")}}"  id="slug">         
+
+
+                    <input type="text" name="store_slug" class="form-control" value="{{old('$user->vendor->store_slug ',isset($user->vendor->store_slug )?$user->vendor->store_slug :"")}}"  id="slug">
                     </div>
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom03" class="form-label">Logo</label>
-                        
+
                           <input type="file" class="form-control" value="{{  $user->vendor->logo ?? '' }} " name="logo" required />
                           <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
@@ -148,15 +148,15 @@
                          <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom03" class="form-label">Registration Number</label>
-                        
-                          <input type="text" class="form-control" name="registor" value="{{  $user->vendor->registor ?? '' }} " required />
+
+                          <input type="text" class="form-control" name="register" value="{{  $user->vendor->register ?? '' }} " required />
                           <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
                         <!--end::Col-->
                          <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom03" class="form-label">License Number</label>
-                        
+
                           <input type="text" class="form-control" name="license" value="{{  $user->vendor->license ?? '' }} " required />
                           <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
@@ -165,34 +165,34 @@
                         <div class="col-md-6">
                           <label for="validationCustomUsername" class="form-label">Description</label>
                           <div class="input-group has-validation">
-                           
+
                             <input type="text" class="form-control"  value="{{  $user->vendor->description ?? '' }}" name="description" required />
                             <div class="invalid-feedback">Please choose a username.</div>
                           </div>
                         </div>
                         <!--end::Col-->
-                        
+
                          <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Address</label>
-                          
+
                           <input type="text" class="form-control" name="address" value="{{  $user->vendor->address ?? '' }} "required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
-                        <!--end::Col--> 
-                        
-                       
+                        <!--end::Col-->
+
+
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">City</label>
-                          
+
                           <input type="text" class="form-control" name="vendor_city" value="{{ old("vendor_city",isset($user->vendor->vendor_city) ?$user->vendor->vendor_city : '')  }}" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col--> <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Country</label>
-                          
+
                           <input type="text" class="form-control" value="{{  $user->vendor->vendor_country ?? '' }}" name="vendor_country" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
@@ -200,7 +200,7 @@
                          <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Commission rate</label>
-                          
+
                           <input type="text" class="form-control" value="{{  $user->vendor->commission_rate ?? '' }}" name="commission_rate" required />
                           <div class="valid-feedback">Looks good!</div>
                         </div>
@@ -233,7 +233,7 @@
 
 
 
-            
+
         </section>
 
     </div>

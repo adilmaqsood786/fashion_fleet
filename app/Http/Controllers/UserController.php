@@ -26,9 +26,9 @@ class UserController extends Controller
     public function store(Request $request)
 
 {
-// dd($request->all()); 
-    
-// dd($request->profilePhone);   
+// dd($request->all());
+
+// dd($request->profilePhone);
     //    validation
         $validate = Validator::make($request->all(),[
 
@@ -39,20 +39,6 @@ class UserController extends Controller
     'role' => 'required',
     'status' => 'required',
 
-    //prrfile user 
-
-        // 'full_name' =>"require",
-        // 'profilePhone' =>"require" ,
-        // 'address_line_1' => "require",
-        // 'address_line_2' => "require",
-        // 'city' => "require",
-        // 'state' => "require",
-        // 'postal_code' =>"require" ,
-        // 'country' => "require",
-        // 'latitude' => "require",
-        // 'longitude' => "require",
-        // 'is_default' => "require",
-
 ]);
 
 // dd($validate);
@@ -62,7 +48,7 @@ class UserController extends Controller
                 return back()->withErrors($validate)->withInput();
             }
 
-    
+
         // Create User
         $user = User::create([
             'name' => $request->name,
@@ -74,7 +60,7 @@ class UserController extends Controller
 
        'email_verified_at' =>
         $request->email_verified == 1 ? now() : null,
-        ]); 
+        ]);
 
         // Role-based insert
 
@@ -98,7 +84,7 @@ class UserController extends Controller
         'longitude' => $request->longitude ?? 0,
         'is_default' => $request->is_default ?? 0,
     ]);
-}   
+}
 
         elseif($request->role == 'vendor'){
             $logoPath = null;
@@ -113,7 +99,7 @@ class UserController extends Controller
                 'store_slug' => $request->store_slug,
                 'logo' => $logoPath,
                 'license'=>$request->license,
-                'registor'=>$request->registor,
+                'register'=>$request->register,
                 'description' => $request->description,
                 'address' => $request->address,
                 'vendor_city' => $request->vendor_city,
@@ -171,9 +157,9 @@ class UserController extends Controller
             ]);
 
             }
-      
-        
-        // VENDOR UPDATE 
+
+
+        // VENDOR UPDATE
     if($user->role == 'vendor' && $user->vendor){
 
         $logo = $user->vendor->logo;
@@ -183,24 +169,21 @@ class UserController extends Controller
         }
 
         $user->vendor->update([
+
             'store_name' => $request->store_name,
             'store_slug' => $request->store_slug,
             'logo' => $logo,
             'description' => $request->description,
+           'register'=>$request->register,
+           'license'=>$request->license,
             'address' => $request->address,
             'vendor_city' => $request->vendor_city,
             'vendor_country' => $request->vendor_country,
             'commission_rate' => $request->commission_rate,
             'is_approved' => $request->is_approved,
-            'is_active' => $request->is_active ?? 0,
-            
+            'is_active' => $request->is_active ?? 0
         ]); 
-    
-
         }
-    
-        
-
 
         return redirect()->route('user.index');
     }
@@ -210,10 +193,10 @@ class UserController extends Controller
         User::where('id',$delete_id)->first()->delete();
         return redirect()->route('user.index');
     }
-   
 
 
- public function loginUser(){    
+
+ public function loginUser(){
      return view('welcome');
     }
 
@@ -221,7 +204,7 @@ class UserController extends Controller
      public function loginCheck(Request $request){
 
       $userLogin = Auth::attempt(['email'=>$request->email, 'password' =>$request->password]);
-     
+
      if($userLogin){
        return redirect()->route('user.index');
 
