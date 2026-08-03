@@ -158,8 +158,7 @@ class ProductController extends Controller
     {
         $products = Product::with("vendor")
         ->where("vendor_id",$id)
-        ->latest()
-        ->get();
+        ->first();
   
         return  response()->json([
              "status"=>true,

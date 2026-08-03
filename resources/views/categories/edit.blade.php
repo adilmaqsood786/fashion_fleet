@@ -27,50 +27,75 @@
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->
-                        <!--begin::Col-->
+                        {{-- <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom03" class="form-label">Image</label>
                         
                           <input type="file" class="form-control" value="{{isset($brandRecord['image'])?$brandRecord['image']:""}}" name="image" required />
                           <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
-                        <!--end::Col-->
+                        <!--end::Col--> --}}
+                        <div class="col-md-6">
+    <label class="form-label">Image</label>
+
+    <input type="file" class="form-control" name="image">
+
+    @if(!empty($brandRecord->image))
+        <div class="mt-2">
+            <img src="{{ asset('storage/'.$brandRecord->image) }}"
+                 alt="Brand Image"
+                 width="120"
+                 class="img-thumbnail">
+        </div>
+    @endif
+</div>
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom02" class="form-label">Main Category</label>
                           
-                          {{-- <input type="text" class="form-control" value="{{isset($categoryRecord['parent_id'])?$categoryRecord['parent_id']:""}}" name="parent_id" required /> --}}
-                        <select name="parent_id" class="form-control form-select">
-                           <option value="">None</option>
-                       
-                           {{-- @foreach ($categories as $cate)
-                               @if (empty($cate->parent_id) && $cate->id != $cate->id)
-                                   <option value="{{ $cate->id }}"
-                                       {{ old('parent_id', $brandRecord->parent_id) == $cate->id ? 'selected' : '' }}>
-                                       {{ $cate->name }}
-                                   </option>
-                               @endif
-                           @endforeach --}}
-                             @foreach ($categories as $cate)
-                                        @if (empty($cate->parent_id))
-                                            <option value="{{ $cate->id }}" {{ old('parent_id') == $cate->id ? 'selected' : '' }}>
-                                                {{ $cate->name }}
-                                            </option>
-                                        @endif
-                                    @endforeach
-                       </select>
+                        
+                       <select name="parent_id" class="form-control form-select">
+    <option value="">None</option>
+
+    @foreach ($categories as $cate)
+        @if (empty($cate->parent_id) && $cate->id != $categoryRecord->id)
+            <option value="{{ $cate->id }}"
+                @selected(old('parent_id', $categoryRecord->parent_id) == $cate->id)>
+                {{ $cate->name }}
+            </option>
+        @endif
+    @endforeach
+</select>
                           <div class="valid-feedback">Looks good!</div>
-                        </div>
+                        </div>  
+
+
+
+                        
                         <!--end::Col-->
                        
                       <!--begin::Col-->
-                          <div class="col-md-6">
+                          {{-- <div class="col-md-6">
                             <input type="checkbox" id="is" value="{{isset($categoryRecord['is_active'])?$categoryRecord['is_active']:""}}" name="is_active" value="1">
                             <label class="form-label" for="is">Is_active</label>
                        
                             <div class="invalid-feedback">Please select a valid category.</div>
-                          </div>
-                          <!--end::Col-->
+                          </div> --}}
+           <div class="col-md-6">
+    <label for="is_active" class="form-label">Is Active</label>
+
+    <select name="is_active" id="is_active" class="form-select">
+        <option value="1" @selected(old('is_active', $categoryRecord->is_active) == 1)>
+            Active
+        </option>
+
+        <option value="0" @selected(old('is_active', $categoryRecord->is_active) == 0)>
+            Inactive
+        </option>
+    </select>
+</div>
+           
+<!--end::Col-->
                     <!--begin::Footer-->
                     <div class="card-footer mt-5">
                       <button class="btn btn-success" type="submit">Submit</button>

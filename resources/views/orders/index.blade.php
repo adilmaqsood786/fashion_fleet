@@ -24,10 +24,9 @@
                       <thead>
                         <tr>
                             <th>ID</th>
-                          <th>User</th>
-                          <th>Vender</th>
-                          <th>Rider</th>
-                          <th>Customer</th>
+                          <th>Shop Name</th>
+                          <th>All Rider</th>
+                          <th>Custome Namer</th>
                           <th>Order Number</th>
                           <th>Subtotal</th>
                           <th>Delivery Fee</th>

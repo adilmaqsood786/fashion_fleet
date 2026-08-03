@@ -56,10 +56,18 @@
                         <!--end::Col-->
                        
                       <!--begin::Col-->
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                 <input type="checkbox" id="is" name="is_active" value="1">
                   <label for="status" for="is" class="form-label">Is_active</label>
-                
+                 --}}
+                 <div class="col-md-6">
+    <label for="is_active" class="form-label">Is Active</label>
+
+    <select name="is_active" id="is_active" class="form-select">
+        <option value="1">Active</option>
+        <option value="0">Inactive</option>
+    </select>
+</div>
                     <!--end::Body-->
                     <!--begin::Footer-->
                     <div class="card-footer mt-5">

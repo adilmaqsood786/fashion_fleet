@@ -14,7 +14,7 @@
                          <!--begin::Col-->
                         <div class="col-md-6">
                           
-                          <label for="validationCustom01" class="form-label">Vendor Name</label>
+                          <label for="validationCustom01" class="form-label">Shop Name</label>
                           <select name="vendor_id" id="id" class="form-controls form-select">
                               @foreach ($vendors as $vendor)
                                  <option value="{{$vendor->id}}">{{$vendor->store_name}}</option>

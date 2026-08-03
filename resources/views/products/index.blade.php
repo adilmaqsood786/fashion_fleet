@@ -21,7 +21,7 @@
                       <thead>
                         <tr>
                             <th>ID</th>
-                          <th>Vender</th>
+                          <th>Shop Name</th>
                           <th>Categroy</th>
                           <th>Name</th>
                           <th>Slug</th>

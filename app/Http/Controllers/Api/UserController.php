@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\api;
 use App\Models\User;
+use App\Models\Vendor;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -22,84 +24,115 @@ public function index()
 
 // store method
 
+//     public function store(Request $request)
+
+// {
+
+//         // Create User
+//         $user = User::create([
+//             'name' => $request->name,
+//             'email' => $request->email,
+//             'userPhone' => $request->userPhone,
+//             'password' => Hash::make($request->password),
+//             'role' => $request->role,
+//             'status' => $request->status == 'active' ? 1 : 0,
+
+//        'email_verified_at' =>
+//         $request->email_verified == 1 ? now() : null,
+//         ]);
+
+//         // Role-based insert
+
+//        if($request->role == 'customer'){
+
+
+//        //        $validate = Validator::$user->profile()->make($request->all(),[
+
+
+
+
+//     $user->profile()->create([
+//         'full_name' => $request->full_name,
+//         'profilePhone' => $request->profilePhone,
+//         'address_line_1' => $request->address_line_1,
+//         'address_line_2' => $request->address_line_2,
+//         'city' => $request->city,
+//         'state' => $request->state,
+//         'postal_code' => $request->postal_code,
+//         'country' => $request->country,
+//         'latitude' => $request->latitude ?? 0,
+//         'longitude' => $request->longitude ?? 0,
+//         'is_default' => $request->is_default ?? 0,
+//     ]);
+// }
+
+//         elseif($request->role == 'vendor'){
+//             $logo = null;
+
+//             if($request->hasFile('logo')){
+//                 $logo = $request->file('logo')->store('image/','public');
+//             }
+
+//             $user->vendor()->create([
+//                 'store_name' => $request->store_name,
+//                 'store_slug' => $request->store_slug,
+//                 'logo' => $logo,
+//                 'description' => $request->description,
+//                 'address' => $request->address,
+//                 'city' => $request->city,
+//                 'country' => $request->country,
+//                 'commission_rate' =>$request->commission_rate,
+//                 'is_approved' => 1,
+//                 'is_active' => 1,
+//             ]);
+//         }
+
+//         elseif($request->role == 'rider'){
+//             $user->rider()->create([
+//                 'vehicle_type' => $request->vehicle_type,
+//                 'vehicle_number' => $request->vehicle_number,
+//                 'license_number' => $request->license_number,
+//                 'is_available' => $request->is_available ?? 0,
+//                 'is_verified' => $request->is_verified ??  0,
+//             ]);
+//         }
+
+//  return \response()->json([
+//             "message"=>"success",
+//             "data"=>$user
+//          ]);
+//         }
+
     public function store(Request $request)
 
 {
 
-        // Create User
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'userPhone' => $request->userPhone,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
-            'status' => $request->status == 'active' ? 1 : 0,
-
-       'email_verified_at' =>
-        $request->email_verified == 1 ? now() : null,
-        ]);
-
-        // Role-based insert
-
-       if($request->role == 'customer'){
-
-
-       //        $validate = Validator::$user->profile()->make($request->all(),[
-
-
-
-
-    $user->profile()->create([
-        'full_name' => $request->full_name,
-        'profilePhone' => $request->profilePhone,
-        'address_line_1' => $request->address_line_1,
-        'address_line_2' => $request->address_line_2,
-        'city' => $request->city,
-        'state' => $request->state,
-        'postal_code' => $request->postal_code,
-        'country' => $request->country,
-        'latitude' => $request->latitude ?? 0,
-        'longitude' => $request->longitude ?? 0,
-        'is_default' => $request->is_default ?? 0,
-    ]);
-}
-
-        elseif($request->role == 'vendor'){
-            $logo = null;
+$logo = null;
 
             if($request->hasFile('logo')){
                 $logo = $request->file('logo')->store('image/','public');
             }
 
-            $user->vendor()->create([
-                'store_name' => $request->store_name,
-                'store_slug' => $request->store_slug,
-                'logo' => $logo,
-                'description' => $request->description,
-                'address' => $request->address,
-                'city' => $request->city,
-                'country' => $request->country,
-                'commission_rate' => 10,
-                'is_approved' => 1,
-                'is_active' => 1,
-            ]);
-        }
+     $user = User::findOrFail($request->user_id);
 
-        elseif($request->role == 'rider'){
-            $user->rider()->create([
-                'vehicle_type' => $request->vehicle_type,
-                'vehicle_number' => $request->vehicle_number,
-                'license_number' => $request->license_number,
-                'is_available' => $request->is_available ?? 0,
-                'is_verified' => $request->is_verified ??  0,
-            ]);
-        }
-
- return \response()->json([
+$vendor = $user->vendor()->create([
+    'store_name' => $request->store_name,
+    'store_slug' => $request->store_slug,
+    'logo' => $logo,
+    'description' => $request->description,
+    'address' => $request->address,
+    'city' => $request->city,
+    'country' => $request->country,
+    'commission_rate' => $request->commission_rate,
+    'is_approved' => 1,
+    'is_active' => 1,
+]);
+    return \response()->json([
             "message"=>"success",
-            "data"=>$user
+            "data"=>$vendor
          ]);
-        }
+}
+
 
    //edit method
     public function edit($id)

@@ -35,7 +35,7 @@
                          <!--begin::Col-->
                         <div class="col-md-6">
                           
-                          <label for="validationCustom01" class="form-label">Vendor Name</label>  
+                          <label for="validationCustom01" class="form-label">Shope Name</label>  
                           
                           {{-- <input type="number" class="form-control" name="vendor_id" value="{{old('vendor_id')}}"  required /> --}}
                             <select name="vendor_id" id="id" class="form-controls form-select">
@@ -56,7 +56,7 @@
                         <!--begin::Col-->
                         <div class="col-md-6">
                           
-                          <label for="validationCustom01" class="form-label">rider</label>
+                          <label for="validationCustom01" class="form-label">All Rider</label>
                           
                             <select name="rider_id" id="id" class="form-controls form-select">
                               @foreach ($riders as $rider)
