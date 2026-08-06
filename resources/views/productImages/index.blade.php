@@ -24,7 +24,7 @@
                       <thead>
                         <tr>
                           <th style="width: 10px">#</th>
-                          <th>Product</th>
+                          <th>Product Name</th>
                           <th>Image</th>
                           <th>sort_order</th>
                           <th>Edit</th>

@@ -120,7 +120,19 @@
                           <div class="valid-feedback">Looks good!</div>
                         </div>
                         <!--end::Col-->
-                       
+                          <!--begin::Col-->
+                        <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">Total</label>
+                          
+                          <input type="number" class="form-control" value="{{old('total')}}" name="total" required />
+                          <span style="color: red">
+                            @error('total')
+                                {{$message}}
+                            @enderror
+                          </span>
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <!--end::Col-->
                         <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="short_description" class="form-label">Delivery Fee</label>
@@ -167,19 +179,25 @@
                         <!--end::Col--> 
                         
                        
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
                         <!--begin::Col-->
-                        <div class="col-md-6">
-                          <label for="validationCustom01" class="form-label">Total</label>
-                          
-                          <input type="number" class="form-control" value="{{old('total')}}" name="total" required />
-                          <span style="color: red">
-                            @error('total')
-                                {{$message}}
-                            @enderror
-                          </span>
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <!--end::Col--> <!--begin::Col-->
                         <div class="col-md-6">
                           <label for="validationCustom01" class="form-label">Payment Status</label>
                           
