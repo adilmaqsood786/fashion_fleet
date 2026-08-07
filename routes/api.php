@@ -10,7 +10,7 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductImageController;
 use App\Http\Controllers\Api\ProductRatingController;
 
-//user 
+//user
 
 
 Route::get('user',[UserController::class,"index"]);
@@ -25,7 +25,7 @@ Route::get('delete-user/{delete_id}',[UserController::class,"destroy"]);
 Route::post('signup',[UserController::class,'signup']);
 Route::post('login',[UserController::class,'login']);
 
-//Product Rating 
+//Product Rating
 Route::get('Rating',[ProductRatingController::class,"index"]);
 Route::post('store-Rating',[ProductRatingController::class,"store"]);
 Route::get('edit-Rating/{edit_id}',[ProductRatingController::class,"edit"]);
@@ -35,7 +35,7 @@ Route::get('delete-Rating/{delete_id}',[ProductRatingController::class,"destroy"
 
 
 
-//Product image 
+//Product image
 Route::get('image',[ProductImageController::class,"index"]);
 Route::post('store-image',[ProductImageController::class,"store"]);
 Route::get('edit-image/{edit_id}',[ProductImageController::class,"edit"]);
@@ -44,7 +44,7 @@ Route::get('delete-image/{delete_id}',[ProductImageController::class,"destroy"])
 
 
 
-//CategoryProductContoller 
+//CategoryProductContoller
 Route::get('category',[CategoryProductController::class,"index"]);
 Route::post('store-category',[CategoryProductController::class,"store"]);
 Route::get('edit-category/{edit_id}',[CategoryProductController::class,"edit"]);
@@ -52,7 +52,7 @@ Route::post('update-category/{update_id}',[CategoryProductController::class,"upd
 Route::get('delete-category/{delete_id}',[CategoryProductController::class,"destroy"]);
 
 
-//Order 
+//Order
 Route::get('order',[OrderController::class,"index"]);
 Route::post('store-order',[OrderController::class,"store"]);
 Route::get('edit-order/{edit_id}',[OrderController::class,"edit"]);
@@ -72,7 +72,7 @@ Route::get('/products-delete/{id}', [ProductController::class, 'destroy']);
 Route::get('/products-single/{id}', [ProductController::class, 'productSingle']);
 Route::get('products-vendor/{id}', [ProductController::class,'ProductVendor']);
 
-
+Route::get('/vendor/{userId}/store', [ProductController::class, 'getStoreByUserId']);
 
 
 

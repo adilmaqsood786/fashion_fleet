@@ -104,16 +104,17 @@ public function index()
 //         }
 
     public function store(Request $request)
-
 {
-
+//     return response()->json(["data",$request->all()]);
 $logo = null;
 
             if($request->hasFile('logo')){
                 $logo = $request->file('logo')->store('image/','public');
             }
 
-     $user = User::findOrFail($request->user_id);
+//     $user = User::findOrFail($request->user_id);
+
+        $user = User::where("email",$request->email)->first();
 
 $vendor = $user->vendor()->create([
     'store_name' => $request->store_name,
@@ -125,7 +126,7 @@ $vendor = $user->vendor()->create([
     'address' => $request->address,
     'vendor_city' => $request->vendor_city,
     'vendor_country' => $request->vendor_country,
-    'commission_rate' => $request->commission_rate,
+    'commission_rate' => 10,
     'is_approved' => 1,
     'is_active' => 1,
 ]);
@@ -235,6 +236,11 @@ public function destroy($delete_id)
             }
 
      $user['token'] = $user->createToken('MyApp')->plainTextToken;
+        if ($user['role']=="vendor"){
+            $user['vendor'] =  $user->vendor;
+        }else if ($user['role']=="customer"){
+            $user['customer'] =  $user->profile;
+        }
 //        $user['name'] =$user->name;
 
 
