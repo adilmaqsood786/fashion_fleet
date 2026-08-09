@@ -96,8 +96,8 @@ class ProductController extends Controller
         }
 
         $product->update([
-            'vendor_id' => $request->vendor_id,
-            'category_id' => $request->category_id,
+            // 'vendor_id' => $request->vendor_id,
+            // 'category_id' => $request->category_id,
             'name' => $request->name,
             'slug' => $request->slug,
             'short_description' => $request->short_description,
@@ -158,7 +158,7 @@ class ProductController extends Controller
     {
         $products = Product::with("vendor")
         ->where("vendor_id",$id)
-        ->first();
+        ->get();
 
         return  response()->json([
              "status"=>true,

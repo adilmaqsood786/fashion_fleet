@@ -1,6 +1,6 @@
 @extends('admin_penal.master')
 @section('content')
- <div class="card-header">
+ <div class="card">
                     <h3>Add New Order </h3>
                   </div>
                   <!--end::Header-->
@@ -285,8 +285,51 @@
                       </div>
                   </section>
 
-
-
+                  <section class="mt-4">
+                      <h4>Order Products</h4>
+                      <div id="order-items" class="row g-3">
+                          <div class="col-12">
+                              <table class="table table-bordered">
+                                  <thead>
+                                      <tr>
+                                          <th>Product</th>
+                                          <th>Quantity</th>
+                                          <th>Price</th>
+                                          <th>Total</th>
+                                          <th>Action</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody id="order-items-body">
+                                      <tr class="order-item-row">
+                                          <td>
+                                              <select name="product_id[]" class="form-control form-select product-select">
+                                                  <option value="">Select product</option>
+                                                  @foreach ($products as $product)
+                                                      <option value="{{ $product->id }}" data-price="{{ $product->price }}">{{ $product->name }}</option>
+                                                  @endforeach
+                                              </select>
+                                          </td>
+                                          <td>
+                                              <input type="number" name="quantity[]" class="form-control quantity-input" value="1" min="1" />
+                                          </td>
+                                          <td>
+                                              <input type="number" name="product_price[]" class="form-control price-input" value="0" step="0.01" readonly />
+                                          </td>
+                                          <td>
+                                              <input type="number" name="item_total[]" class="form-control total-input" value="0" step="0.01" readonly />
+                                          </td>
+                                          <td>
+                                              <button type="button" class="btn btn-danger remove-order-item">Remove</button>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                          <div class="col-12">
+                              <button type="button" id="add-order-item" class="btn btn-primary">Add Product</button>
+                          </div>
+                      </div>
+                  </section>
 
                       <!--end::Row-->
                     </div>
@@ -299,6 +342,77 @@
                   </form>
                   <!--end::Form-->
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const productData = @json($products->map(fn($product) => ['id' => $product->id, 'name' => $product->name, 'price' => $product->price]));
 
-@endsection
+        function buildOptions() {
+            return ['<option value="">Select product</option>', ...productData.map(product => `<option value="${product.id}" data-price="${product.price}">${product.name}</option>`)].join('');
+        }
 
+        function recalculateRow(row) {
+            const productSelect = row.querySelector('.product-select');
+            const quantityInput = row.querySelector('.quantity-input');
+            const priceInput = row.querySelector('.price-input');
+            const totalInput = row.querySelector('.total-input');
+
+            const selectedOption = productSelect.options[productSelect.selectedIndex];
+            const price = parseFloat(selectedOption.dataset.price || 0);
+            const quantity = parseInt(quantityInput.value || 0, 10);
+            const rowTotal = price * quantity;
+
+            priceInput.value = price.toFixed(2);
+            totalInput.value = rowTotal.toFixed(2);
+        }
+
+        function bindRowEvents(row) {
+            const productSelect = row.querySelector('.product-select');
+            const quantityInput = row.querySelector('.quantity-input');
+            const removeButton = row.querySelector('.remove-order-item');
+
+            productSelect.addEventListener('change', function () {
+                recalculateRow(row);
+            });
+
+            quantityInput.addEventListener('input', function () {
+                recalculateRow(row);
+            });
+
+            removeButton.addEventListener('click', function () {
+                const rows = document.querySelectorAll('.order-item-row');
+                if (rows.length > 1) {
+                    row.remove();
+                }
+            });
+        }
+
+        function addOrderItem() {
+            const row = document.createElement('tr');
+            row.classList.add('order-item-row');
+            row.innerHTML = `
+                <td>
+                    <select name="product_id[]" class="form-control form-select product-select">
+                        ${buildOptions()}
+                    </select>
+                </td>
+                <td>
+                    <input type="number" name="quantity[]" class="form-control quantity-input" value="1" min="1" />
+                </td>
+                <td>
+                    <input type="number" name="product_price[]" class="form-control price-input" value="0" step="0.01" readonly />
+                </td>
+                <td>
+                    <input type="number" name="item_total[]" class="form-control total-input" value="0" step="0.01" readonly />
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger remove-order-item">Remove</button>
+                </td>
+            `;
+            document.getElementById('order-items-body').appendChild(row);
+            bindRowEvents(row);
+        }
+
+        document.getElementById('add-order-item').addEventListener('click', addOrderItem);
+        document.querySelectorAll('.order-item-row').forEach(bindRowEvents);
+    });
+</script>

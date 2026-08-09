@@ -122,9 +122,10 @@
                      <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>
-                <li>
-                   {{--=========User siderbar==========--}}
-                   <li class="nav-item">
+              </li>
+
+              {{--=========User sidebar==========--}}
+              <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
                   <p>
@@ -145,18 +146,11 @@
                       <p>New User</p>
                     </a>
                   </li>
-                 
                 </ul>
               </li>
 
-                 
- {{--========Vendor_sidebar=======--}}
-              
-              </
-
-  {{-- ========Vendor_sidebar======= --}}
-              <ul>
-               <li class="nav-item">
+              {{--========Vendor_sidebar=======--}}
+              <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
                   <p>
@@ -177,8 +171,8 @@
                       <p>Add Category</p>
                     </a>
                   </li>
-                 
-                </ul> 
+                </ul>
+              </li>
 
   
  {{--========user_profile_sidebar=======--}}
@@ -350,8 +344,8 @@
                  
                 </ul>
               </li>   --}}
-
-
+            </ul>
+            <!--end::Sidebar Menu-->
 
 
 

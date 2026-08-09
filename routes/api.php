@@ -75,22 +75,6 @@ Route::get('products-vendor/{id}', [ProductController::class,'ProductVendor']);
 Route::get('/vendor/{userId}/store', [ProductController::class, 'getStoreByUserId']);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // route::get('product',[ProductController::class,'index']);
 // route::post('store-product',[ProductController::class,'store']);
 // Route::get('edit-product/{edit_id}',[ProductController::class,'edit']);
