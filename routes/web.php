@@ -140,3 +140,9 @@ Route::post('store-rating',[ProductRatingController::class,'store'])->name('rati
 Route::post('update-rating/{update_id}',[ProductRatingController::class,'update'])->name('ratingUpdate');
 Route::get('delete-rating/{delete_id}',[ProductRatingController::class,'destroy'])->name('ratingDelete');
 });
+
+
+Route::get('/rating-approval/{id}/{status}', 
+    [ProductRatingController::class, 'ratingApproval']
+)->name('ratingApproval');
+
