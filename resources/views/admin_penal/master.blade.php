@@ -399,7 +399,7 @@
         <!--begin::Copyright-->
         <strong>
           Copyright &copy; 2026&nbsp;
-          <a href="/" class="text-decoration-none">Fastion fleat</a>.
+          <a href="http://localhost/" class="text-decoration-none">Fashion Fleet</a>.
         </strong>
         All rights reserved.
         <!--end::Copyright-->
