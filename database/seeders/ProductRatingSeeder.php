@@ -28,7 +28,6 @@ foreach ($products->take(3) as $index => $product) {
         'order_id' => $orders[$index]->id ?? $orders->first()->id,
 
         'rating' => rand(3, 5),
-        'title' => ['Excellent product!', 'Good value for money', 'Average product'][$index] ?? 'Good product',
         'review' => 'Auto generated review for testing purposes',
 
         'is_approved' => true,

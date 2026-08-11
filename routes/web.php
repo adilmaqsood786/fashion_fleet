@@ -121,3 +121,9 @@ Route::middleware(['auth', 'role:rider'])->group(function () {
     Route::get('my-orders', [RiderOrderController::class, 'index'])->name('riderOrders.index');
     Route::post('my-orders/{order}/delivery-status', [RiderOrderController::class, 'updateDeliveryStatus'])->name('riderOrders.updateDeliveryStatus');
 });
+
+
+Route::get('/rating-approval/{id}/{status}', 
+    [ProductRatingController::class, 'ratingApproval']
+)->name('ratingApproval');
+

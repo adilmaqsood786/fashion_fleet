@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('order_id')->constrained('orders');
             $table->foreignId('user_id')->constrained('users');
             $table->integer('rating');
-            $table->string('title');
             $table->text('review');
             $table->boolean('is_approved');
             $table->timestamps();
