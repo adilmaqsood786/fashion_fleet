@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Auth;
-
 
 class UserController extends Controller
 {
-
     public function index()
     {
-        $users = User::with(['profile','vendor','rider'])->get();
+        $users = User::with(['profile', 'vendor', 'rider'])->get();
+
         return view('users.index', compact('users'));
     }
 
@@ -24,30 +23,27 @@ class UserController extends Controller
     }
 
     public function store(Request $request)
+    {
+        // dd($request->all());
 
-{
-// dd($request->all());
+        // dd($request->profilePhone);
+        //    validation
+        $validate = Validator::make($request->all(), [
 
-// dd($request->profilePhone);
-    //    validation
-        $validate = Validator::make($request->all(),[
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+            'userPhone' => 'required',
+            'role' => 'required ',
+            'status' => 'required',
 
-    'name' =>'required',
-    'email' =>'required|email|unique:users,email',
-    'password' => 'required|min:6',
-    'userPhone' => 'required',
-    'role' => 'required ',
-    'status' => 'required',
+        ]);
 
-]);
+        // dd($validate);
 
-// dd($validate);
-
-          if($validate->fails())
-            {
-                return back()->withErrors($validate)->withInput();
-            }
-
+        if ($validate->fails()) {
+            return back()->withErrors($validate)->withInput();
+        }
 
         // Create User
         $user = User::create([
@@ -56,41 +52,34 @@ class UserController extends Controller
             'userPhone' => $request->userPhone,
             'password' => Hash::make($request->password),
             'role' => $request->role,
-            'status' => $request->status ? 1 :0,
+            'status' => $request->status ? 1 : 0,
 
-         'email_verified_at' =>
-        $request->email_verified == 1 ? now() : null,
+            'email_verified_at' => $request->email_verified == 1 ? now() : null,
         ]);
 
         // Role-based insert
 
-       if($request->role == 'customer'){
+        if ($request->role == 'customer') {
 
+            //        $validate = Validator::$user->profile()->make($request->all(),[
 
-       //        $validate = Validator::$user->profile()->make($request->all(),[
-
-
-
-
-    $user->profile()->create([
-        'full_name' => $request->full_name,
-        'address_line_1' => $request->address_line_1,
-        'address_line_2' => $request->address_line_2,
-        'city' => $request->city,
-        'state' => $request->state,
-        'postal_code' => $request->postal_code,
-        'country' => $request->country,
-        'latitude' => $request->latitude ?? 0,
-        'longitude' => $request->longitude ?? 0,
-        'is_default' => $request->is_default ?? 0,
-    ]);
-}
-
-        elseif($request->role == 'vendor'){
+            $user->profile()->create([
+                'full_name' => $request->full_name,
+                'address_line_1' => $request->address_line_1,
+                'address_line_2' => $request->address_line_2,
+                'city' => $request->city,
+                'state' => $request->state,
+                'postal_code' => $request->postal_code,
+                'country' => $request->country,
+                'latitude' => $request->latitude ?? 0,
+                'longitude' => $request->longitude ?? 0,
+                'is_default' => $request->is_default ?? 0,
+            ]);
+        } elseif ($request->role == 'vendor') {
             $logoPath = null;
 
-            if($request->hasFile('logo')){
-                $logo = $request->file('logo')->store('image/','public');
+            if ($request->hasFile('logo')) {
+                $logo = $request->file('logo')->store('image/', 'public');
                 $logoPath = $logo;
             }
 
@@ -98,17 +87,15 @@ class UserController extends Controller
                 'store_name' => $request->store_name,
                 'store_slug' => $request->store_slug,
                 'logo' => $logoPath,
-                'license'=>$request->license,
-                'register'=>$request->register,
+                'license' => $request->license,
+                'register' => $request->register,
                 'address' => $request->address,
                 'vendor_city' => $request->vendor_city,
                 'vendor_country' => $request->vendor_country,
                 'commission_rate' => $request->commission_rate,
-                'is_active' => $request->is_active ? 1 :0,
+                'is_active' => $request->is_active ? 1 : 0,
             ]);
-        }
-
-        elseif($request->role == 'rider'){
+        } elseif ($request->role == 'rider') {
             $user->rider()->create([
                 'vehicle_type' => $request->vehicle_type,
                 'vehicle_number' => $request->vehicle_number,
@@ -123,14 +110,15 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = User::with(['profile','vendor','rider'])->findOrFail($id);
+        $user = User::with(['profile', 'vendor', 'rider'])->findOrFail($id);
+
         return view('users.edit', compact('user'));
     }
 
     public function update(Request $request)
     {
         // dd($request->all());
-        $user = User::where('id',$request->id)->first();
+        $user = User::where('id', $request->id)->first();
 
         $user->update([
             'name' => $request->name,
@@ -139,54 +127,49 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'role' => $request->role,
             'status' => $request->status ? 1 : 0,
-            
-       'email_verified_at' =>
-        $request->email_verified == 1 ? now() : null,
+
+            'email_verified_at' => $request->email_verified == 1 ? now() : null,
         ]);
 
-           if($user->role == 'customer' && $user->profile){
-        $user->profile->update([
-        'full_name' => $request->full_name,
-        'address_line_1' => $request->address_line_1,
-        'address_line_2' => $request->address_line_2,
-        'city' => $request->city,
-        'state' => $request->state,
-        'postal_code' => $request->postal_code,
-        'country' => $request->country,
-        'latitude' => $request->latitude ?? 0,
-        'longitude' => $request->longitude ?? 0,
-        'is_default' => $request->is_default ?? 0,
+        if ($user->role == 'customer' && $user->profile) {
+            $user->profile->update([
+                'full_name' => $request->full_name,
+                'address_line_1' => $request->address_line_1,
+                'address_line_2' => $request->address_line_2,
+                'city' => $request->city,
+                'state' => $request->state,
+                'postal_code' => $request->postal_code,
+                'country' => $request->country,
+                'latitude' => $request->latitude ?? 0,
+                'longitude' => $request->longitude ?? 0,
+                'is_default' => $request->is_default ?? 0,
             ]);
 
-            }
-
+        }
 
         // VENDOR UPDATE
-    if($user->role == 'vendor' && $user->vendor){
+        if ($user->role == 'vendor' && $user->vendor) {
 
-        $logo = $user->vendor->logo;
+            $logo = $user->vendor->logo;
 
-        if($request->hasFile('logo')){
-            $logo = $request->file('logo')->store('vendor','public');
-        }
+            if ($request->hasFile('logo')) {
+                $logo = $request->file('logo')->store('vendor', 'public');
+            }
 
-        $user->vendor->update([
+            $user->vendor->update([
 
-            'store_name' => $request->store_name,
-            'store_slug' => $request->store_slug,
-            'logo' => $logo,
-           'register'=>$request->register,
-           'license'=>$request->license,
-            'address' => $request->address,
-            'vendor_city' => $request->vendor_city,
-            'vendor_country' => $request->vendor_country,
-            'commission_rate' => $request->commission_rate,
-            'is_active' => $request->is_active ? 1 : 0
-        ]); 
-        }
-
-
-          elseif($request->role == 'rider'){
+                'store_name' => $request->store_name,
+                'store_slug' => $request->store_slug,
+                'logo' => $logo,
+                'register' => $request->register,
+                'license' => $request->license,
+                'address' => $request->address,
+                'vendor_city' => $request->vendor_city,
+                'vendor_country' => $request->vendor_country,
+                'commission_rate' => $request->commission_rate,
+                'is_active' => $request->is_active ? 1 : 0,
+            ]);
+        } elseif ($request->role == 'rider') {
             $user->rider()->update([
                 'vehicle_type' => $request->vehicle_type,
                 'vehicle_number' => $request->vehicle_number,
@@ -194,34 +177,38 @@ class UserController extends Controller
                 'is_available' => $request->is_available ?? 0,
                 'is_verified' => $request->is_verified ?? 0,
             ]);
-        }   
+        }
 
         return redirect()->route('user.index');
     }
 
     public function destroy($delete_id)
     {
-        User::where('id',$delete_id)->first()->delete();
+        User::where('id', $delete_id)->first()->delete();
+
         return redirect()->route('user.index');
     }
 
-
-
- public function loginUser(){
-     return view('welcome');
+    public function loginUser()
+    {
+        return view('welcome');
     }
 
+    public function loginCheck(Request $request)
+    {
 
-     public function loginCheck(Request $request){
+        $userLogin = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
 
-      $userLogin = Auth::attempt(['email'=>$request->email, 'password' =>$request->password]);
+        if ($userLogin) {
+            if (auth()->user()->role === 'rider') {
+                return redirect()->route('riderOrders.index');
+            }
 
-     if($userLogin){
-       return redirect()->route('user.index');
+            return redirect()->route('user.index');
 
-     }
-     return redirect()->back();
+        }
 
+        return redirect()->back();
 
     }
 }

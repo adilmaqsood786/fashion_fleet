@@ -1,120 +1,70 @@
-{{-- @foreach ($orders as $order)
-    <p>{{print_r($order)}}</p>
-@endforeach --}}
-
-
-
 @extends('admin_penal.master')
+
 @section('content')
- 
-        
-  <!-- /.card --> 
-        
-                <div class="card mb-4">
-                  <div class="card-header">
-                    <h3 class="card-title">All Order</h3>
-                    <div class=" d-flex justify-content-end align-items-center">
-                    <a href="{{route('orderCreate')}}" class="btn btn-info">New</a>
-                    </div>
-                  </div>
-                  <!-- /.card-header -->
-                      
-                  <div class="card-body p-0 table-responsive">
-                    <table class="table table-sm">
-                      <thead>
-                        <tr>
-                            <th>ID</th>
-                          <th>Shop Name</th>
-                          <th>All Rider</th>
-                          <th>Custome Namer</th>
-                          <th>Order Number</th>
-                          <th>Subtotal</th>
-                          <th>Delivery Fee</th>
-                          <th>Discount</th>
-                          <th>Tax</th>
-                          <th>Payment Status</th>
-                          <th>Order Status</th>
-                          <th>Notes</th>
-                          <th>Placed At</th>
-                          <th>Delivered At</th>
-                          <th>Rider</th>
-                          <th>Edit</th>
-                          <th>Delete</th>
+  <div class="card mb-4">
+    <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <h3 class="card-title mb-0">All Orders</h3>
+      <a href="{{ route('orderCreate') }}" class="btn btn-info">New</a>
+    </div>
 
-                        </tr>
-                      </thead>
-                  @foreach ($orders as $order )
-                      <tbody>
-                        <tr class="align-middle">
-                         <td>{{ $order->id}}</td>
-                         <td>{{ $order->user->name}}</td>
-                         <td>{{ $order->vendor->store_name}}</td>
-                         {{-- <td>{{ $order->rider->vehicle_type?$order->rider->vehicle_type:"No vehicle_type"}}</td> --}}
-                         <td>{{ isset($order->rider->vehicle_number) ? $order->rider->vehicle_number: 'Not Assigned' }}</td>
-                         <td>{{ $order->profile->full_name}}</td>
-                         <td>{{ $order->order_number}}</td>
-                         <td>{{ $order->subtotal}}</td>
-                         <td>{{ $order->delivery_fee}}</td>
-                         <td>{{ $order->discount}}</td>
-                         <td>{{ $order->tax}}</td>
-                         <td>{{ $order->payment_status}}</td>
-                         <td>{{ $order->order_status}}</td>
-                         <td>{{ $order->notes}}</td>
-                         <td>{{ $order->placed_at}}</td>
-                         <td>{{ $order->delivered_at}}</td>
-                         <td>
-                          {{-- <select name="rider" class="form-control from-select" id="">
-                            @foreach ($users as $user)
-                                <option value="">{{$user->name}} <a href="" type="button" class="btn btn-outline-secondary">Assign</a></option>
-                            @endforeach
+    <div class="card-body border-bottom">
+      <div class="btn-group flex-wrap" role="group" aria-label="Filter delivery status">
+        @foreach (['' => 'All', 'Unassigned' => 'Unassigned', 'Assigned' => 'Assigned', 'Out for Delivery' => 'Out for Delivery', 'Delivered' => 'Delivered'] as $value => $label)
+          <a href="{{ route('orderIndex', $value === '' ? [] : ['delivery_status' => $value]) }}" class="btn btn-sm {{ $deliveryStatus === $value ? 'btn-primary' : 'btn-outline-primary' }}">{{ $label }}</a>
+        @endforeach
+      </div>
+    </div>
 
-</select> --}}
+    @if (session('success'))
+      <div class="alert alert-success m-3 mb-0">{{ session('success') }}</div>
+    @endif
 
-                               <div class="dropdown">
-                               <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                                 Rider
-                               </button>
-                               <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                @foreach ($users as $user)
-                                 {{-- <li>  <a href="" class="dropdown-item " type="button" >{{$user->name}} <span class="btn btn-outline-primary font-right">Assign</span></a></li> --}}
-                                 <li>
-                                     <a href=""
-                                        class="dropdown-item d-flex justify-content-between align-items-center">
-                                         <span>{{ $user->name }}</span>
-                                         <span class="btn btn-sm btn-outline-primary">Assign</span>
-                                     </a>
-                                 </li>
-                                @endforeach
-                               </ul>
-                             </div>
-                          
-                         </td>
-                          <td><a href="{{route('orderEdit',['edit_id'=>$order['id']])}}" class="btn btn-outline-primary">Edit</a></td>
-                          <td><a href="{{route('orderDelete',['delete_id'=>$order['id']])}}" class="btn btn-outline-danger">Delete</a></td>
-                        </tr>
-                      </tbody>
-                  @endforeach
-
-                    </table>
-                  </div>
-                  <!-- /.card-body -->
-                </div>
-
+    <div class="card-body p-0 table-responsive">
+      <table class="table table-sm mb-0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Shop</th>
+            <th>Order Number</th>
+            <th>Total</th>
+            <th>Rider</th>
+            <th>Delivery Status</th>
+            <th>Placed At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @forelse ($orders as $order)
+            <tr class="align-middle">
+              <td>{{ $order->id }}</td>
+              <td>{{ $order->profile?->full_name ?? $order->user?->name }}</td>
+              <td>{{ $order->vendor?->store_name }}</td>
+              <td>{{ $order->order_number }}</td>
+              <td>{{ $order->total }}</td>
+              <td>{{ $order->rider?->user?->name ?? 'Unassigned' }}</td>
+              <td><span class="badge text-bg-secondary">{{ $order->delivery_status }}</span></td>
+              <td>{{ $order->placed_at?->format('Y-m-d H:i') }}</td>
+              <td>
+                <form action="{{ route('orderAssignRider', $order) }}" method="POST" class="d-flex gap-1 mb-1">
+                  @csrf
+                  <select name="rider_id" class="form-select form-select-sm" aria-label="Assign rider for order {{ $order->order_number }}">
+                    <option value="">Unassigned</option>
+                    @foreach ($riders as $rider)
+                      <option value="{{ $rider->id }}" @selected($order->rider_id === $rider->id)>{{ $rider->user->name }}</option>
+                    @endforeach
+                  </select>
+                  <button type="submit" class="btn btn-sm btn-outline-primary">Assign</button>
+                </form>
+                <a href="{{ route('orderEdit', ['edit_id' => $order->id]) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+                <a href="{{ route('orderDelete', ['delete_id' => $order->id]) }}" class="btn btn-sm btn-outline-danger">Delete</a>
+              </td>
+            </tr>
+          @empty
+            <tr><td colspan="9" class="text-center py-4">No orders found.</td></tr>
+          @endforelse
+        </tbody>
+      </table>
+    </div>
+  </div>
 @endsection
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
