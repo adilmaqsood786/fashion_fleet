@@ -59,6 +59,11 @@ Route::get('edit-order/{edit_id}',[OrderController::class,"edit"]);
 Route::post('update-order/{update_id}',[OrderController::class,"update"]);
 Route::get('delete-order/{delete_id}',[OrderController::class,"destroy"]);
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('customer/orders', [OrderController::class, 'customerOrders']);
+    Route::post('customer/store-order', [OrderController::class, 'store']);
+});
+
 
 
 

@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
 
-  public  function  index()
+  public function index()
   {
   $orders = Order::with(['user','vendor','rider','profile','items'])->get();
     // dd($orders);
@@ -46,7 +46,7 @@ class OrderController extends Controller
              'order_status'=>'required',
              'notes'=>'required',
              'placed_at'=>'required',
-             'delivered_at'=>'required',
+             'delivered_at'=>'nullable',
              'product_id'=>'required|array|min:1',
              'product_id.*'=>'required|exists:products,id',
              'quantity'=>'required|array|min:1',
@@ -115,7 +115,7 @@ class OrderController extends Controller
             'total' => $orderTotal,
         ]);
 
-         return redirect()->route('orderIndex');
+        return redirect()->route('orderIndex');
    }
 
    public function edit($edit_id)
@@ -125,11 +125,10 @@ class OrderController extends Controller
     $vendors = Vendor::all();
     $riders =  User::where('role','rider')->get();
     $profiles = UserProfile::all();
-    // $orders = Order::all();
-    // $products = Product::all();
+    $products = Product::all();
 
 
-    return view('orders.edit',compact('orderRecord','users','vendors','riders','profiles'));
+    return view('orders.edit',compact('orderRecord','users','vendors','riders','profiles','products'));
 
    }
 
@@ -137,18 +136,51 @@ class OrderController extends Controller
      {
         $orderRecord = Order::where('id',$request->update_id)->first();
 
-        $orderUpdate = $orderRecord->update(
-            [
-                 'user_id'=>auth()->user()->id,
+        $productIds = $request->input('product_id', []);
+        $quantities = $request->input('quantity', []);
+        $deliveryFee = $request->input('delivery_fee', 0);
+        $discount = $request->input('discount', 0);
+        $tax = $request->input('tax', 0);
+
+        $subtotal = 0;
+
+        if (count($productIds)) {
+            $orderRecord->items()->delete();
+
+            foreach ($productIds as $index => $productId) {
+                $quantity = $quantities[$index] ?? 0;
+                $product = Product::find($productId);
+
+                if (! $product || $quantity < 1) {
+                    continue;
+                }
+
+                $itemTotal = $product->price * $quantity;
+                $subtotal += $itemTotal;
+
+                $orderRecord->items()->create([
+                    'product_id' => $product->id,
+                    'product_name' => $product->name,
+                    'product_price' => $product->price,
+                    'quantity' => $quantity,
+                    'total' => $itemTotal,
+                ]);
+            }
+        }
+
+        $orderTotal = $subtotal + $deliveryFee - $discount + $tax;
+
+        $orderRecord->update([
+             'user_id'=>auth()->user()->id,
              'vendor_id'=>$request->vendor_id,
              'rider_id'=>$request->rider_id,
              'profile_id'=>$request->profile_id,
              'order_number'=>$request->order_number,
-             'subtotal'=>$request->subtotal,
-             'delivery_fee'=>$request->delivery_fee,
-             'discount'=>$request->discount,
-             'tax'=>$request->tax,
-             'total'=>$request->total,
+             'subtotal'=>$subtotal ?: $request->subtotal,
+             'delivery_fee'=>$deliveryFee,
+             'discount'=>$discount,
+             'tax'=>$tax,
+             'total'=>$subtotal ? $orderTotal : $request->total,
              'payment_status'=>$request->payment_status,
              'order_status'=>$request->order_status,
              'notes'=>$request->notes,
@@ -156,38 +188,7 @@ class OrderController extends Controller
              'delivered_at'=>$request->delivered_at,
             ]);
 
-      //  $orderRecord->items->first()->update([
-      //    'order_id'=>$request->order_id,
-      //        'product_id'=>$request->product_id,
-      //        'product_name'=>$request->product_name,
-      //        'product_price'=>$request->product_price,
-      //        'quantity'=>$request->quantity,
-      //        'total'=>$request->total,
-      //  ]);
-
-
-            //       $item = $orderRecord->items()->first();
-
-            // if ($item) {
-            //     $item->update([
-            //         'product_id' => $request->product_id,
-            //         'product_name' => $request->product_name,
-            //         'product_price' => $request->product_price,
-            //         'quantity' => $request->quantity,
-            //          'total'=>$request->total,
-
-            //     ]);
-            // } else {
-            //     $orderRecord->items()->create([
-            //         'product_id' => $request->product_id,
-            //         'product_name' => $request->product_name,
-            //         'product_price' => $request->product_price,
-            //         'quantity' => $request->quantity,
-            //         'total'=>$request->total,
-
-            //         ]);
-            // }
-                      return \redirect()->route('orderIndex');
+        return \redirect()->route('orderIndex');
      }
 
 

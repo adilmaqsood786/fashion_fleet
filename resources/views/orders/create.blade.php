@@ -1,11 +1,12 @@
 @extends('admin_penal.master')
 @section('content')
  <div class="card">
-                    <h3>Add New Order </h3>
+                  <div class="card-header">
+                    <h3>Add New Order</h3>
                   </div>
                   <!--end::Header-->
                   <!--begin::Form-->
-                  <form action="{{route('orderStore')}}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                  <form action="{{ route('orderStore') }}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                     <!--begin::Body-->
                     @csrf
                     <div class="card-body">
@@ -38,9 +39,9 @@
                           <label for="validationCustom01" class="form-label">Shope Name</label>  
                           
                           {{-- <input type="number" class="form-control" name="vendor_id" value="{{old('vendor_id')}}"  required /> --}}
-                            <select name="vendor_id" id="id" class="form-controls form-select">
+                            <select name="vendor_id" class="form-select">
                               @foreach ($vendors as $vendor)
-                                 <option value="{{ $vendor->id }} {{ old('vender_id') == $vendor->id ? 'selected' : ''}}">{{$vendor->store_name}}</option>
+                                 <option value="{{ $vendor->id }}" {{ old('vendor_id') == $vendor->id ? 'selected' : '' }}>{{$vendor->store_name}}</option>
 
                               @endforeach
                             </select>
@@ -58,9 +59,9 @@
                           
                           <label for="validationCustom01" class="form-label">All Rider</label>
                           
-                            <select name="rider_id" id="id" class="form-controls form-select">
+                            <select name="rider_id" class="form-select">
                               @foreach ($riders as $rider)
-                                 <option value="{{$rider->id}} {{ old('rider_id') == $rider->id ? "selected":"" }}">{{$rider->name  }}</option>
+                                 <option value="{{ $rider->id }}" {{ old('rider_id') == $rider->id ? 'selected' : '' }}>{{ $rider->name }}</option>
 
                               @endforeach
                             </select>
@@ -78,9 +79,9 @@
                           
                           <label for="validationCustom01" class="form-label">Customer Name</label>
                           
-                          <select name="profile_id" id="id" class="form-controls form-select">
+                          <select name="profile_id" class="form-select">
                               @foreach ($profiles as $pro )
-                                 <option value="{{$pro->id}}" {{ old('profile_id') == $pro->id ? "selected" : ""}}>{{$pro->full_name}}</option>
+                                 <option value="{{ $pro->id }}" {{ old('profile_id') == $pro->id ? 'selected' : '' }}>{{ $pro->full_name }}</option>
 
                               @endforeach
                             </select>
@@ -341,6 +342,7 @@
                     <!--end::Footer-->
                   </form>
                   <!--end::Form-->
+                </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -415,4 +417,4 @@
         document.getElementById('add-order-item').addEventListener('click', addOrderItem);
         document.querySelectorAll('.order-item-row').forEach(bindRowEvents);
     });
-</script>
+</script>@endsection
