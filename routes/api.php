@@ -13,17 +13,29 @@ use App\Http\Controllers\Api\ProductRatingController;
 //user 
 
 
-Route::get('user',[UserController::class,"index"]);
-Route::post('store-user',[UserController::class,"store"]);
-Route::get('edit-user/{edit_id}',[UserController::class,"edit"]);
-Route::post('upuser/{update_id}',[UserController::class,"update"]);
-Route::get('delete-user/{delete_id}',[UserController::class,"destroy"]);
+// Route::get('user',[UserController::class,"index"]);
+// Route::post('store-user',[UserController::class,"store"]);
+// Route::get('edit-user/{edit_id}',[UserController::class,"edit"]);
+// Route::post('upuser/{update_id}',[UserController::class,"update"]);
+// Route::get('delete-user/{delete_id}',[UserController::class,"destroy"]);
 
 
 
+Route::get('/users', [UserController::class, 'index']);
 
-Route::post('signup',[UserController::class,'signup']);
-Route::post('login',[UserController::class,'login']);
+Route::get('/users/{id}', [UserController::class, 'show']);
+
+Route::post('/user-store', [UserController::class, 'store']);
+
+Route::put('/users/{id}', [UserController::class, 'update']);
+
+Route::delete('/users/{id}', [UserController::class, 'destroy']);
+
+Route::post('/login', [UserController::class, 'login']);
+
+
+// Route::post('signup',[UserController::class,'signup']);
+// Route::post('login',[UserController::class,'login']);
 
 //Product Rating 
 Route::get('Rating',[ProductRatingController::class,"index"]);
