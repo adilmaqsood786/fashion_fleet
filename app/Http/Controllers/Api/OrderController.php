@@ -3,120 +3,167 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreOrderRequest;
+use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
+use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
-     public  function  index()
-  {
-  $orders = Order::with(['user','vendor','rider','profile','items'])->get();
-    // dd($orders);
-     return response()->json([
-        "message"=>"success",
-        "data"=>$orders
-     ]);
-     
+    public function index(): JsonResponse
+    {
+        return response()->json([
+            'message' => 'success',
+            'data' => Order::with(['vendor', 'rider', 'profile', 'items.product'])->get(),
+        ]);
     }
 
-
-
-//store method
-     public function store(Request $request)
-   {
-
-
-       $order = Order::create([
-            'user_id'=>$request->user_id,
-             'vendor_id'=>$request->vendor_id,
-             'rider_id'=>$request->rider_id,
-             'profile_id'=>$request->profile_id,
-             'order_number'=>$request->order_number,
-             'subtotal'=>$request->subtotal,
-             'delivery_fee'=>$request->delivery_fee,
-             'discount'=>$request->discount,
-             'tax'=>$request->tax,
-             'total'=>$request->total,
-             'payment_status'=>$request->payment_status,
-             'order_status'=>$request->order_status,
-             'notes'=>$request->notes,
-             'placed_at'=>$request->placed_at,
-             'delivered_at'=>$request->delivered_at,
+    public function show(Order $order): JsonResponse
+    {
+        return response()->json([
+            'message' => 'success',
+            'data' => $order->load(['vendor', 'rider', 'profile', 'items.product']),
         ]);
+    }
 
-return response()->json([
-    "message"=>"success"
-    ,"data"=>$order
-]);      
+    public function store(StoreOrderRequest $request): JsonResponse
+    {
+        $validated = $request->validated();
 
+        if (! isset($validated['user_id'])) {
+            return response()->json([
+                'message' => 'validation_error',
+                'errors' => ['user_id' => ['The user_id or authenticated customer is required.']],
+            ], 422);
         }
 
+        $order = DB::transaction(function () use ($validated): Order {
+            $order = Order::create($this->orderAttributes($validated));
+            $this->replaceItems($order, $validated['product_id'], $validated['quantity']);
 
+            return $order;
+        });
 
-   //edit  method
-    public function edit($edit_id)
-   {
-    $orderRecord = Order::where('id',$edit_id)->first();
-    // $users = User::all();
-    // $vendors = Vendor::all();
-    // $riders = Rider::all();
-    // $profiles = UserProfile::all();
-    // // $orders = Order::all();
-    // // $products = Product::all();
+        return response()->json([
+            'message' => 'success',
+            'data' => $order->load(['vendor', 'rider', 'profile', 'items.product']),
+        ], 201);
+    }
 
+    public function update(UpdateOrderRequest $request, Order $order): JsonResponse
+    {
+        $validated = $request->validated();
 
-    return \response()->json([
-         "message"=>"success"
-    ,"data"=>$orderRecord
-    ]);
+        DB::transaction(function () use ($order, $validated): void {
+            $order->update($this->orderAttributes($validated));
+            $this->replaceItems($order, $validated['product_id'], $validated['quantity']);
+        });
 
-   }    
- 
-   //update method
+        return response()->json([
+            'message' => 'success',
+            'data' => $order->fresh()->load(['vendor', 'rider', 'profile', 'items.product']),
+        ]);
+    }
 
-     public function update(Request $request)
-     {
-        $orderRecord = Order::where('id',$request->update_id)->first();
+    public function destroy(Order $order): JsonResponse
+    {
+        $order->delete();
 
-        $orderUpdate = $orderRecord->update(
-            [
-                 'user_id'=>$request->user_id,
-             'vendor_id'=>$request->vendor_id,
-             'rider_id'=>$request->rider_id,
-             'profile_id'=>$request->profile_id,
-             'order_number'=>$request->order_number,
-             'subtotal'=>$request->subtotal,
-             'delivery_fee'=>$request->delivery_fee,
-             'discount'=>$request->discount,
-             'tax'=>$request->tax,
-             'total'=>$request->total,
-             'payment_status'=>$request->payment_status,
-             'order_status'=>$request->order_status,
-             'notes'=>$request->notes,
-             'placed_at'=>$request->placed_at,
-             'delivered_at'=>$request->delivered_at,
+        return response()->json([
+            'message' => 'success',
+            'data' => null,
+        ]);
+    }
+
+    public function customerOrders(Request $request): JsonResponse
+    {
+        return response()->json([
+            'message' => 'success',
+            'data' => Order::with(['vendor', 'rider', 'profile', 'items.product'])
+                ->whereBelongsTo($request->user())
+                ->get(),
+        ]);
+    }
+
+    /**
+     * @param  array<string, mixed>  $validated
+     * @return array<string, mixed>
+     */
+    private function orderAttributes(array $validated): array
+    {
+        $subtotal = $this->subtotal($validated['product_id'], $validated['quantity']);
+        $deliveryFee = $validated['delivery_fee'] ?? 0;
+        $discount = $validated['discount'] ?? 0;
+        $tax = $validated['tax'] ?? 0;
+
+        return [
+            'user_id' => $validated['user_id'],
+            'vendor_id' => $validated['vendor_id'],
+            'rider_id' => $validated['rider_id'] ?? null,
+            'profile_id' => $validated['profile_id'],
+            'order_number' => $validated['order_number'] ?? $this->newOrderNumber(),
+            'subtotal' => $subtotal,
+            'delivery_fee' => $deliveryFee,
+            'discount' => $discount,
+            'tax' => $tax,
+            'total' => $subtotal + $deliveryFee - $discount + $tax,
+            'payment_status' => $validated['payment_status'],
+            'order_status' => $validated['order_status'],
+            'notes' => $validated['notes'] ?? null,
+            'placed_at' => $validated['placed_at'] ?? null,
+            'delivered_at' => $validated['delivered_at'] ?? null,
+        ];
+    }
+
+    /**
+     * @param  array<int, int|string>  $productIds
+     * @param  array<int, int|string>  $quantities
+     */
+    private function replaceItems(Order $order, array $productIds, array $quantities): void
+    {
+        $products = Product::whereIn('id', $productIds)->get()->keyBy('id');
+
+        $order->items()->delete();
+
+        foreach ($productIds as $index => $productId) {
+            $product = $products->get($productId);
+            $quantity = (int) $quantities[$index];
+            $itemTotal = $product->price * $quantity;
+
+            $order->items()->create([
+                'product_id' => $product->id,
+                'product_name' => $product->name,
+                'product_price' => $product->price,
+                'quantity' => $quantity,
+                'total' => $itemTotal,
             ]);
- 
-       return \response()->json([
+        }
+    }
 
-        "message"=>"success"
-    ,"data"=>$orderUpdate
-       ]);
+    /**
+     * @param  array<int, int|string>  $productIds
+     * @param  array<int, int|string>  $quantities
+     */
+    private function subtotal(array $productIds, array $quantities): float
+    {
+        $products = Product::whereIn('id', $productIds)->get()->keyBy('id');
 
+        return collect($productIds)->reduce(
+            fn (float $subtotal, int|string $productId, int $index): float => $subtotal + ($products->get($productId)->price * (int) $quantities[$index]),
+            0.0,
+        );
+    }
 
-     }
-       //delete method
-         public function destroy($delete_id)
-     {
-       $delete = Order::where('id',$delete_id)->first()->delete();
-    
-       return \response()->json([
-         "message"=>"success"
-    ,"data"=>$delete
-       ]);
-     } 
+    private function newOrderNumber(): string
+    {
+        do {
+            $orderNumber = 'ORD-'.now()->format('YmdHis').'-'.Str::upper(Str::random(6));
+        } while (Order::where('order_number', $orderNumber)->exists());
 
-
-
-
+        return $orderNumber;
+    }
 }

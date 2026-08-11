@@ -23,19 +23,19 @@ class ProductController extends Controller
         ]);
     }
 
-   
+
 
     // STORE PRODUCT
     public function store(Request $request)
     {
-       
+
 
         // IMAGE UPLOAD
         $main = null;
         if ($request->hasFile('main_image')) {
             $main = $request->file('main_image')->store('/product', 'public');
         }
-
+//    return response()->json(["data"=>$request->all()]);
         $product = Product::create([
             'vendor_id' => $request->vendor_id,
             'category_id' => $request->category_id,
@@ -48,8 +48,8 @@ class ProductController extends Controller
             'sale_price' => $request->sale_price,
             'stock' => $request->stock,
             'main_image' => $main,
-            'is_active' => $request->is_active,
-            'is_featured' => $request->is_featured,
+            'is_active' => 1,
+            'is_featured' => 0,
         ]);
 
         return response()->json([
@@ -96,8 +96,8 @@ class ProductController extends Controller
         }
 
         $product->update([
-            'vendor_id' => $request->vendor_id,
-            'category_id' => $request->category_id,
+            // 'vendor_id' => $request->vendor_id,
+            // 'category_id' => $request->category_id,
             'name' => $request->name,
             'slug' => $request->slug,
             'short_description' => $request->short_description,
@@ -137,35 +137,70 @@ class ProductController extends Controller
             'message' => 'Product deleted successfully'
         ]);
     }
-    
-   //Single image Api 
+
+   //Single image Api
 
     public function productSingle($id)
     {
         $single = Product::where('id',$id)->get();
-         
+
         return response()->json([
             "message"=> "Success Single Product",
-             "data"=> $single    
+             "data"=> $single
         ]);
     }
 
 
 
-//Product vendor 
-   
+//Product vendor
+
     public function productVendor($id)
     {
         $products = Product::with("vendor")
         ->where("vendor_id",$id)
-        ->first();
-  
+        ->get();
+
         return  response()->json([
              "status"=>true,
              "message"=>"Vendor Products",
              "data"=>$products
         ]);
         }
+
+    public function getStoreByUserId($userId)
+    {
+        $vendor = Vendor::where('user_id', $userId)->first();
+
+        if (!$vendor) {
+            return response()->json([
+                'success' => true,
+                'data' => null,
+                'message' => 'No vendor store found for this user.',
+            ], 200);
+        }
+
+        $storeData = [
+            "vendor_id" =>$vendor->id,
+            'store_name'      => $vendor->store_name,
+            'store_slug'      => $vendor->store_slug,
+            'logo'            => $vendor->logo,
+            'license'         => $vendor->license,
+            'register'        => $vendor->register,
+            'description'     => $vendor->description,
+            'address'         => $vendor->address,
+            'vendor_city'     => $vendor->vendor_city,
+            'vendor_country'  => $vendor->vendor_country,
+            'commission_rate' => $vendor->commission_rate,
+            'is_approved'     => $vendor->is_approved,
+            'is_active'       => $vendor->is_active,
+        ];
+
+        return response()->json([
+            'success' => true,
+            'data' => $storeData,
+            'message' => 'Vendor store details retrieved successfully.',
+        ], 200);
+    }
 
 
 
