@@ -16,17 +16,17 @@ class OrderController extends Controller
 
   public function index()
   {
-  $orders = Order::with(['user','vendor','rider','profile','items'])->get();
+  $orders = Order::with(['user','vendor','rider.user','profile','items'])->latest('id')->get();
     // dd($orders);
-      $users = User::where('role','rider')->get();
-    return view('orders.index',compact('orders','users'));
+      $riders = Rider::with('user')->whereHas('user', fn ($q) => $q->where('role', 'rider'))->get();
+    return view('orders.index',compact('orders','riders'));
   }
 
   public function create()
   {
     $users = User::all();
     $vendors = Vendor::all();
-    $riders = User::where('role','rider')->get();
+    $riders = Rider::with('user')->whereHas('user', fn ($q) => $q->where('role', 'rider'))->get();
     $profiles = UserProfile::all();
     $products = Product::all();
     return view('orders.create',compact('users','vendors','riders','profiles','products'));
@@ -123,7 +123,7 @@ class OrderController extends Controller
     $orderRecord = Order::where('id',$edit_id)->first();
     $users = User::all();
     $vendors = Vendor::all();
-    $riders =  User::where('role','rider')->get();
+    $riders = Rider::with('user')->whereHas('user', fn ($q) => $q->where('role', 'rider'))->get();
     $profiles = UserProfile::all();
     $products = Product::all();
 
@@ -197,5 +197,25 @@ class OrderController extends Controller
         Order::where('id',$delete_id)->first()->delete();
           return \redirect()->route('orderIndex');
 
+     }
+
+     public function assignRider(Request $request, $order_id)
+     {
+        $validate = Validator::make($request->all(),[
+            'rider_id' => 'required|exists:riders,id',
+        ]);
+
+        if ($validate->fails()) {
+            return back()->withErrors($validate);
+        }
+
+        $order = Order::findOrFail($order_id);
+
+        $order->update([
+            'rider_id' => $request->rider_id,
+            'order_status' => $order->order_status === 'pending' ? 'assigned' : $order->order_status,
+        ]);
+
+        return back()->with('success', 'Rider assigned successfully.');
      }
 }

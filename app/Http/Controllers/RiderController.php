@@ -13,8 +13,17 @@ class RiderController extends Controller
 
     public function index()
     {
-        $riders = Rider::with(['user'])->get();
+        $riders = Rider::with(['user'])->withCount('orders')->get();
         return view('riders.index',compact('riders'));
+    }
+
+    // Orders assigned to a single rider
+    public function orders($rider_id)
+    {
+        $riderRecord = Rider::with('user')->findOrFail($rider_id);
+        $orders = $riderRecord->orders()->with(['vendor', 'profile', 'items'])->latest('id')->get();
+
+        return view('riders.orders', compact('riderRecord', 'orders'));
     }
       
 

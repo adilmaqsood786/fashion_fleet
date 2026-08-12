@@ -49,8 +49,7 @@
                          <td>{{ $order->id}}</td>
                          <td>{{ $order->user->name}}</td>
                          <td>{{ $order->vendor->store_name}}</td>
-                         {{-- <td>{{ $order->rider->vehicle_type?$order->rider->vehicle_type:"No vehicle_type"}}</td> --}}
-                         <td>{{ isset($order->rider->vehicle_number) ? $order->rider->vehicle_number: 'Not Assigned' }}</td>
+                         <td>{{ $order->rider->user->name ?? 'Not Assigned' }}</td>
                          <td>{{ $order->profile->full_name}}</td>
                          <td>{{ $order->order_number}}</td>
                          <td>{{ $order->subtotal}}</td>
@@ -63,31 +62,28 @@
                          <td>{{ $order->placed_at}}</td>
                          <td>{{ $order->delivered_at}}</td>
                          <td>
-                          {{-- <select name="rider" class="form-control from-select" id="">
-                            @foreach ($users as $user)
-                                <option value="">{{$user->name}} <a href="" type="button" class="btn btn-outline-secondary">Assign</a></option>
-                            @endforeach
-
-</select> --}}
-
                                <div class="dropdown">
-                               <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                                 Rider
+                               <button class="btn btn-outline-secondary dropdown-toggle rider-assign-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                 {{ $order->rider->user->name ?? 'Assign Rider' }}
                                </button>
                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                @foreach ($users as $user)
-                                 {{-- <li>  <a href="" class="dropdown-item " type="button" >{{$user->name}} <span class="btn btn-outline-primary font-right">Assign</span></a></li> --}}
+                                @forelse ($riders as $rider)
                                  <li>
-                                     <a href=""
-                                        class="dropdown-item d-flex justify-content-between align-items-center">
-                                         <span>{{ $user->name }}</span>
-                                         <span class="btn btn-sm btn-outline-primary">Assign</span>
-                                     </a>
+                                     <form action="{{ route('orderAssignRider', ['order_id' => $order->id]) }}" method="post" class="dropdown-item d-flex justify-content-between align-items-center">
+                                         @csrf
+                                         <input type="hidden" name="rider_id" value="{{ $rider->id }}">
+                                         <span>{{ $rider->user->name }}</span>
+                                         <button type="submit" class="btn btn-sm {{ $order->rider_id == $rider->id ? 'btn-primary' : 'btn-outline-primary' }}">
+                                            {{ $order->rider_id == $rider->id ? 'Assigned' : 'Assign' }}
+                                         </button>
+                                     </form>
                                  </li>
-                                @endforeach
+                                @empty
+                                 <li><span class="dropdown-item text-muted">No riders available</span></li>
+                                @endforelse
                                </ul>
                              </div>
-                          
+
                          </td>
                           <td><a href="{{route('orderEdit',['edit_id'=>$order['id']])}}" class="btn btn-outline-primary">Edit</a></td>
                           <td><a href="{{route('orderDelete',['delete_id'=>$order['id']])}}" class="btn btn-outline-danger">Delete</a></td>
@@ -99,6 +95,18 @@
                   </div>
                   <!-- /.card-body -->
                 </div>
+
+<script>
+window.addEventListener('load', function () {
+    document.querySelectorAll('.rider-assign-toggle').forEach(function (toggle) {
+        bootstrap.Dropdown.getOrCreateInstance(toggle, {
+            popperConfig: function (defaultConfig) {
+                return Object.assign({}, defaultConfig, { strategy: 'fixed' });
+            }
+        });
+    });
+});
+</script>
 
 @endsection
 

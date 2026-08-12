@@ -26,6 +26,7 @@
                           <th>License number</th>
                           <th>Is_available</th>
                           <th>Is_verified</th>
+                          <th>Orders</th>
                           <th>Edit</th>
                           <th>Delete</th>
 
@@ -41,7 +42,11 @@
                          <td>{{ $rider['license_number']}}</td>
                          <td>{{ $rider['is_available']?"yes":"no"}}</td>
                          <td>{{ $rider['is_verified']?"yes":"no"}}</td>
-
+                         <td>
+                            <a href="{{route('riderOrders',['rider_id'=>$rider['id']])}}" class="btn btn-outline-info">
+                                View Orders <span class="badge bg-secondary">{{ $rider->orders_count }}</span>
+                            </a>
+                         </td>
 
                           <td><a href="{{route('riderEdit',['edit_id'=>$rider['id']])}}" class="btn btn-outline-primary">Edit</a></td>
                           <td><a href="{{route('riderDelete',['delete_id'=>$rider['id']])}}" class="btn btn-outline-danger">Delete</a></td>

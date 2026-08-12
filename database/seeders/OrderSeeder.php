@@ -1,7 +1,12 @@
 <?php
 
 namespace Database\Seeders;
+
 use App\Models\Order;
+use App\Models\Product;
+use App\Models\User;
+use App\Models\UserProfile;
+use App\Models\Vendor;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -9,181 +14,89 @@ class OrderSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     *
+     * Creates orders together with their line items so subtotal/total stay
+     * consistent, spanning every order_status/payment_status combination.
      */
     public function run(): void
     {
-        Order::insert([
- [
-                'user_id' => 1,
-                'vendor_id' => 1,
-                'rider_id' => 1,
-                'profile_id' => 1,
-                'order_number' => 'ORD001',
-                'subtotal' => 1000,
-                'delivery_fee' => 100,
-                'discount' => 50,
-                'tax' => 30,
-                'total' => 1080,
-                'payment_status' => 'paid',
-                'order_status' => 'delivered',
-                'notes' => null,
-                'placed_at' => now(),
-                'delivered_at' => now(),
-            ],
-            [
-                'user_id' => 2,
-                'vendor_id' => 2,
-                'rider_id' => 2,
-                'profile_id' => 2,
-                'order_number' => 'ORD002',
-                'subtotal' => 2000,
-                'delivery_fee' => 150,
-                'discount' => 100,
-                'tax' => 60,
-                'total' => 2110,
-                'payment_status' => 'pending',
-                'order_status' => 'processing',
-                'notes' => null,
-                'placed_at' => now(),
-                'delivered_at' => null,
-            ],
-            [
-                'user_id' => 1,
-                'vendor_id' => 2,
-                'rider_id' => null,
-                'profile_id' => 1,
-                'order_number' => 'ORD003',
-                'subtotal' => 1500,
-                'delivery_fee' => 120,
-                'discount' => 0,
-                'tax' => 45,
-                'total' => 1665,
-                'payment_status' => 'paid',
-                'order_status' => 'pending',
-                'notes' => null,
-                'placed_at' => now(),
-                'delivered_at' => null,
-            ],
-            [
-                'user_id' => 2,
-                'vendor_id' => 1,
-                'rider_id' => 1,
-                'profile_id' => 2,
-                'order_number' => 'ORD004',
-                'subtotal' => 2500,
-                'delivery_fee' => 200,
-                'discount' => 150,
-                'tax' => 75,
-                'total' => 2625,
-                'payment_status' => 'paid',
-                'order_status' => 'shipped',
-                'notes' => null,
-                'placed_at' => now(),
-                'delivered_at' => null,
-            ],
-            [
-                'user_id' => 1,
-                'vendor_id' => 1,
-                'rider_id' => 2,
-                'profile_id' => 1,
-                'order_number' => 'ORD005',
-                'subtotal' => 1800,
-                'delivery_fee' => 100,
-                'discount' => 50,
-                'tax' => 54,
-                'total' => 1904,
-                'payment_status' => 'pending',
-                'order_status' => 'processing',
-                'notes' => null,
-                'placed_at' => now(),
-                'delivered_at' => null,
-            ],
-            [
-                'user_id' => 2,
-                'vendor_id' => 2,
-                'rider_id' => null,
-                'profile_id' => 2,
-                'order_number' => 'ORD006',
-                'subtotal' => 3000,
-                'delivery_fee' => 250,
-                'discount' => 200,
-                'tax' => 90,
-                'total' => 3140,
-                'payment_status' => 'paid',
-                'order_status' => 'delivered',
-                'notes' => null,
-                'placed_at' => now(),
-                'delivered_at' => now(),
-            ],
-            [
-                'user_id' => 1,
-                'vendor_id' => 2,
-                'rider_id' => 1,
-                'profile_id' => 1,
-                'order_number' => 'ORD007',
-                'subtotal' => 2200,
-                'delivery_fee' => 150,
-                'discount' => 100,
-                'tax' => 66,
-                'total' => 2316,
-                'payment_status' => 'pending',
-                'order_status' => 'pending',
-                'notes' => null,
-                'placed_at' => now(),
-                'delivered_at' => null,
-            ],
-            [
-                'user_id' => 2,
-                'vendor_id' => 1,
-                'rider_id' => 2,
-                'profile_id' => 2,
-                'order_number' => 'ORD008',
-                'subtotal' => 2700,
-                'delivery_fee' => 180,
-                'discount' => 120,
-                'tax' => 81,
-                'total' => 2841,
-                'payment_status' => 'paid',
-                'order_status' => 'shipped',
-                'notes' => null,
-                'placed_at' => now(),
-                'delivered_at' => null,
-            ],
-            [
-                'user_id' => 1,
-                'vendor_id' => 1,
-                'rider_id' => null,
-                'profile_id' => 1,
-                'order_number' => 'ORD009',
-                'subtotal' => 1600,
-                'delivery_fee' => 100,
-                'discount' => 80,
-                'tax' => 48,
-                'total' => 1668,
-                'payment_status' => 'pending',
-                'order_status' => 'pending',
-                'notes' => null,
-                'placed_at' => now(),
-                'delivered_at' => null,
-            ],
-            [
-                'user_id' => 2,
-                'vendor_id' => 2,
-                'rider_id' => 1,
-                'profile_id' => 2,
-                'order_number' => 'ORD010',
-                'subtotal' => 3500,
-                'delivery_fee' => 300,
-                'discount' => 250,
-                'tax' => 105,
-                'total' => 3655,
-                'payment_status' => 'paid',
-                'order_status' => 'delivered',
-                'notes' => null,
-                'placed_at' => now(),
-                'delivered_at' => now(),
-            ],
+        $customers = User::where('role', 'customer')->orderBy('id')->get();
+        $riders = User::where('role', 'rider')->orderBy('id')->get();
+        $vendors = Vendor::orderBy('id')->get();
+        $products = Product::orderBy('id')->get();
 
-        ]);
+        $riderRecords = \App\Models\Rider::orderBy('id')->get();
+
+        $plan = [
+            ['status' => 'delivered', 'payment' => 'paid', 'rider' => true, 'daysAgo' => 5],
+            ['status' => 'shipped', 'payment' => 'paid', 'rider' => true, 'daysAgo' => 1],
+            ['status' => 'processing', 'payment' => 'pending', 'rider' => true, 'daysAgo' => 0],
+            ['status' => 'confirmed', 'payment' => 'paid', 'rider' => false, 'daysAgo' => 0],
+            ['status' => 'pending', 'payment' => 'pending', 'rider' => false, 'daysAgo' => 0],
+            ['status' => 'delivered', 'payment' => 'paid', 'rider' => true, 'daysAgo' => 10],
+            ['status' => 'cancelled', 'payment' => 'refunded', 'rider' => false, 'daysAgo' => 3],
+            ['status' => 'shipped', 'payment' => 'paid', 'rider' => true, 'daysAgo' => 0],
+            ['status' => 'delivered', 'payment' => 'paid', 'rider' => true, 'daysAgo' => 15],
+            ['status' => 'pending', 'payment' => 'pending', 'rider' => false, 'daysAgo' => 0],
+        ];
+
+        foreach ($plan as $index => $entry) {
+            $customer = $customers[$index % $customers->count()];
+            $vendor = $vendors[$index % $vendors->count()];
+            $profile = UserProfile::where('user_id', $customer->id)->first();
+
+            // 1-2 items per order, taken from the vendor's own catalogue.
+            $vendorProducts = $products->where('vendor_id', $vendor->id)->values();
+            $items = $vendorProducts->isNotEmpty()
+                ? $vendorProducts->take(2)
+                : $products->slice($index, 2)->values();
+
+            $subtotal = 0;
+            $lineItems = [];
+
+            foreach ($items as $product) {
+                $quantity = ($index % 2) + 1;
+                $lineTotal = (float) $product->sale_price * $quantity;
+                $subtotal += $lineTotal;
+
+                $lineItems[] = [
+                    'product_id' => $product->id,
+                    'product_name' => $product->name,
+                    'product_price' => $product->sale_price,
+                    'quantity' => $quantity,
+                    'total' => $lineTotal,
+                ];
+            }
+
+            $deliveryFee = 150;
+            $discount = $index % 3 === 0 ? 200 : 0;
+            $tax = round($subtotal * 0.02, 2);
+            $total = $subtotal + $deliveryFee - $discount + $tax;
+
+            $placedAt = now()->subDays($entry['daysAgo']);
+            $deliveredAt = $entry['status'] === 'delivered' ? $placedAt->copy()->addDay() : null;
+
+            $order = Order::create([
+                'user_id' => $customer->id,
+                'vendor_id' => $vendor->id,
+                'rider_id' => $entry['rider'] ? $riderRecords[$index % $riderRecords->count()]->id : null,
+                'profile_id' => $profile->id,
+                'order_number' => 'FF-'.str_pad((string) ($index + 1001), 4, '0', STR_PAD_LEFT),
+                'subtotal' => $subtotal,
+                'delivery_fee' => $deliveryFee,
+                'discount' => $discount,
+                'tax' => $tax,
+                'total' => $total,
+                'payment_status' => $entry['payment'],
+                'order_status' => $entry['status'],
+                'notes' => null,
+                'placed_at' => $placedAt,
+                'delivered_at' => $deliveredAt,
+            ]);
+
+            foreach ($lineItems as $lineItem) {
+                $order->items()->create($lineItem);
+            }
+        }
     }
 }

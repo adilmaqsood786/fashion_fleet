@@ -6,7 +6,9 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductImageController;
 use App\Http\Controllers\Api\ProductRatingController;
+use App\Http\Controllers\Api\RiderController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\VendorDashboardController;
 use Illuminate\Support\Facades\Route;
 
 // user
@@ -19,7 +21,7 @@ Route::get('delete-user/{delete_id}', [UserController::class, 'destroy']);
 
 Route::post('signup', [UserController::class, 'signup']);
 Route::post('login', [UserController::class, 'login']);
-
+Route::get('/user-profiles/{id}', [UserController::class, 'showProfile']);
 // Product Rating
 Route::get('Rating', [ProductRatingController::class, 'index']);
 Route::post('store-Rating', [ProductRatingController::class, 'store']);
@@ -54,7 +56,14 @@ Route::delete('delete-order/{order}', [OrderController::class, 'destroy']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('customer/orders', [OrderController::class, 'customerOrders']);
     Route::post('customer/store-order', [OrderController::class, 'store']);
+
+    // Rider: orders assigned to the authenticated rider
+    Route::get('rider/orders', [RiderController::class, 'orders']);
+    Route::get('rider/orders/{order}', [RiderController::class, 'showOrder']);
 });
+
+// Rider dashboard
+Route::get('/rider/{userId}/dashboard', [RiderController::class, 'dashboard']);
 
 // product
 Route::get('/products', [ProductController::class, 'index']);
@@ -66,6 +75,12 @@ Route::get('/products-single/{id}', [ProductController::class, 'productSingle'])
 Route::get('products-vendor/{id}', [ProductController::class, 'ProductVendor']);
 
 Route::get('/vendor/{userId}/store', [ProductController::class, 'getStoreByUserId']);
+
+// Vendor dashboard
+Route::get('/vendor/{userId}/dashboard', [VendorDashboardController::class, 'dashboard']);
+Route::get('/vendor/{userId}/orders', [VendorDashboardController::class, 'orders']);
+Route::get('/vendor/{userId}/orders/{orderId}', [VendorDashboardController::class, 'show']);
+Route::match(['post', 'put', 'patch'], '/vendor/{userId}/orders/{orderId}/status', [VendorDashboardController::class, 'updateOrderStatus']);
 
 // route::get('product',[ProductController::class,'index']);
 // route::post('store-product',[ProductController::class,'store']);

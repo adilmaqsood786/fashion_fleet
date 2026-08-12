@@ -1,10 +1,13 @@
 <?php
 
 namespace Database\Seeders;
+
+use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-// use Illuminate\Support\Str;
+use Illuminate\Support\Str;
+
 class VendorSeeder extends Seeder
 {
     /**
@@ -12,137 +15,54 @@ class VendorSeeder extends Seeder
      */
     public function run(): void
     {
-        Vendor::insert([
-             [
-                'user_id' => 1,
-                'store_name' => 'Tech World',
-                'store_slug' => 'tech-world',
-                'logo' => null,
-                'description' => 'Electronics and gadgets store',
-                'address' => 'Street 1',
-                'city' => 'Lahore',
-                'country' => 'Pakistan',
+        $vendorUsers = User::where('role', 'vendor')->orderBy('id')->get();
+
+        $stores = [
+            [
+                'store_name' => 'Lahore Fashion House',
+                'license' => 'LIC-VND-1001',
+                'register' => 'REG-VND-1001',
+                'address' => 'Shop 12, MM Alam Road',
+                'vendor_city' => 'Lahore',
+                'vendor_country' => 'Pakistan',
                 'commission_rate' => 10.50,
-                'is_approved' => 1,
-                'is_active' => 1,
             ],
             [
-                'user_id' => 2,
-                'store_name' => 'Fashion Hub',
-                'store_slug' => 'fashion-hub',
-                'logo' => null,
-                'description' => 'Clothing and apparel',
-                'address' => 'Street 2',
-                'city' => 'Karachi',
-                'country' => 'Pakistan',
+                'store_name' => 'Karachi Trend Store',
+                'license' => 'LIC-VND-1002',
+                'register' => 'REG-VND-1002',
+                'address' => 'Shop 5, Dolmen Mall Clifton',
+                'vendor_city' => 'Karachi',
+                'vendor_country' => 'Pakistan',
                 'commission_rate' => 12.00,
-                'is_approved' => 1,
-                'is_active' => 1,
             ],
             [
-                'user_id' => 3,
-                'store_name' => 'Mobile Zone',
-                'store_slug' => 'mobile-zone',
-                'logo' => null,
-                'description' => 'Mobile phones and accessories',
-                'address' => 'Street 3',
-                'city' => 'Islamabad',
-                'country' => 'Pakistan',
+                'store_name' => 'Islamabad Style Point',
+                'license' => 'LIC-VND-1003',
+                'register' => 'REG-VND-1003',
+                'address' => 'Shop 8, Centaurus Mall',
+                'vendor_city' => 'Islamabad',
+                'vendor_country' => 'Pakistan',
                 'commission_rate' => 8.75,
-                'is_approved' => 0,
+            ],
+        ];
+
+        foreach ($vendorUsers as $index => $user) {
+            $store = $stores[$index] ?? $stores[$index % count($stores)];
+
+            Vendor::create([
+                'user_id' => $user->id,
+                'store_name' => $store['store_name'],
+                'store_slug' => Str::slug($store['store_name']),
+                'logo' => 'images/vendors/'.Str::slug($store['store_name']).'.jpg',
+                'license' => $store['license'],
+                'register' => $store['register'],
+                'address' => $store['address'],
+                'vendor_city' => $store['vendor_city'],
+                'vendor_country' => $store['vendor_country'],
+                'commission_rate' => $store['commission_rate'],
                 'is_active' => 1,
-            ],
-            [
-                'user_id' => 1,
-                'store_name' => 'Home Decor',
-                'store_slug' => 'home-decor',
-                'logo' => null,
-                'description' => 'Furniture and decoration items',
-                'address' => 'Street 4',
-                'city' => 'Faisalabad',
-                'country' => 'Pakistan',
-                'commission_rate' => 15.00,
-                'is_approved' => 1,
-                'is_active' => 1,
-            ],
-            [
-                'user_id' => 2,
-                'store_name' => 'Book Store',
-                'store_slug' => 'book-store',
-                'logo' => null,
-                'description' => 'Books and stationery',
-                'address' => 'Street 5',
-                'city' => 'Multan',
-                'country' => 'Pakistan',
-                'commission_rate' => 5.50,
-                'is_approved' => 1,
-                'is_active' => 1,
-            ],
-            [
-                'user_id' => 3,
-                'store_name' => 'Sports Arena',
-                'store_slug' => 'sports-arena',
-                'logo' => null,
-                'description' => 'Sports equipment',
-                'address' => 'Street 6',
-                'city' => 'Peshawar',
-                'country' => 'Pakistan',
-                'commission_rate' => 9.25,
-                'is_approved' => 0,
-                'is_active' => 1,
-            ],
-            [
-                'user_id' => 1,
-                'store_name' => 'Beauty Care',
-                'store_slug' => 'beauty-care',
-                'logo' => null,
-                'description' => 'Cosmetics and skincare',
-                'address' => 'Street 7',
-                'city' => 'Quetta',
-                'country' => 'Pakistan',
-                'commission_rate' => 11.00,
-                'is_approved' => 1,
-                'is_active' => 1,
-            ],
-            [
-                'user_id' => 2,
-                'store_name' => 'Auto Parts',
-                'store_slug' => 'auto-parts',
-                'logo' => null,
-                'description' => 'Car accessories',
-                'address' => 'Street 8',
-                'city' => 'Sialkot',
-                'country' => 'Pakistan',
-                'commission_rate' => 7.75,
-                'is_approved' => 1,
-                'is_active' => 0,
-            ],
-            [
-                'user_id' => 3,
-                'store_name' => 'Grocery Mart',
-                'store_slug' => 'grocery-mart',
-                'logo' => null,
-                'description' => 'Daily grocery items',
-                'address' => 'Street 9',
-                'city' => 'Hyderabad',
-                'country' => 'Pakistan',
-                'commission_rate' => 6.00,
-                'is_approved' => 1,
-                'is_active' => 1,
-            ],
-            [
-                'user_id' => 1,
-                'store_name' => 'Pet Store',
-                'store_slug' => 'pet-store',
-                'logo' => null,
-                'description' => 'Pet food and accessories',
-                'address' => 'Street 10',
-                'city' => 'Rawalpindi',
-                'country' => 'Pakistan',
-                'commission_rate' => 13.50,
-                'is_approved' => 0,
-                'is_active' => 1,
-            ],
-        ]);
+            ]);
+        }
     }
 }

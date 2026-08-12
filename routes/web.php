@@ -62,6 +62,7 @@ Route::get('edit-order/{edit_id}',[OrderController::class,'edit'])->name('orderE
 Route::post('store-order',[OrderController::class,'store'])->name('orderStore');
 Route::post('update-order/{update_id}',[OrderController::class,'update'])->name('orderUpdate');
 Route::get('delete-order/{delete_id}',[OrderController::class,'destroy'])->name('orderDelete');
+Route::post('assign-rider/{order_id}',[OrderController::class,'assignRider'])->name('orderAssignRider');
 
 
 //user curd route
@@ -92,6 +93,7 @@ route::get('edit-rider/{edit_id}',[RiderController::class,'edit'])->name('riderE
 route::post('store-rider',[RiderController::class,'store'])->name('riderStore');
 route::post('update-rider/{update_id}',[RiderController::class,'update'])->name('riderUpdate');
 route::get('delete-rider/{delete_id}',[RiderController::class,'destroy'])->name('riderDelete');
+route::get('rider-orders/{rider_id}',[RiderController::class,'orders'])->name('riderOrders');
 
 
 

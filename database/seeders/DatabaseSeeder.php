@@ -54,8 +54,6 @@ ProductImageSeeder::class,
 
 OrderSeeder::class,
 
-Order_itemSeeder::class,
-
 ProductRatingSeeder::class,
 
 DeliverySeeder::class,

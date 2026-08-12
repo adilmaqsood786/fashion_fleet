@@ -61,7 +61,7 @@
                           
                             <select name="rider_id" class="form-select">
                               @foreach ($riders as $rider)
-                                 <option value="{{ $rider->id }}" {{ old('rider_id') == $rider->id ? 'selected' : '' }}>{{ $rider->name }}</option>
+                                 <option value="{{ $rider->id }}" {{ old('rider_id') == $rider->id ? 'selected' : '' }}>{{ $rider->user->name }}</option>
 
                               @endforeach
                             </select>

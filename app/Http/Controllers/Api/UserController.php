@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 use App\Models\User;
 use App\Models\Vendor;
+use App\Models\UserProfile;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -145,8 +146,7 @@ $vendor = $user->vendor()->create([
             "message"=>"success",
             "data"=>$user
          ]);
-        }
-
+    }
 
         // update method
          public function update(Request $request)
@@ -264,4 +264,21 @@ public function destroy($delete_id)
             'data'=>$success
         ]);
     }
+    public function showProfile(int $id)
+    {
+        $userProfile = UserProfile::where('user_id',$id)->first();
+
+        if (!$userProfile) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User profile not found',
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $userProfile,
+        ]);
+    }
 }
+ 

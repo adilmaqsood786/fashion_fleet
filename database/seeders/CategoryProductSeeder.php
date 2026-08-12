@@ -1,11 +1,11 @@
 <?php
 
 namespace Database\Seeders;
-use App\Models\CategoryProduct;
-use Illuminate\Support\Str;
 
+use App\Models\CategoryProduct;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class CategoryProductSeeder extends Seeder
 {
@@ -14,28 +14,30 @@ class CategoryProductSeeder extends Seeder
      */
     public function run(): void
     {
-         CategoryProduct::create([
-            'name' => 'Electronics',
-            'slug' => Str::slug('Electronics'),
-            'image' => 'electronics.jpg',
-            'parent_id' => null,
-            'is_active' => 1,
-        ]);
+        $tree = [
+            'Men' => ['Shirts', 'T-Shirts', 'Jeans & Trousers', 'Shoes'],
+            'Women' => ['Dresses & Suits', 'Tops & Kurtis', 'Jeans & Trousers', 'Shoes'],
+            'Children' => ['Boys Clothing', 'Girls Clothing', 'Kids Shoes'],
+        ];
 
-        CategoryProduct::create([
-            'name' => 'Mobile Phones',
-            'slug' => Str::slug('Mobile Phones'),
-            'image' => 'mobiles.jpg',
-            'parent_id' => 1,
-            'is_active' => 1,
-        ]);
+        foreach ($tree as $parentName => $children) {
+            $parent = CategoryProduct::create([
+                'name' => $parentName,
+                'slug' => Str::slug($parentName),
+                'image' => 'images/categories/'.Str::slug($parentName).'.jpg',
+                'parent_id' => null,
+                'is_active' => 1,
+            ]);
 
-        CategoryProduct::create([
-            'name' => 'Laptops',
-            'slug' => Str::slug('Laptops'),
-            'image' => 'laptops.jpg',
-            'parent_id' => 1,
-            'is_active' => 1,
-        ]);
+            foreach ($children as $childName) {
+                CategoryProduct::create([
+                    'name' => $parentName.' '.$childName,
+                    'slug' => Str::slug($parentName.' '.$childName),
+                    'image' => 'images/categories/'.Str::slug($parentName.'-'.$childName).'.jpg',
+                    'parent_id' => $parent->id,
+                    'is_active' => 1,
+                ]);
+            }
+        }
     }
 }

@@ -32,6 +32,11 @@ class OrderController extends Controller
 
     public function store(StoreOrderRequest $request): JsonResponse
     {
+//        return response()->json([
+//            'data'=>$request->user_id,
+//            'message' => 'validation_error',
+//            'errors' => ['user_id' => ['The user_id or authenticated customer is required.']],
+//        ], 422);
         $validated = $request->validated();
 
         if (! isset($validated['user_id'])) {
@@ -81,11 +86,27 @@ class OrderController extends Controller
 
     public function customerOrders(Request $request): JsonResponse
     {
+        $authenticatedUser = $request->user();
+
+        // If a user_id is provided in the request, ensure it matches the authenticated user's ID
+        if ($request->has('user_id')) {
+            $requestedUserId = $request->input('user_id');
+
+            if ((int) $requestedUserId !== $authenticatedUser->id) {
+                return response()->json([
+                    'message' => 'Unauthorized',
+                    'errors' => ['user_id' => ['You are not authorized to view orders for this user ID.']],
+                ], 403);
+            }
+        }
+
+        $orders = Order::with(['vendor', 'rider', 'profile', 'items.product'])
+            ->whereBelongsTo($authenticatedUser)
+            ->get();
+
         return response()->json([
             'message' => 'success',
-            'data' => Order::with(['vendor', 'rider', 'profile', 'items.product'])
-                ->whereBelongsTo($request->user())
-                ->get(),
+            'data' => $orders,
         ]);
     }
 
@@ -105,7 +126,7 @@ class OrderController extends Controller
             'vendor_id' => $validated['vendor_id'],
             'rider_id' => $validated['rider_id'] ?? null,
             'profile_id' => $validated['profile_id'],
-            'order_number' => $validated['order_number'] ?? $this->newOrderNumber(),
+            'order_number' => $this->newOrderNumber(),
             'subtotal' => $subtotal,
             'delivery_fee' => $deliveryFee,
             'discount' => $discount,

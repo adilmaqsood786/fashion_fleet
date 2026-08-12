@@ -6,48 +6,40 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 
 class UserController extends Controller
 {
-
-    public function index()
+    public function index(): View
     {
         $users = User::with(['profile','vendor','rider'])->get();
         return view('users.index', compact('users'));
     }
 
-    public function create()
+    public function create(): View
     {
         return view('users.create');
     }
 
-    public function store(Request $request)
-
-{
-// dd($request->all());
-
-// dd($request->profilePhone);
-    //    validation
+    public function store(Request $request): RedirectResponse
+    {
+        // Validation
         $validate = Validator::make($request->all(),[
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+            'userPhone' => 'required|string|max:20',
+            'role' => 'required|string|in:customer,vendor,rider', // Added 'in' rule
+            'status' => 'required|boolean', // Changed to boolean
+            // Add specific validation rules for profile, vendor, rider based on role
+        ]);
 
-    'name' =>'required',
-    'email' =>'required|email|unique:users,email',
-    'password' => 'required|min:6',
-    'userPhone' => 'required',
-    'role' => 'required ',
-    'status' => 'required',
-
-]);
-
-// dd($validate);
-
-          if($validate->fails())
-            {
-                return back()->withErrors($validate)->withInput();
-            }
-
+        if($validate->fails()) {
+            return back()->withErrors($validate)->withInput();
+        }
 
         // Create User
         $user = User::create([
@@ -56,37 +48,25 @@ class UserController extends Controller
             'userPhone' => $request->userPhone,
             'password' => Hash::make($request->password),
             'role' => $request->role,
-            'status' => $request->status ? 1 :0,
-
-         'email_verified_at' =>
-        $request->email_verified == 1 ? now() : null,
+            'status' => (bool) $request->status, // Cast to boolean
+            'email_verified_at' => (bool) $request->email_verified ? now() : null,
         ]);
 
         // Role-based insert
-
-       if($request->role == 'customer'){
-
-
-       //        $validate = Validator::$user->profile()->make($request->all(),[
-
-
-
-
-    $user->profile()->create([
-        'full_name' => $request->full_name,
-        'address_line_1' => $request->address_line_1,
-        'address_line_2' => $request->address_line_2,
-        'city' => $request->city,
-        'state' => $request->state,
-        'postal_code' => $request->postal_code,
-        'country' => $request->country,
-        'latitude' => $request->latitude ?? 0,
-        'longitude' => $request->longitude ?? 0,
-        'is_default' => $request->is_default ?? 0,
-    ]);
-}
-
-        elseif($request->role == 'vendor'){
+        if($user->role === 'customer'){
+            $user->profile()->create([
+                'full_name' => $request->full_name,
+                'address_line_1' => $request->address_line_1,
+                'address_line_2' => $request->address_line_2,
+                'city' => $request->city,
+                'state' => $request->state,
+                'postal_code' => $request->postal_code,
+                'country' => $request->country,
+                'latitude' => $request->latitude ?? 0,
+                'longitude' => $request->longitude ?? 0,
+                'is_default' => $request->is_default ?? 0,
+            ]);
+        } elseif($user->role === 'vendor'){
             $logoPath = null;
 
             if($request->hasFile('logo')){
@@ -104,11 +84,9 @@ class UserController extends Controller
                 'vendor_city' => $request->vendor_city,
                 'vendor_country' => $request->vendor_country,
                 'commission_rate' => $request->commission_rate,
-                'is_active' => $request->is_active ? 1 :0,
+                'is_active' => (bool) $request->is_active,
             ]);
-        }
-
-        elseif($request->role == 'rider'){
+        } elseif($user->role === 'rider'){
             $user->rider()->create([
                 'vehicle_type' => $request->vehicle_type,
                 'vehicle_number' => $request->vehicle_number,
@@ -121,30 +99,30 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
-    public function edit($id)
+    public function edit(int $id): View
     {
         $user = User::with(['profile','vendor','rider'])->findOrFail($id);
         return view('users.edit', compact('user'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request): RedirectResponse
     {
-        // dd($request->all());
-        $user = User::where('id',$request->id)->first();
+        $user = User::findOrFail($request->id); // Use findOrFail
+
+        // Only update password if a new one is provided
+        $userData = $request->only(['name', 'email', 'userPhone', 'role']);
+        $userData['status'] = (bool) $request->status;
+        $userData['email_verified_at'] = (bool) $request->email_verified ? now() : null;
+
+        if ($request->filled('password')) {
+            $userData['password'] = Hash::make($request->password);
+        }
 
         $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'userPhone' => $request->userPhone,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
-            'status' => $request->status ? 1 : 0,
-            
-       'email_verified_at' =>
-        $request->email_verified == 1 ? now() : null,
+            ...$userData,
         ]);
 
-           if($user->role == 'customer' && $user->profile){
+        if($user->role === 'customer' && $user->profile){
         $user->profile->update([
         'full_name' => $request->full_name,
         'address_line_1' => $request->address_line_1,
@@ -156,37 +134,34 @@ class UserController extends Controller
         'latitude' => $request->latitude ?? 0,
         'longitude' => $request->longitude ?? 0,
         'is_default' => $request->is_default ?? 0,
-            ]);
-
-            }
-
+            ]); // Removed extra closing brace
+        }
 
         // VENDOR UPDATE
-    if($user->role == 'vendor' && $user->vendor){
+        if($user->role === 'vendor' && $user->vendor){
+            $logo = $user->vendor->logo;
 
-        $logo = $user->vendor->logo;
+            if($request->hasFile('logo')){
+                // Delete old logo if it exists
+                if ($logo && \Storage::disk('public')->exists($logo)) {
+                    \Storage::disk('public')->delete($logo);
+                }
+                $logo = $request->file('logo')->store('vendor','public');
+            }
 
-        if($request->hasFile('logo')){
-            $logo = $request->file('logo')->store('vendor','public');
-        }
-
-        $user->vendor->update([
-
-            'store_name' => $request->store_name,
-            'store_slug' => $request->store_slug,
-            'logo' => $logo,
-           'register'=>$request->register,
-           'license'=>$request->license,
-            'address' => $request->address,
-            'vendor_city' => $request->vendor_city,
-            'vendor_country' => $request->vendor_country,
-            'commission_rate' => $request->commission_rate,
-            'is_active' => $request->is_active ? 1 : 0
-        ]); 
-        }
-
-
-          elseif($request->role == 'rider'){
+            $user->vendor->update([
+                'store_name' => $request->store_name,
+                'store_slug' => $request->store_slug,
+                'logo' => $logo,
+                'register'=>$request->register,
+                'license'=>$request->license,
+                'address' => $request->address,
+                'vendor_city' => $request->vendor_city,
+                'vendor_country' => $request->vendor_country,
+                'commission_rate' => $request->commission_rate,
+                'is_active' => (bool) $request->is_active,
+            ]);
+        } elseif($user->role === 'rider'){
             $user->rider()->update([
                 'vehicle_type' => $request->vehicle_type,
                 'vehicle_number' => $request->vehicle_number,
@@ -196,32 +171,34 @@ class UserController extends Controller
             ]);
         }   
 
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('success', 'User updated successfully.');
     }
 
-    public function destroy($delete_id)
+    public function destroy(int $delete_id): RedirectResponse
     {
-        User::where('id',$delete_id)->first()->delete();
-        return redirect()->route('user.index');
+        User::destroy($delete_id); // More idiomatic Laravel for deleting by ID
+        return redirect()->route('user.index')->with('success', 'User deleted successfully.');
     }
 
-
-
- public function loginUser(){
-     return view('welcome');
+    public function loginUser(): View
+    {
+        return view('welcome');
     }
 
+    public function loginCheck(Request $request): RedirectResponse
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-     public function loginCheck(Request $request){
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('user.index');
+        }
 
-      $userLogin = Auth::attempt(['email'=>$request->email, 'password' =>$request->password]);
-
-     if($userLogin){
-       return redirect()->route('user.index');
-
-     }
-     return redirect()->back();
-
-
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
     }
 }
