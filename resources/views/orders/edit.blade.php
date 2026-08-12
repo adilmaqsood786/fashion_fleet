@@ -61,11 +61,7 @@
                             <select name="rider_id" id="id" class="form-controls form-select">
                               <option value="">Unassigned</option>
                               @foreach ($riders as $rider)
-<<<<<<< HEAD
                                  <option value="{{$rider->id}}" {{ old('rider_id', $orderRecord->rider_id) == $rider->id ? 'selected' : '' }}>{{$rider->user->name}}</option>
-=======
-                                 <option value="{{ $rider->id }}" @selected(old('rider_id', $orderRecord->rider_id) == $rider->id)>{{ $rider->user->name }}</option>
->>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
 
                               @endforeach
                             </select>

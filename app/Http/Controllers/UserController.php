@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Auth;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-<<<<<<< HEAD
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -16,12 +15,6 @@ use Illuminate\Http\RedirectResponse;
 class UserController extends Controller
 {
     public function index(): View
-=======
-
-class UserController extends Controller
-{
-    public function index()
->>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
     {
         $users = User::with(['profile', 'vendor', 'rider'])->get();
 
@@ -32,8 +25,6 @@ class UserController extends Controller
     {
         return view('users.create');
     }
-
-<<<<<<< HEAD
     public function store(Request $request): RedirectResponse
     {
         // Validation
@@ -48,28 +39,6 @@ class UserController extends Controller
         ]);
 
         if($validate->fails()) {
-=======
-    public function store(Request $request)
-    {
-        // dd($request->all());
-
-        // dd($request->profilePhone);
-        //    validation
-        $validate = Validator::make($request->all(), [
-
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6',
-            'userPhone' => 'required',
-            'role' => 'required ',
-            'status' => 'required',
-
-        ]);
-
-        // dd($validate);
-
-        if ($validate->fails()) {
->>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
             return back()->withErrors($validate)->withInput();
         }
 
@@ -80,26 +49,12 @@ class UserController extends Controller
             'userPhone' => $request->userPhone,
             'password' => Hash::make($request->password),
             'role' => $request->role,
-<<<<<<< HEAD
             'status' => (bool) $request->status, // Cast to boolean
             'email_verified_at' => (bool) $request->email_verified ? now() : null,
         ]);
 
         // Role-based insert
         if($user->role === 'customer'){
-=======
-            'status' => $request->status ? 1 : 0,
-
-            'email_verified_at' => $request->email_verified == 1 ? now() : null,
-        ]);
-
-        // Role-based insert
-
-        if ($request->role == 'customer') {
-
-            //        $validate = Validator::$user->profile()->make($request->all(),[
-
->>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
             $user->profile()->create([
                 'full_name' => $request->full_name,
                 'address_line_1' => $request->address_line_1,
@@ -112,11 +67,7 @@ class UserController extends Controller
                 'longitude' => $request->longitude ?? 0,
                 'is_default' => $request->is_default ?? 0,
             ]);
-<<<<<<< HEAD
         } elseif($user->role === 'vendor'){
-=======
-        } elseif ($request->role == 'vendor') {
->>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
             $logoPath = null;
 
             if ($request->hasFile('logo')) {
@@ -134,15 +85,9 @@ class UserController extends Controller
                 'vendor_city' => $request->vendor_city,
                 'vendor_country' => $request->vendor_country,
                 'commission_rate' => $request->commission_rate,
-<<<<<<< HEAD
                 'is_active' => (bool) $request->is_active,
             ]);
         } elseif($user->role === 'rider'){
-=======
-                'is_active' => $request->is_active ? 1 : 0,
-            ]);
-        } elseif ($request->role == 'rider') {
->>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
             $user->rider()->create([
                 'vehicle_type' => $request->vehicle_type,
                 'vehicle_number' => $request->vehicle_number,
@@ -164,7 +109,6 @@ class UserController extends Controller
 
     public function update(Request $request): RedirectResponse
     {
-<<<<<<< HEAD
         $user = User::findOrFail($request->id); // Use findOrFail
 
         // Only update password if a new one is provided
@@ -213,67 +157,13 @@ class UserController extends Controller
                 'logo' => $logo,
                 'register'=>$request->register,
                 'license'=>$request->license,
-=======
-        // dd($request->all());
-        $user = User::where('id', $request->id)->first();
-
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'userPhone' => $request->userPhone,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
-            'status' => $request->status ? 1 : 0,
-
-            'email_verified_at' => $request->email_verified == 1 ? now() : null,
-        ]);
-
-        if ($user->role == 'customer' && $user->profile) {
-            $user->profile->update([
-                'full_name' => $request->full_name,
-                'address_line_1' => $request->address_line_1,
-                'address_line_2' => $request->address_line_2,
-                'city' => $request->city,
-                'state' => $request->state,
-                'postal_code' => $request->postal_code,
-                'country' => $request->country,
-                'latitude' => $request->latitude ?? 0,
-                'longitude' => $request->longitude ?? 0,
-                'is_default' => $request->is_default ?? 0,
-            ]);
-
-        }
-
-        // VENDOR UPDATE
-        if ($user->role == 'vendor' && $user->vendor) {
-
-            $logo = $user->vendor->logo;
-
-            if ($request->hasFile('logo')) {
-                $logo = $request->file('logo')->store('vendor', 'public');
-            }
-
-            $user->vendor->update([
-
-                'store_name' => $request->store_name,
-                'store_slug' => $request->store_slug,
-                'logo' => $logo,
-                'register' => $request->register,
-                'license' => $request->license,
->>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
                 'address' => $request->address,
                 'vendor_city' => $request->vendor_city,
                 'vendor_country' => $request->vendor_country,
                 'commission_rate' => $request->commission_rate,
-<<<<<<< HEAD
                 'is_active' => (bool) $request->is_active,
             ]);
         } elseif($user->role === 'rider'){
-=======
-                'is_active' => $request->is_active ? 1 : 0,
-            ]);
-        } elseif ($request->role == 'rider') {
->>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
             $user->rider()->update([
                 'vehicle_type' => $request->vehicle_type,
                 'vehicle_number' => $request->vehicle_number,
@@ -288,25 +178,15 @@ class UserController extends Controller
 
     public function destroy(int $delete_id): RedirectResponse
     {
-<<<<<<< HEAD
         User::destroy($delete_id); // More idiomatic Laravel for deleting by ID
         return redirect()->route('user.index')->with('success', 'User deleted successfully.');
     }
 
     public function loginUser(): View
-=======
-        User::where('id', $delete_id)->first()->delete();
-
-        return redirect()->route('user.index');
-    }
-
-    public function loginUser()
->>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
     {
         return view('welcome');
     }
 
-<<<<<<< HEAD
     public function loginCheck(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
@@ -318,23 +198,6 @@ class UserController extends Controller
             $request->session()->regenerate();
             return redirect()->route('user.index');
         }
-=======
-    public function loginCheck(Request $request)
-    {
-
-        $userLogin = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
-
-        if ($userLogin) {
-            if (auth()->user()->role === 'rider') {
-                return redirect()->route('riderOrders.index');
-            }
-
-            return redirect()->route('user.index');
-
-        }
-
-        return redirect()->back();
->>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',

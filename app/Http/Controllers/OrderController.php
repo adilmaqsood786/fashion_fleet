@@ -16,27 +16,17 @@ use Illuminate\View\View;
 
 class OrderController extends Controller
 {
-    public function index(Request $request): View
+    public function index(): View
     {
-        $deliveryStatus = $request->string('delivery_status')->toString();
+        $orders = Order::with(['user', 'vendor', 'rider.user', 'profile', 'items'])
+            ->latest('id')
+            ->get();
 
-  public function index()
-  {
-  $orders = Order::with(['user','vendor','rider.user','profile','items'])->latest('id')->get();
-    // dd($orders);
-      $riders = Rider::with('user')->whereHas('user', fn ($q) => $q->where('role', 'rider'))->get();
-    return view('orders.index',compact('orders','riders'));
-  }
-
-  public function create()
-  {
-    $users = User::all();
-    $vendors = Vendor::all();
-    $riders = Rider::with('user')->whereHas('user', fn ($q) => $q->where('role', 'rider'))->get();
-    $profiles = UserProfile::all();
-    $products = Product::all();
-    return view('orders.create',compact('users','vendors','riders','profiles','products'));
-  }
+        return view('orders.index', [
+            'orders' => $orders,
+            'riders' => $this->availableRiders(),
+        ]);
+    }
 
     public function create(): View
     {
@@ -128,56 +118,35 @@ class OrderController extends Controller
         return redirect()->route('orderIndex');
     }
 
-   public function edit($edit_id)
-   {
-    $orderRecord = Order::where('id',$edit_id)->first();
-    $users = User::all();
-    $vendors = Vendor::all();
-    $riders = Rider::with('user')->whereHas('user', fn ($q) => $q->where('role', 'rider'))->get();
-    $profiles = UserProfile::all();
-    $products = Product::all();
+    public function edit(int $edit_id): View
+    {
+        return view('orders.edit', [
+            'orderRecord' => Order::with('items')->findOrFail($edit_id),
+            'users' => User::all(),
+            'vendors' => Vendor::all(),
+            'riders' => $this->availableRiders(),
+            'profiles' => UserProfile::all(),
+            'products' => Product::all(),
+        ]);
+    }
 
     public function update(Request $request): RedirectResponse
     {
-        $order = Order::findOrFail($request->update_id);
+        $orderRecord = Order::findOrFail($request->update_id);
 
-        $order->update([
-            'vendor_id' => $request->vendor_id,
-            'rider_id' => $request->rider_id,
-            'profile_id' => $request->profile_id,
-            'order_number' => $request->order_number,
-            'delivery_fee' => $request->delivery_fee,
-            'discount' => $request->discount,
-            'tax' => $request->tax,
-            'payment_status' => $request->payment_status,
-            'order_status' => $request->order_status,
-            'delivery_status' => $request->rider_id ? ($order->delivery_status === 'Unassigned' ? 'Assigned' : $order->delivery_status) : 'Unassigned',
-            'notes' => $request->notes,
-            'placed_at' => $request->placed_at,
-            'delivered_at' => $request->delivered_at,
-        ]);
+        $productIds = $request->input('product_id', []);
+        $quantities = $request->input('quantity', []);
+        $deliveryFee = $request->input('delivery_fee', 0);
+        $discount = $request->input('discount', 0);
+        $tax = $request->input('tax', 0);
+        $subtotal = 0;
 
-        return redirect()->route('orderIndex');
-    }
+        if (count($productIds)) {
+            $orderRecord->items()->delete();
 
-    public function assignRider(AssignRiderRequest $request, Order $order): RedirectResponse
-    {
-        $riderId = $request->validated('rider_id');
-
-        $order->update([
-            'rider_id' => $riderId,
-            'delivery_status' => $riderId ? 'Assigned' : 'Unassigned',
-        ]);
-
-        return back()->with('success', $riderId ? 'Rider assigned successfully.' : 'Rider assignment removed.');
-    }
-
-    public function destroy(int $deleteId): RedirectResponse
-    {
-        Order::findOrFail($deleteId)->delete();
-
-        return redirect()->route('orderIndex');
-    }
+            foreach ($productIds as $index => $productId) {
+                $product = Product::find($productId);
+                $quantity = $quantities[$index] ?? 0;
 
                 if (! $product || $quantity < 1) {
                     continue;
@@ -199,51 +168,53 @@ class OrderController extends Controller
         $orderTotal = $subtotal + $deliveryFee - $discount + $tax;
 
         $orderRecord->update([
-             'user_id'=>auth()->user()->id,
-             'vendor_id'=>$request->vendor_id,
-             'rider_id'=>$request->rider_id,
-             'profile_id'=>$request->profile_id,
-             'order_number'=>$request->order_number,
-             'subtotal'=>$subtotal ?: $request->subtotal,
-             'delivery_fee'=>$deliveryFee,
-             'discount'=>$discount,
-             'tax'=>$tax,
-             'total'=>$subtotal ? $orderTotal : $request->total,
-             'payment_status'=>$request->payment_status,
-             'order_status'=>$request->order_status,
-             'notes'=>$request->notes,
-             'placed_at'=>$request->placed_at,
-             'delivered_at'=>$request->delivered_at,
-            ]);
-
-        return \redirect()->route('orderIndex');
-     }
-
-
-     public function destroy($delete_id)
-     {
-        Order::where('id',$delete_id)->first()->delete();
-          return \redirect()->route('orderIndex');
-
-     }
-
-     public function assignRider(Request $request, $order_id)
-     {
-        $validate = Validator::make($request->all(),[
-            'rider_id' => 'required|exists:riders,id',
+            'vendor_id' => $request->vendor_id,
+            'rider_id' => $request->rider_id,
+            'profile_id' => $request->profile_id,
+            'order_number' => $request->order_number,
+            'subtotal' => $subtotal ?: $request->subtotal,
+            'delivery_fee' => $deliveryFee,
+            'discount' => $discount,
+            'tax' => $tax,
+            'total' => $subtotal ? $orderTotal : $request->total,
+            'payment_status' => $request->payment_status,
+            'order_status' => $request->order_status,
+            'delivery_status' => $request->rider_id
+                ? ($orderRecord->delivery_status === 'Unassigned' ? 'Assigned' : $orderRecord->delivery_status)
+                : 'Unassigned',
+            'notes' => $request->notes,
+            'placed_at' => $request->placed_at,
+            'delivered_at' => $request->delivered_at,
         ]);
 
-        if ($validate->fails()) {
-            return back()->withErrors($validate);
-        }
+        return redirect()->route('orderIndex');
+    }
 
+    public function destroy(int $delete_id): RedirectResponse
+    {
+        Order::findOrFail($delete_id)->delete();
+
+        return redirect()->route('orderIndex');
+    }
+
+    public function assignRider(AssignRiderRequest $request, $order_id): RedirectResponse
+    {
         $order = Order::findOrFail($order_id);
+        $riderId = $request->validated('rider_id');
 
         $order->update([
-            'rider_id' => $request->rider_id,
-            'order_status' => $order->order_status === 'pending' ? 'assigned' : $order->order_status,
+            'rider_id' => $riderId,
+            'order_status' => $riderId && $order->order_status === 'pending' ? 'confirmed' : $order->order_status,
+            'delivery_status' => $riderId ? 'Assigned' : 'Unassigned',
         ]);
 
-        return back()->with('success', 'Rider assigned successfully.');
-     }
+        return back()->with('success', $riderId ? 'Rider assigned successfully.' : 'Rider assignment removed.');
+    }
+
+    private function availableRiders()
+    {
+        return Rider::with('user')
+            ->whereHas('user', fn ($query) => $query->where('role', 'rider'))
+            ->get();
+    }
 }

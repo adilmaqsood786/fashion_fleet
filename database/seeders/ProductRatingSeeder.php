@@ -18,10 +18,10 @@ class ProductRatingSeeder extends Seeder
     public function run(): void
     {
         $reviews = [
-            ['rating' => 5, 'title' => 'Excellent quality!', 'review' => 'The fabric and stitching quality exceeded my expectations. Fast delivery too.'],
-            ['rating' => 4, 'title' => 'Good value for money', 'review' => 'Nice fit and comfortable to wear. Would order again.'],
-            ['rating' => 5, 'title' => 'Loved it', 'review' => 'Exactly as shown in the pictures. Highly recommend this store.'],
-            ['rating' => 3, 'title' => 'Decent product', 'review' => 'Its okay for the price, but the color was slightly different than expected.'],
+            ['rating' => 5, 'review' => 'Excellent quality! The fabric and stitching quality exceeded my expectations. Fast delivery too.'],
+            ['rating' => 4, 'review' => 'Good value for money. Nice fit and comfortable to wear. Would order again.'],
+            ['rating' => 5, 'review' => 'Loved it! Exactly as shown in the pictures. Highly recommend this store.'],
+            ['rating' => 3, 'review' => 'Decent product. Its okay for the price, but the color was slightly different than expected.'],
         ];
 
         $deliveredOrders = Order::where('order_status', 'delivered')->with('items')->get();
@@ -38,7 +38,6 @@ class ProductRatingSeeder extends Seeder
                     'order_id' => $order->id,
                     'user_id' => $order->user_id,
                     'rating' => $review['rating'],
-                    'title' => $review['title'],
                     'review' => $review['review'],
                     'is_approved' => true,
                 ]);

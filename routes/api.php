@@ -19,19 +19,14 @@ Route::get('edit-user/{edit_id}',[UserController::class,"edit"]);
 Route::post('upuser/{update_id}',[UserController::class,"update"]);
 Route::get('delete-user/{delete_id}',[UserController::class,"destroy"]);
 
-<<<<<<< HEAD
-Route::post('signup', [UserController::class, 'signup']);
-Route::post('login', [UserController::class, 'login']);
-Route::get('/user-profiles/{id}', [UserController::class, 'showProfile']);
+
 // Product Rating
 Route::get('Rating', [ProductRatingController::class, 'index']);
 Route::post('store-Rating', [ProductRatingController::class, 'store']);
 Route::get('edit-Rating/{edit_id}', [ProductRatingController::class, 'edit']);
 Route::post('update-Rating/{update_id}', [ProductRatingController::class, 'update']);
 Route::get('delete-Rating/{delete_id}', [ProductRatingController::class, 'destroy']);
-=======
 
->>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
 
 
 Route::post('signup',[UserController::class,'signup']);

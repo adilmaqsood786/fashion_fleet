@@ -42,7 +42,6 @@ Route::post('login-user', [UserController::class, 'loginCheck'])->name('loginChe
 
 Route::middleware(['auth'])->group(function () {
 
-<<<<<<< HEAD
 //order curd route
 Route::get('all-order',[OrderController::class,'index'])->name('orderIndex');
 Route::get('create-order',[OrderController::class,'create'])->name('orderCreate');
@@ -51,16 +50,6 @@ Route::post('store-order',[OrderController::class,'store'])->name('orderStore');
 Route::post('update-order/{update_id}',[OrderController::class,'update'])->name('orderUpdate');
 Route::get('delete-order/{delete_id}',[OrderController::class,'destroy'])->name('orderDelete');
 Route::post('assign-rider/{order_id}',[OrderController::class,'assignRider'])->name('orderAssignRider');
-=======
-    // order curd route
-    Route::get('all-order', [OrderController::class, 'index'])->middleware('role:admin')->name('orderIndex');
-    Route::get('create-order', [OrderController::class, 'create'])->middleware('role:admin')->name('orderCreate');
-    Route::get('edit-order/{edit_id}', [OrderController::class, 'edit'])->middleware('role:admin')->name('orderEdit');
-    Route::post('store-order', [OrderController::class, 'store'])->middleware('role:admin')->name('orderStore');
-    Route::post('update-order/{update_id}', [OrderController::class, 'update'])->middleware('role:admin')->name('orderUpdate');
-    Route::post('orders/{order}/assign-rider', [OrderController::class, 'assignRider'])->middleware('role:admin')->name('orderAssignRider');
-    Route::get('delete-order/{delete_id}', [OrderController::class, 'destroy'])->middleware('role:admin')->name('orderDelete');
->>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
 
     // user curd route
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
@@ -119,7 +108,6 @@ Route::post('assign-rider/{order_id}',[OrderController::class,'assignRider'])->n
     Route::post('update-image/{update_id}', [ProductImageController::class, 'update'])->name('imageUpdate');
     Route::get('delete-image/{delete_id}', [ProductImageController::class, 'destroy'])->name('imageDelete');
 
-<<<<<<< HEAD
 //Rider route curd
 route::get('all-rider',[RiderController::class,'index'])->name('riderIndex');
 route::get('create-rider',[RiderController::class,'create'])->name('riderCreate');
@@ -175,15 +163,6 @@ Route::get('edit-rating/{edit_id}',[ProductRatingController::class,'edit'])->nam
 Route::post('store-rating',[ProductRatingController::class,'store'])->name('ratingStore');
 Route::post('update-rating/{update_id}',[ProductRatingController::class,'update'])->name('ratingUpdate');
 Route::get('delete-rating/{delete_id}',[ProductRatingController::class,'destroy'])->name('ratingDelete');
-=======
-    // Product Rating curd
-    Route::get('all-rating', [ProductRatingController::class, 'index'])->name('ratingIndex');
-    Route::get('create-rating', [ProductRatingController::class, 'create'])->name('ratingCreate');
-    Route::get('edit-rating/{edit_id}', [ProductRatingController::class, 'edit'])->name('ratingEdit');
-    Route::post('store-rating', [ProductRatingController::class, 'store'])->name('ratingStore');
-    Route::post('update-rating/{update_id}', [ProductRatingController::class, 'update'])->name('ratingUpdate');
-    Route::get('delete-rating/{delete_id}', [ProductRatingController::class, 'destroy'])->name('ratingDelete');
->>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
 });
 
 Route::middleware(['auth', 'role:rider'])->group(function () {
