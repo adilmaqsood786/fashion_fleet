@@ -20,7 +20,6 @@ class OrderController extends Controller
     {
         $deliveryStatus = $request->string('delivery_status')->toString();
 
-<<<<<<< HEAD
   public function index()
   {
   $orders = Order::with(['user','vendor','rider.user','profile','items'])->latest('id')->get();
@@ -38,22 +37,6 @@ class OrderController extends Controller
     $products = Product::all();
     return view('orders.create',compact('users','vendors','riders','profiles','products'));
   }
-=======
-        $orders = Order::with(['user', 'vendor', 'rider.user', 'profile', 'items'])
-            ->when(
-                in_array($deliveryStatus, ['Unassigned', 'Assigned', 'Out for Delivery', 'Delivered'], true),
-                fn ($query) => $query->withDeliveryStatus($deliveryStatus),
-            )
-            ->latest('placed_at')
-            ->get();
-
-        return view('orders.index', [
-            'orders' => $orders,
-            'riders' => $this->availableRiders(),
-            'deliveryStatus' => $deliveryStatus,
-        ]);
-    }
->>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
 
     public function create(): View
     {
@@ -145,7 +128,6 @@ class OrderController extends Controller
         return redirect()->route('orderIndex');
     }
 
-<<<<<<< HEAD
    public function edit($edit_id)
    {
     $orderRecord = Order::where('id',$edit_id)->first();
@@ -154,19 +136,6 @@ class OrderController extends Controller
     $riders = Rider::with('user')->whereHas('user', fn ($q) => $q->where('role', 'rider'))->get();
     $profiles = UserProfile::all();
     $products = Product::all();
-=======
-    public function edit(int $editId): View
-    {
-        return view('orders.edit', [
-            'orderRecord' => Order::with('items')->findOrFail($editId),
-            'users' => User::all(),
-            'vendors' => Vendor::all(),
-            'riders' => $this->availableRiders(),
-            'profiles' => UserProfile::all(),
-            'products' => Product::all(),
-        ]);
-    }
->>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
 
     public function update(Request $request): RedirectResponse
     {
@@ -210,7 +179,6 @@ class OrderController extends Controller
         return redirect()->route('orderIndex');
     }
 
-<<<<<<< HEAD
                 if (! $product || $quantity < 1) {
                     continue;
                 }
@@ -278,14 +246,4 @@ class OrderController extends Controller
 
         return back()->with('success', 'Rider assigned successfully.');
      }
-=======
-    private function availableRiders()
-    {
-        return Rider::with('user')
-            ->where('is_available', 1)
-            ->where('is_verified', 1)
-            ->whereHas('user', fn ($query) => $query->where('role', 'rider'))
-            ->get();
-    }
->>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
 }
