@@ -62,6 +62,31 @@
     <link rel="stylesheet" href="{{asset('admin/css/adminlte.css')}}" />
     <!--end::Required Plugin(AdminLTE)-->
 
+    <style>
+      .fashionfleet-brand-link {
+        align-items: center;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        padding-inline: 0.5rem;
+      }
+
+      .fashionfleet-brand-logo {
+        display: block;
+        height: auto;
+        max-height: 48px;
+        max-width: 100%;
+        object-fit: contain;
+        width: auto;
+      }
+
+      @media (max-width: 991.98px) {
+        .fashionfleet-brand-logo {
+          max-height: 44px;
+        }
+      }
+    </style>
+
     <!-- apexcharts -->
     <link
       rel="stylesheet"
@@ -87,17 +112,12 @@
         <!--begin::Sidebar Brand-->
         <div class="sidebar-brand">
           <!--begin::Brand Link-->
-          <a href="../index.html" class="brand-link">
-            <!--begin::Brand Image-->
+          <a href="../index.html" class="brand-link fashionfleet-brand-link">
             <img
-              src="{{asset('admin/assets/img/AdminLTELogo.png')}}"
-              alt="AdminLTE Logo"
-              class="brand-image opacity-75 shadow"
+              src="{{ asset('admin/assets/img/fashionfleet-logo.png') }}"
+              alt="FashionFleet"
+              class="fashionfleet-brand-logo"
             />
-            <!--end::Brand Image-->
-            <!--begin::Brand Text-->
-            <span class="brand-text fw-light">Fashion Fleet</span>
-            <!--end::Brand Text-->
           </a>
           <!--end::Brand Link-->
         </div>
@@ -113,7 +133,15 @@
               aria-label="Main navigation"
               data-accordion="false"
               id="navigation"
-            > 
+            >
+              @if (auth()->user()?->role === 'rider')
+                <li class="nav-item">
+                  <a href="{{ route('riderOrders.index') }}" class="nav-link">
+                    <i class="nav-icon bi bi-box-seam"></i>
+                    <p>My Orders</p>
+                  </a>
+                </li>
+              @else
              <li class="nav-item">
                 <a href="{{route('loginUser')}}" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
@@ -203,6 +231,30 @@
                 </ul>
               </li> 
  {{--========category_sidebar=======--}}
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon bi bi-bicycle"></i>
+                  <p>
+                    Riders
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('riderIndex') }}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>All Riders</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('riderCreate') }}" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>Add Rider</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
 
 {{-- 
                  <li class="nav-item">
@@ -344,6 +396,7 @@
                  
                 </ul>
               </li>   --}}
+              @endif
             </ul>
             <!--end::Sidebar Menu-->
 

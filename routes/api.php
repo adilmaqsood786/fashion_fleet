@@ -13,12 +13,13 @@ use Illuminate\Support\Facades\Route;
 
 // user
 
-Route::get('user', [UserController::class, 'index']);
-Route::post('store-user', [UserController::class, 'store']);
-Route::get('edit-user/{edit_id}', [UserController::class, 'edit']);
-Route::post('upuser/{update_id}', [UserController::class, 'update']);
-Route::get('delete-user/{delete_id}', [UserController::class, 'destroy']);
+Route::get('user',[UserController::class,"index"]);
+Route::post('store-user',[UserController::class,"store"]);
+Route::get('edit-user/{edit_id}',[UserController::class,"edit"]);
+Route::post('upuser/{update_id}',[UserController::class,"update"]);
+Route::get('delete-user/{delete_id}',[UserController::class,"destroy"]);
 
+<<<<<<< HEAD
 Route::post('signup', [UserController::class, 'signup']);
 Route::post('login', [UserController::class, 'login']);
 Route::get('/user-profiles/{id}', [UserController::class, 'showProfile']);
@@ -28,7 +29,106 @@ Route::post('store-Rating', [ProductRatingController::class, 'store']);
 Route::get('edit-Rating/{edit_id}', [ProductRatingController::class, 'edit']);
 Route::post('update-Rating/{update_id}', [ProductRatingController::class, 'update']);
 Route::get('delete-Rating/{delete_id}', [ProductRatingController::class, 'destroy']);
+=======
 
+>>>>>>> 3eae94efffc3be2c83a561ef922120c105aefa09
+
+
+Route::post('signup',[UserController::class,'signup']);
+Route::post('login',[UserController::class,'login']);
+
+// // Product Rating
+// Route::get('Rating', [ProductRatingController::class, 'index']);
+// Route::post('store-Rating', [ProductRatingController::class, 'store']);
+// Route::get('edit-Rating/{edit_id}', [ProductRatingController::class, 'edit']);
+// Route::post('update-Rating/{update_id}', [ProductRatingController::class, 'update']);
+// Route::get('delete-Rating/{delete_id}', [ProductRatingController::class, 'destroy']);
+// Route::post(
+//     '/products/{productId}/reviews',
+//     [ProductRatingController::class, 'store']
+// );
+
+// Route::get(
+//     '/products/{productId}/reviews',
+//     [ProductRatingController::class, 'index']
+// );
+
+
+
+// ==============================
+// Product Rating CRUD
+// ==============================
+
+Route::get('Rating', [
+    ProductRatingController::class,
+    'index'
+]);
+
+Route::post('store-Rating', [
+    ProductRatingController::class,
+    'store'
+]);
+
+Route::get('edit-Rating/{edit_id}', [
+    ProductRatingController::class,
+    'edit'
+]);
+
+Route::post('update-Rating/{update_id}', [
+    ProductRatingController::class,
+    'update'
+]);
+
+Route::get('delete-Rating/{delete_id}', [
+    ProductRatingController::class,
+    'destroy'
+]);
+
+
+// ==============================
+// Product Reviews API
+// ==============================
+
+// POST /api/products/{productId}/reviews
+Route::post(
+    'products/{productId}/reviews',
+    [ProductRatingController::class, 'storeProductReview']
+);
+
+
+// GET /api/products/{productId}/reviews
+Route::get(
+    'products/{productId}/reviews',
+    [ProductRatingController::class, 'productReviews']
+);
+
+
+// GET /api/products/{productId}/rating-summary
+Route::get(
+    'products/{productId}/rating-summary',
+    [ProductRatingController::class, 'ratingSummary']
+);
+
+
+// GET /api/my-reviews
+Route::get(
+    'my-reviews',
+    [ProductRatingController::class, 'myReviews']
+);
+
+
+// PUT /api/reviews/{reviewId}
+Route::put(
+    'reviews/{reviewId}',
+    [ProductRatingController::class, 'updateReview']
+);
+
+
+// DELETE /api/reviews/{reviewId}
+Route::delete(
+    'reviews/{reviewId}',
+    [ProductRatingController::class, 'deleteReview']
+);
 // Product image
 Route::get('image', [ProductImageController::class, 'index']);
 Route::post('store-image', [ProductImageController::class, 'store']);

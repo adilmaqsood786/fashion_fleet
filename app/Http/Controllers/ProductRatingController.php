@@ -35,7 +35,6 @@ class ProductRatingController extends Controller
         'user_id' => 'required|exists:users,id',
         'order_id' => 'required|exists:orders,id',
         'rating' => 'required|numeric|min:1|max:5',
-        'title' => 'required|nullable|string',
         'review' => 'required|nullable|string',
         'is_approved' => 'required|boolean',
 
@@ -51,7 +50,6 @@ class ProductRatingController extends Controller
                   'user_id'=>$request->user_id,
                   'order_id'=>$request->order_id,
                   'rating'=>$request->rating ,
-                  'title'=>$request->title,
                   'review'=>$request->review,
                   'is_approved'=>$request->is_approved,
             ]);
@@ -78,7 +76,6 @@ class ProductRatingController extends Controller
                   'user_id'=>$request->user_id,
                   'order_id'=>$request->order_id,
                   'rating'=>$request->rating ,
-                  'title'=>$request->title,
                   'review'=>$request->review,
                   'is_approved'=>$request->is_approved,
          ]);
@@ -90,4 +87,33 @@ class ProductRatingController extends Controller
             ProductRating::where('id',$delete_id)->first()->delete();
             return \redirect()->route('ratingIndex');
         }
+
+
+
+public function ratingApproval($id, $status)
+{
+    $rating = ProductRating::find($id);
+
+    if (!$rating) {
+        return redirect()->back()->with('error', 'Rating not found');
     }
+
+    // Only allow 0 or 1
+    if (!in_array((int) $status, [0, 1])) {
+        return redirect()->back()->with('error', 'Invalid status');
+    }
+
+    $rating->is_approved = (int) $status;
+    $rating->save();
+
+    return redirect()->back()->with(
+        'success',
+        $status == 1
+            ? 'Rating approved successfully'
+            : 'Rating rejected successfully'
+    );
+}
+    }
+
+
+    

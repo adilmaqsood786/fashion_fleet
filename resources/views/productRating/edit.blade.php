@@ -84,7 +84,7 @@
             </div>
 
             <!-- Is Available -->
-            <div class="col-md-6">
+            {{-- <div class="col-md-6">
               <label>Title</label>
                    <input type="text" name="title" value="{{$ratingRecord->title}}" class="form-control" >
                <span style="color: red">
@@ -94,7 +94,7 @@
                 @enderror
                </span>
                 <div class="valid-feedback">Looks good!</div>
-            </div>
+            </div> --}}
 
             <!-- Is Verified -->
             <div class="col-md-6 mt-4">

@@ -60,6 +60,7 @@
                           <label for="validationCustom01" class="form-label">All Rider</label>
                           
                             <select name="rider_id" class="form-select">
+                              <option value="">Unassigned</option>
                               @foreach ($riders as $rider)
                                  <option value="{{ $rider->id }}" {{ old('rider_id') == $rider->id ? 'selected' : '' }}>{{ $rider->user->name }}</option>
 
