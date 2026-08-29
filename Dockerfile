@@ -1,7 +1,25 @@
+# Stage 1: Build frontend assets
+FROM node:22-alpine AS frontend
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY resources ./resources
+COPY public ./public
+COPY vite.config.js ./
+COPY . .
+
+RUN npm run build
+
+
+# Stage 2: Laravel + PHP
 FROM php:8.2-fpm
 
-# Install system dependencies
 RUN apt-get update && apt-get install -y \
+    nginx \
     git \
     curl \
     unzip \
@@ -9,7 +27,6 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
-    nginx \
     && docker-php-ext-install \
         pdo_mysql \
         mbstring \
@@ -26,7 +43,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
-# Copy Laravel application
+# Copy Laravel project
 COPY . .
 
 # Install PHP dependencies
@@ -35,20 +52,22 @@ RUN composer install \
     --optimize-autoloader \
     --no-interaction
 
-# Laravel storage permissions
-RUN mkdir -p storage/framework/cache \
+# Copy built Vite assets
+COPY --from=frontend /app/public/build ./public/build
+
+# Laravel permissions
+RUN mkdir -p \
+    storage/framework/cache \
     storage/framework/sessions \
     storage/framework/views \
     storage/logs \
     bootstrap/cache \
-    && chown -R www-data:www-data \
-        storage \
-        bootstrap/cache
+    && chown -R www-data:www-data storage bootstrap/cache
 
-# Nginx configuration
+# Nginx
 COPY nginx.conf /etc/nginx/sites-available/default
 
-# Start script
+# Start Laravel
 RUN echo '#!/bin/sh' > /start.sh \
     && echo 'php artisan config:cache' >> /start.sh \
     && echo 'php artisan route:cache' >> /start.sh \
