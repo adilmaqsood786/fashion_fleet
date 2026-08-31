@@ -1,36 +1,11 @@
 @extends('admin_penal.master')
 
 @section('content')
-                <div class="card mb-4">
-                  <div class="card-header">
-                    <h3 class="card-title">All Orders</h3>
-                    <div class=" d-flex justify-content-end align-items-center">
-                    <a href="{{route('orderCreate')}}" class="btn btn-warning">New</a>
-                    </div>
-                  </div>
-
-   <div class="card-body p-0 table-responsive">
-                    <table class="table table-sm">
-                      <thead>
-                        <tr>
-                            <th>ID</th>
-                          <th>User</th>
-                          <th>Vender</th>
-                          <th>Rider</th>
-                          <th>Customer</th>
-                          <th>Order Number</th>
-                          <th>Subtotal</th>
-                          <th>Delivery Fee</th>
-                          <th>Discount</th>
-                          <th>Tax</th>
-                          <th>Payment Status</th>
-                          <th>Order Status</th>
-                          <th>Notes</th>
-                          <th>Placed At</th>
-                          <th>Delivered At</th>
-                          <th>Rider</th>
-                          <th>Edit</th>
-                          <th>Delete</th>
+  <div class="card mb-4">
+    <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <h3 class="card-title mb-0">All Orders</h3>
+      <a href="{{ route('orderCreate') }}" class="btn btn-info">New</a>
+    </div>
 
                         </tr>
                       </thead>

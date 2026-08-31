@@ -73,13 +73,7 @@
   </head>
   <!--end::Head-->
   <!--begin::Body-->
-
   <body class="login-page bg-body-secondary">
-      @if ($errors->any())
-          <div class="alert alert-danger">
-              {{ $errors->first() }}
-          </div>
-      @endif
     <div class="login-box">
       <div class="login-logo">
         <a href="../index2.html"><b>Fashion</b>Fleet</a>
