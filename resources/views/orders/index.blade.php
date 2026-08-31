@@ -5,7 +5,7 @@
                   <div class="card-header">
                     <h3 class="card-title">All Orders</h3>
                     <div class=" d-flex justify-content-end align-items-center">
-                    <a href="{{route('categoryCreate')}}" class="btn btn-warning">New</a>
+                    <a href="{{route('orderCreate')}}" class="btn btn-warning">New</a>
                     </div>
                   </div>
 
