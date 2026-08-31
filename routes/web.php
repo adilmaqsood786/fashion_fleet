@@ -40,7 +40,19 @@ Route::get('/storage/{path}', function ($path) {
 Route::get('login', [UserController::class, 'loginUser'])->name('loginUser');
 Route::post('login-user', [UserController::class, 'loginCheck'])->name('loginCheck');
 
+
+Route::post('/logout', function () {
+    Auth::logout();
+
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+
+    return redirect()->route('loginUser');
+})->name('logout');
+
+
 Route::middleware(['auth'])->group(function () {
+// Auth::logout();
 
 //order curd route
 Route::get('all-order',[OrderController::class,'index'])->name('orderIndex');
