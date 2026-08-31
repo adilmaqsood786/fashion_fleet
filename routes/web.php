@@ -37,6 +37,8 @@ Route::get('/storage/{path}', function ($path) {
 //     ]);
 // })->where('path', '.*'
 
+
+
 Route::get('login', [UserController::class, 'loginUser'])->name('loginUser');
 Route::post('login-user', [UserController::class, 'loginCheck'])->name('loginCheck');
 
