@@ -293,7 +293,7 @@ class UserController extends Controller
                 'address' => $request->address,
                 'vendor_city' => $request->vendor_city,
                 'vendor_country' => $request->vendor_country,
-                'commission_rate' => $request->commission_rate,
+                'commission_rate' => $request->commission_rate ?? 10,
                 'is_active' => $request->is_active ? 1 : 0,
             ];
 
